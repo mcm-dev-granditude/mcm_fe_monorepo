@@ -5,7 +5,25 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@repo/*": [
+        "../../packages/*"
+      ],
+      "@/lib/*": [
+        "app/lib/*"
+      ],
+      "@/components/*": [
+        "app/components/*"
+      ],
+      "@/hooks/*": [
+        "app/hooks/*"
+      ]
+    }
   },
   "include": [
     "**/*.ts",
