@@ -24,13 +24,13 @@ export function NavigationDrawerContent() {
 
 
   return (
-    <SheetContent hideCloseButton side="left" className="w-[80%] max-w-sm border-r p-0">
+    <SheetContent hideCloseButton side="right" className="w-[80%] max-w-sm border-r p-0">
       <div className="flex flex-col h-full">
         <SheetHeader className="p-1 py-2 border-b">
           <div className="flex items-center justify-between">
             <SheetTitle asChild>
               <Link href="/">
-                <HorizontalLogo />
+                <span className="px-4 text-sm">Logo</span>
               </Link>
             </SheetTitle>
             <SheetPrimitive.Close asChild ref={closeButtonRef}>

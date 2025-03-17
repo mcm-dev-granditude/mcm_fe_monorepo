@@ -5,6 +5,6 @@ export interface MenuItem {
 }
 
 export const navItems: MenuItem[] = [
-  { href: '/', label: 'Hemmsida', iconName: 'Home' },
-  { href: '/livescore', label: 'Livescore', iconName: 'Activity' }
+  { href: '/livescore', label: 'Livescore', iconName: 'Activity' },
+  { href: '/', label: 'Spelförslag', iconName: 'Activity' }
 ]
