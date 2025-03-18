@@ -2,11 +2,10 @@
 
 import { NavItems } from '@/app/components/layout/navigation/nav-items'
 import { ThemeSwitcherClient } from '@/app/components/layout/theme-switcher'
-import { HorizontalLogo } from '@/app/components/logos/horizontal-logo'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/app/components/ui/sheet'
 import * as SheetPrimitive from '@radix-ui/react-dialog'
-import { Button } from '@repo/ui/src/shared-components/button'
-import { PanelRightClose, PanelRightOpen } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { X, Menu } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FC, useEffect, useRef, useState } from 'react'
@@ -35,7 +34,7 @@ export function NavigationDrawerContent() {
             </SheetTitle>
             <SheetPrimitive.Close asChild ref={closeButtonRef}>
               <Button variant="ghost" size="icon" className="p-0 rounded-sm h-8 w-8">
-                <PanelRightOpen size={20} />
+                <X size={20} />
                 <span className="sr-only">Close</span>
               </Button>
             </SheetPrimitive.Close>
@@ -63,7 +62,7 @@ const NavigationDrawer: FC = () => {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" className="rounded-sm p-1 -ml-2 h-10 w-10 md:hidden">
-          <PanelRightClose size={22} />
+          <Menu size={22} />
         </Button>
       </SheetTrigger>
       <NavigationDrawerContent />

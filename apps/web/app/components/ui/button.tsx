@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '../lib/tailwind-utils'
+import { cn } from '@repo/ui'
 
 // This is a shared button component that can be used in both Next.js and React Native (via NativeWind)
 const buttonVariants = cva(
