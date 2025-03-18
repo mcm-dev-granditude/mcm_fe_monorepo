@@ -306,5 +306,3 @@ const tokens = {
 };
 
 export default tokens;
-
-export const cssPath = './css/globals.css';

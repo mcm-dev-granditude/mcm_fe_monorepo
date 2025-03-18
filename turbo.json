@@ -18,7 +18,9 @@
       ],
       "outputs": [
         ".next/**",
-        "!.next/cache/**"
+        "!.next/cache/**",
+        "css/**",
+        "dist/**"
       ]
     },
     "lint": {
@@ -33,7 +35,8 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "dependsOn": []
     }
   }
 }
