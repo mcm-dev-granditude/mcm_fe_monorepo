@@ -1,4 +1,4 @@
-import { nativeWindTheme } from '@repo/tokens';
+import { nativeWindTheme } from '@repo/tokens'
 
 /**
  * NativeWind configuration that can be shared between mobile apps
@@ -7,22 +7,41 @@ export const nativeWindConfig = {
   theme: {
     extend: {
       colors: nativeWindTheme.colors,
-      borderRadius: nativeWindTheme.borderRadius,
-      // Additional theme values that might be needed
-      // NativeWind automatically includes Tailwind defaults for these
-    },
+      borderRadius: nativeWindTheme.borderRadius
+      // Add any additional theme values specific to native
+    }
   },
-};
+  // Enable dark mode
+  darkMode: 'class',
+  // Important to handle platform specifics
+  plugins: []
+}
+
+interface CustomConfig {
+  theme?: Record<string, any>
+  plugins?: Record<string, any>[];
+}
 
 /**
  * Function to create a complete NativeWind config for a specific app
  * This allows individual apps to customize their config while sharing the base theme
  */
-export const createNativeWindConfig = (customConfig = {}) => {
+export const createNativeWindConfig = ( customConfig: CustomConfig ) => {
   return {
     ...nativeWindConfig,
-    ...customConfig,
-  };
-};
+    theme: {
+      ...nativeWindConfig.theme,
+      ...( customConfig.theme || {} ),
+      extend: {
+        ...nativeWindConfig.theme.extend,
+        ...( customConfig.theme?.extend || {} )
+      }
+    },
+    plugins: [
+      ...( nativeWindConfig.plugins || [] ),
+      ...( customConfig.plugins || [] )
+    ]
+  }
+}
 
-export default nativeWindConfig;
+export default nativeWindConfig
