@@ -1,6 +1,36 @@
-import { hexToHSL } from './utils/hex-to-hsl'
+import { hexToHSL } from './utils/hex-to-hsl';
 
-export const colors = {
+type ThemeColors = {
+  background: string;
+  backgroundSurface: string;
+  foreground: string;
+  card: string;
+  cardForeground: string;
+  popover: string;
+  popoverForeground: string;
+  primary: string;
+  primaryForeground: string;
+  primaryLight: string;
+  secondary: string;
+  secondaryForeground: string;
+  muted: string;
+  mutedForeground: string;
+  accent: string;
+  accentForeground: string;
+  destructive: string;
+  destructiveForeground: string;
+  border: string;
+  input: string;
+  ring: string;
+  warning: string;
+  warningForeground: string;
+};
+
+type ChartColors = {
+  [key: string]: string;
+};
+
+const baseColors = {
   light: {
     background: '#ffffff',
     backgroundSurface: '#f9f5f5',
@@ -25,7 +55,8 @@ export const colors = {
     ring: '#c1002a',
     warning: '#f59e0b',
     warningForeground: '#fffbeb'
-  },
+  } as ThemeColors,
+
   dark: {
     background: '#1a1214',
     backgroundSurface: '#231a1d',
@@ -50,85 +81,19 @@ export const colors = {
     ring: '#c1002a',
     warning: '#fbbf24',
     warningForeground: '#78350f'
-  },
-  // Chart colors for data visualization
+  } as ThemeColors,
+
   chart: {
-    '1': '#c1002a', // Primary color
-    '2': '#0ea5e9', // Complementary blue
-    '3': '#13b176', // Complementary green
-    '4': '#9c2649', // Darker primary variant
-    '5': '#e85a73' // Lighter primary variant
-  }
-}
+    '1': '#c1002a',
+    '2': '#0ea5e9',
+    '3': '#13b176',
+    '4': '#9c2649',
+    '5': '#e85a73'
+  } as ChartColors
+};
 
-// CSS variables format for web
-export const cssVariables = {
-  light: {
-    '--background': hexToHSL( colors.light.background ),
-    '--background-surface': hexToHSL( colors.light.backgroundSurface ),
-    '--foreground': hexToHSL( colors.light.foreground ),
-    '--card': hexToHSL( colors.light.card ),
-    '--card-foreground': hexToHSL( colors.light.cardForeground ),
-    '--popover': hexToHSL( colors.light.popover ),
-    '--popover-foreground': hexToHSL( colors.light.popoverForeground ),
-    '--primary': hexToHSL( colors.light.primary ),
-    '--primary-foreground': hexToHSL( colors.light.primaryForeground ),
-    '--primary-light': hexToHSL( colors.light.primaryLight ),
-    '--secondary': hexToHSL( colors.light.secondary ),
-    '--secondary-foreground': hexToHSL( colors.light.secondaryForeground ),
-    '--muted': hexToHSL( colors.light.muted ),
-    '--muted-foreground': hexToHSL( colors.light.mutedForeground ),
-    '--accent': hexToHSL( colors.light.accent ),
-    '--accent-foreground': hexToHSL( colors.light.accentForeground ),
-    '--destructive': hexToHSL( colors.light.destructive ),
-    '--destructive-foreground': hexToHSL( colors.light.destructiveForeground ),
-    '--border': hexToHSL( colors.light.border ),
-    '--input': hexToHSL( colors.light.input ),
-    '--ring': hexToHSL( colors.light.ring ),
-    '--warning': hexToHSL( colors.light.warning ),
-    '--warning-foreground': hexToHSL( colors.light.warningForeground ),
-    '--radius': '0.5rem',
-    '--chart-1': hexToHSL( colors.chart['1'] ),
-    '--chart-2': hexToHSL( colors.chart['2'] ),
-    '--chart-3': hexToHSL( colors.chart['3'] ),
-    '--chart-4': hexToHSL( colors.chart['4'] ),
-    '--chart-5': hexToHSL( colors.chart['5'] )
-  },
-  dark: {
-    '--background': hexToHSL( colors.dark.background ),
-    '--background-surface': hexToHSL( colors.dark.backgroundSurface ),
-    '--foreground': hexToHSL( colors.dark.foreground ),
-    '--card': hexToHSL( colors.dark.card ),
-    '--card-foreground': hexToHSL( colors.dark.cardForeground ),
-    '--popover': hexToHSL( colors.dark.popover ),
-    '--popover-foreground': hexToHSL( colors.dark.popoverForeground ),
-    '--primary': hexToHSL( colors.dark.primary ),
-    '--primary-foreground': hexToHSL( colors.dark.primaryForeground ),
-    '--primary-light': hexToHSL( colors.dark.primaryLight ),
-    '--secondary': hexToHSL( colors.dark.secondary ),
-    '--secondary-foreground': hexToHSL( colors.dark.secondaryForeground ),
-    '--muted': hexToHSL( colors.dark.muted ),
-    '--muted-foreground': hexToHSL( colors.dark.mutedForeground ),
-    '--accent': hexToHSL( colors.dark.accent ),
-    '--accent-foreground': hexToHSL( colors.dark.accentForeground ),
-    '--destructive': hexToHSL( colors.dark.destructive ),
-    '--destructive-foreground': hexToHSL( colors.dark.destructiveForeground ),
-    '--border': hexToHSL( colors.dark.border ),
-    '--input': hexToHSL( colors.dark.input ),
-    '--ring': hexToHSL( colors.dark.ring ),
-    '--warning': hexToHSL( colors.dark.warning ),
-    '--warning-foreground': hexToHSL( colors.dark.warningForeground ),
-    '--radius': '0.5rem',
-    '--chart-1': hexToHSL( colors.chart['1'] ),
-    '--chart-2': hexToHSL( colors.chart['2'] ),
-    '--chart-3': hexToHSL( colors.chart['3'] ),
-    '--chart-4': hexToHSL( colors.chart['4'] ),
-    '--chart-5': hexToHSL( colors.chart['5'] )
-  }
-}
-
-// Custom animations we want to define
-export const animations = {
+// Animations definition
+const baseAnimations = {
   keyframes: {
     'accordion-down': {
       from: { height: '0' },
@@ -171,12 +136,36 @@ export const animations = {
     'fade-in': 'fade-in 0.2s ease-out',
     'bounce-in': 'bounce-in 0.55s cubic-bezier(0.36, 0, 0.66, -0.56)'
   }
+};
+
+// Automatically generate CSS variables from baseColors
+function generateCssVariables(theme: ThemeColors): Record<string, string> {
+  const cssVars: Record<string, string> = {};
+
+  // Process all theme color properties
+  Object.entries(theme).forEach(([key, value]) => {
+    cssVars[`--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`] = hexToHSL(value);
+  });
+
+  cssVars['--radius'] = '0.5rem';
+
+  // Add chart colors
+  Object.entries(baseColors.chart).forEach(([key, value]) => {
+    cssVars[`--chart-${key}`] = hexToHSL(value);
+  });
+
+  return cssVars;
 }
 
-// Tailwind theme extension
-export const tailwindTheme = {
-  colors: {
-    // CSS variable references for semantic colors
+// Generate the CSS variables for both themes
+const cssVariables = {
+  light: generateCssVariables(baseColors.light),
+  dark: generateCssVariables(baseColors.dark)
+};
+
+// Generate Tailwind theme with CSS variable references
+function generateTailwindTheme() {
+  const tailwindColors: Record<string, any> = {
     border: 'hsl(var(--border))',
     input: 'hsl(var(--input))',
     ring: 'hsl(var(--ring))',
@@ -186,7 +175,7 @@ export const tailwindTheme = {
     primary: {
       DEFAULT: 'hsl(var(--primary))',
       foreground: 'hsl(var(--primary-foreground))',
-          light: 'hsl(var(--primary-light))'
+      light: 'hsl(var(--primary-light))'
     },
     secondary: {
       DEFAULT: 'hsl(var(--secondary))',
@@ -216,92 +205,69 @@ export const tailwindTheme = {
       DEFAULT: 'hsl(var(--warning))',
       foreground: 'hsl(var(--warning-foreground))'
     },
-    chart: {
-      '1': 'hsl(var(--chart-1))',
-      '2': 'hsl(var(--chart-2))',
-      '3': 'hsl(var(--chart-3))',
-      '4': 'hsl(var(--chart-4))',
-      '5': 'hsl(var(--chart-5))'
-    }
-  },
-  borderRadius: {
-    lg: 'var(--radius)',
-    md: 'calc(var(--radius) - 2px)',
-    sm: 'calc(var(--radius) - 4px)'
-  },
-  keyframes: animations.keyframes,
-  animation: animations.animation
+    chart: {}
+  };
+
+  // Add chart colors
+  Object.keys(baseColors.chart).forEach(key => {
+    tailwindColors.chart[key] = `hsl(var(--chart-${key}))`;
+  });
+
+  return {
+    colors: tailwindColors,
+    borderRadius: {
+      lg: 'var(--radius)',
+      md: 'calc(var(--radius) - 2px)',
+      sm: 'calc(var(--radius) - 4px)'
+    },
+    keyframes: baseAnimations.keyframes,
+    animation: baseAnimations.animation
+  };
 }
 
-// NativeWind theme (direct values, no CSS variables)
-export const nativeWindTheme = {
-  colors: {
-    // Light theme colors (direct values)
-    background: colors.light.background,
-    surface: colors.light.backgroundSurface,
-    foreground: colors.light.foreground,
-    card: colors.light.card,
-    'card-foreground': colors.light.cardForeground,
-    popover: colors.light.popover,
-    'popover-foreground': colors.light.popoverForeground,
-    primary: colors.light.primary,
-    'primary-foreground': colors.light.primaryForeground,
-           'primary-light': colors.light.primaryLight,
-    secondary: colors.light.secondary,
-    'secondary-foreground': colors.light.secondaryForeground,
-    muted: colors.light.muted,
-    'muted-foreground': colors.light.mutedForeground,
-    accent: colors.light.accent,
-    'accent-foreground': colors.light.accentForeground,
-    destructive: colors.light.destructive,
-    'destructive-foreground': colors.light.destructiveForeground,
-    border: colors.light.border,
-    input: colors.light.input,
-    ring: colors.light.ring,
-    warning: colors.light.warning,
-    'warning-foreground': colors.light.warningForeground,
-    'chart-1': colors.chart['1'],
-    'chart-2': colors.chart['2'],
-    'chart-3': colors.chart['3'],
-    'chart-4': colors.chart['4'],
-    'chart-5': colors.chart['5'],
+// Generate NativeWind theme with direct values
+function generateNativeWindTheme() {
+  const lightColors: Record<string, string> = {};
+  const darkColors: Record<string, string> = {};
 
-    // Dark theme colors for NativeWind
-    dark: {
-      background: colors.dark.background,
-      surface: colors.dark.backgroundSurface,
-      foreground: colors.dark.foreground,
-      card: colors.dark.card,
-      'card-foreground': colors.dark.cardForeground,
-      popover: colors.dark.popover,
-      'popover-foreground': colors.dark.popoverForeground,
-      primary: colors.dark.primary,
-      'primary-foreground': colors.dark.primaryForeground,
-       'primary-light': colors.dark.primaryLight,
-      secondary: colors.dark.secondary,
-      'secondary-foreground': colors.dark.secondaryForeground,
-      muted: colors.dark.muted,
-      'muted-foreground': colors.dark.mutedForeground,
-      accent: colors.dark.accent,
-      'accent-foreground': colors.dark.accentForeground,
-      destructive: colors.dark.destructive,
-      'destructive-foreground': colors.dark.destructiveForeground,
-      border: colors.dark.border,
-      input: colors.dark.input,
-      ring: colors.dark.ring,
-      warning: colors.dark.warning,
-      'warning-foreground': colors.dark.warningForeground
+  // Process light theme colors
+  Object.entries(baseColors.light).forEach(([key, value]) => {
+    const kebabKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+    lightColors[kebabKey] = value;
+  });
+
+  // Process dark theme colors
+  Object.entries(baseColors.dark).forEach(([key, value]) => {
+    const kebabKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+    darkColors[kebabKey] = value;
+  });
+
+  // Add chart colors to light theme
+  Object.entries(baseColors.chart).forEach(([key, value]) => {
+    lightColors[`chart-${key}`] = value;
+  });
+
+  return {
+    colors: {
+      ...lightColors,
+      dark: darkColors
+    },
+    borderRadius: {
+      lg: 8,       // 0.5rem in pixels
+      md: 6,       // 0.375rem in pixels
+      sm: 4,       // 0.25rem in pixels
+      none: 0,
+      full: 9999
     }
-  },
-  // Border radius
-  borderRadius: {
-    lg: 8,       // 0.5rem in pixels
-    md: 6,       // 0.375rem in pixels
-    sm: 4,       // 0.25rem in pixels
-    none: 0,
-    full: 9999
-  }
+  };
 }
+
+// Generate all theme objects
+export const colors = baseColors;
+export const animations = baseAnimations;
+export { cssVariables };
+export const tailwindTheme = generateTailwindTheme();
+export const nativeWindTheme = generateNativeWindTheme();
 
 // Default export
 const tokens = {
@@ -310,6 +276,6 @@ const tokens = {
   tailwindTheme,
   nativeWindTheme,
   animations
-}
+};
 
-export default tokens
+export default tokens;
