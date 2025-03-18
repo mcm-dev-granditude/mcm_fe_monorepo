@@ -2,15 +2,25 @@
   "name": "@repo/tokens",
   "version": "0.0.0",
   "private": true,
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./src/*": "./src/*"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./css/*": "./css/*"
   },
+  "files": [
+    "dist/**",
+    "css/**"
+  ],
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "build": "tsc && pnpm run copy-cli && pnpm run build:css",
+    "copy-cli": "mkdir -p dist/cli && cp src/cli/generate-css-file.js dist/cli/",
+    "build:css": "mkdir -p css && node ./dist/cli/generate-css-file.js"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

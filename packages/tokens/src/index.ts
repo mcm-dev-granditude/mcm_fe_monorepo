@@ -1,35 +1,9 @@
+import { hexToHSL } from './utils/hex-to-hsl'
+
 export const colors = {
-  // Primary palette
-  primary: {
-    50: '#f0f9ff',
-    100: '#e0f2fe',
-    200: '#bae6fd',
-    300: '#7dd3fc',
-    400: '#38bdf8',
-    500: '#0ea5e9',
-    600: '#0284c7',
-    700: '#0369a1',
-    800: '#075985',
-    900: '#0c4a6e',
-    950: '#082f49',
-  },
-  // Neutral palette
-  neutral: {
-    50: '#f8fafc',
-    100: '#f1f5f9',
-    200: '#e2e8f0',
-    300: '#cbd5e1',
-    400: '#94a3b8',
-    500: '#64748b',
-    600: '#475569',
-    700: '#334155',
-    800: '#1e293b',
-    900: '#0f172a',
-    950: '#020617',
-  },
-  // Semantic colors - light mode
   light: {
     background: '#ffffff',
+    backgroundSurface: '#f8fafc',
     foreground: '#0f172a',
     card: '#ffffff',
     cardForeground: '#0f172a',
@@ -48,10 +22,12 @@ export const colors = {
     border: '#e2e8f0',
     input: '#e2e8f0',
     ring: '#0ea5e9',
+    warning: '#f59e0b',
+    warningForeground: '#fffbeb',
   },
-  // Semantic colors - dark mode
   dark: {
     background: '#0f172a',
+    backgroundSurface: '#1e293b',
     foreground: '#f8fafc',
     card: '#1e293b',
     cardForeground: '#f8fafc',
@@ -65,140 +41,270 @@ export const colors = {
     mutedForeground: '#94a3b8',
     accent: '#334155',
     accentForeground: '#f8fafc',
-    destructive: '#ef4444',
+    destructive: '#7f1d1d',
     destructiveForeground: '#ffffff',
     border: '#475569',
     input: '#475569',
     ring: '#0ea5e9',
+    warning: '#fbbf24',
+    warningForeground: '#78350f',
+  },
+  // Chart colors for data visualization
+  chart: {
+    '1': '#ff7849',
+    '2': '#0ea5e9',
+    '3': '#13b176',
+    '4': '#a855f7',
+    '5': '#f43f5e',
+  }
+};
+
+// CSS variables format for web
+export const cssVariables = {
+  light: {
+    '--background': hexToHSL(colors.light.background),
+    '--background-surface': hexToHSL(colors.light.backgroundSurface),
+    '--foreground': hexToHSL(colors.light.foreground),
+    '--card': hexToHSL(colors.light.card),
+    '--card-foreground': hexToHSL(colors.light.cardForeground),
+    '--popover': hexToHSL(colors.light.popover),
+    '--popover-foreground': hexToHSL(colors.light.popoverForeground),
+    '--primary': hexToHSL(colors.light.primary),
+    '--primary-foreground': hexToHSL(colors.light.primaryForeground),
+    '--secondary': hexToHSL(colors.light.secondary),
+    '--secondary-foreground': hexToHSL(colors.light.secondaryForeground),
+    '--muted': hexToHSL(colors.light.muted),
+    '--muted-foreground': hexToHSL(colors.light.mutedForeground),
+    '--accent': hexToHSL(colors.light.accent),
+    '--accent-foreground': hexToHSL(colors.light.accentForeground),
+    '--destructive': hexToHSL(colors.light.destructive),
+    '--destructive-foreground': hexToHSL(colors.light.destructiveForeground),
+    '--border': hexToHSL(colors.light.border),
+    '--input': hexToHSL(colors.light.input),
+    '--ring': hexToHSL(colors.light.ring),
+    '--warning': hexToHSL(colors.light.warning),
+    '--warning-foreground': hexToHSL(colors.light.warningForeground),
+    '--radius': '0.5rem',
+    '--chart-1': hexToHSL(colors.chart['1']),
+    '--chart-2': hexToHSL(colors.chart['2']),
+    '--chart-3': hexToHSL(colors.chart['3']),
+    '--chart-4': hexToHSL(colors.chart['4']),
+    '--chart-5': hexToHSL(colors.chart['5']),
+  },
+  dark: {
+    '--background': hexToHSL(colors.dark.background),
+    '--background-surface': hexToHSL(colors.dark.backgroundSurface),
+    '--foreground': hexToHSL(colors.dark.foreground),
+    '--card': hexToHSL(colors.dark.card),
+    '--card-foreground': hexToHSL(colors.dark.cardForeground),
+    '--popover': hexToHSL(colors.dark.popover),
+    '--popover-foreground': hexToHSL(colors.dark.popoverForeground),
+    '--primary': hexToHSL(colors.dark.primary),
+    '--primary-foreground': hexToHSL(colors.dark.primaryForeground),
+    '--secondary': hexToHSL(colors.dark.secondary),
+    '--secondary-foreground': hexToHSL(colors.dark.secondaryForeground),
+    '--muted': hexToHSL(colors.dark.muted),
+    '--muted-foreground': hexToHSL(colors.dark.mutedForeground),
+    '--accent': hexToHSL(colors.dark.accent),
+    '--accent-foreground': hexToHSL(colors.dark.accentForeground),
+    '--destructive': hexToHSL(colors.dark.destructive),
+    '--destructive-foreground': hexToHSL(colors.dark.destructiveForeground),
+    '--border': hexToHSL(colors.dark.border),
+    '--input': hexToHSL(colors.dark.input),
+    '--ring': hexToHSL(colors.dark.ring),
+    '--warning': hexToHSL(colors.dark.warning),
+    '--warning-foreground': hexToHSL(colors.dark.warningForeground),
+    '--radius': '0.5rem',
+    '--chart-1': hexToHSL(colors.chart['1']),
+    '--chart-2': hexToHSL(colors.chart['2']),
+    '--chart-3': hexToHSL(colors.chart['3']),
+    '--chart-4': hexToHSL(colors.chart['4']),
+    '--chart-5': hexToHSL(colors.chart['5']),
+  }
+};
+
+// Custom animations we want to define
+export const animations = {
+  keyframes: {
+    'accordion-down': {
+      from: { height: '0' },
+      to: { height: 'var(--radix-accordion-content-height)' },
+    },
+    'accordion-up': {
+      from: { height: 'var(--radix-accordion-content-height)' },
+      to: { height: '0' },
+    },
+    'slide-in': {
+      '0%': { transform: 'translateY(20px)', opacity: '0' },
+      '100%': { transform: 'translateY(0)', opacity: '1' },
+    },
+    'fade-in': {
+      '0%': { opacity: '0' },
+      '100%': { opacity: '1' },
+    },
+    'bounce-in': {
+      '0%, 20%': {
+        transform: 'scale(0.9)',
+        opacity: '0',
+      },
+      '50%': {
+        transform: 'scale(1.15)',
+      },
+      '75%': {
+        transform: 'scale(0.95)',
+        opacity: '1',
+      },
+      '100%': {
+        transform: 'scale(1)',
+        opacity: '1',
+      },
+    },
+  },
+  animation: {
+    'accordion-down': 'accordion-down 0.2s ease-out',
+    'accordion-up': 'accordion-up 0.2s ease-out',
+    'slide-in': 'slide-in 0.3s ease-out',
+    'fade-in': 'fade-in 0.2s ease-out',
+    'bounce-in': 'bounce-in 0.55s cubic-bezier(0.36, 0, 0.66, -0.56)',
   },
 };
 
-export const spacing = {
-  0: '0px',
-  px: '1px',
-  0.5: '0.125rem',
-  1: '0.25rem',
-  1.5: '0.375rem',
-  2: '0.5rem',
-  2.5: '0.625rem',
-  3: '0.75rem',
-  3.5: '0.875rem',
-  4: '1rem',
-  5: '1.25rem',
-  6: '1.5rem',
-  7: '1.75rem',
-  8: '2rem',
-  9: '2.25rem',
-  10: '2.5rem',
-  11: '2.75rem',
-  12: '3rem',
-  14: '3.5rem',
-  16: '4rem',
-  20: '5rem',
-  24: '6rem',
-  28: '7rem',
-  32: '8rem',
-  36: '9rem',
-  40: '10rem',
-  44: '11rem',
-  48: '12rem',
-  52: '13rem',
-  56: '14rem',
-  60: '15rem',
-  64: '16rem',
-  72: '18rem',
-  80: '20rem',
-  96: '24rem',
+// Tailwind theme extension
+export const tailwindTheme = {
+  colors: {
+    // CSS variable references for semantic colors
+    border: 'hsl(var(--border))',
+    input: 'hsl(var(--input))',
+    ring: 'hsl(var(--ring))',
+    background: 'hsl(var(--background))',
+    surface: 'hsl(var(--background-surface))',
+    foreground: 'hsl(var(--foreground))',
+    primary: {
+      DEFAULT: 'hsl(var(--primary))',
+      foreground: 'hsl(var(--primary-foreground))',
+    },
+    secondary: {
+      DEFAULT: 'hsl(var(--secondary))',
+      foreground: 'hsl(var(--secondary-foreground))',
+    },
+    destructive: {
+      DEFAULT: 'hsl(var(--destructive))',
+      foreground: 'hsl(var(--destructive-foreground))',
+    },
+    muted: {
+      DEFAULT: 'hsl(var(--muted))',
+      foreground: 'hsl(var(--muted-foreground))',
+    },
+    accent: {
+      DEFAULT: 'hsl(var(--accent))',
+      foreground: 'hsl(var(--accent-foreground))',
+    },
+    popover: {
+      DEFAULT: 'hsl(var(--popover))',
+      foreground: 'hsl(var(--popover-foreground))',
+    },
+    card: {
+      DEFAULT: 'hsl(var(--card))',
+      foreground: 'hsl(var(--card-foreground))',
+    },
+    warning: {
+      DEFAULT: 'hsl(var(--warning))',
+      foreground: 'hsl(var(--warning-foreground))',
+    },
+    chart: {
+      '1': 'hsl(var(--chart-1))',
+      '2': 'hsl(var(--chart-2))',
+      '3': 'hsl(var(--chart-3))',
+      '4': 'hsl(var(--chart-4))',
+      '5': 'hsl(var(--chart-5))',
+    },
+  },
+  borderRadius: {
+    lg: 'var(--radius)',
+    md: 'calc(var(--radius) - 2px)',
+    sm: 'calc(var(--radius) - 4px)',
+  },
+  keyframes: animations.keyframes,
+  animation: animations.animation,
 };
 
-export const fontSizes = {
-  xs: '0.75rem',
-  sm: '0.875rem',
-  base: '1rem',
-  lg: '1.125rem',
-  xl: '1.25rem',
-  '2xl': '1.5rem',
-  '3xl': '1.875rem',
-  '4xl': '2.25rem',
-  '5xl': '3rem',
-  '6xl': '3.75rem',
-  '7xl': '4.5rem',
-  '8xl': '6rem',
-  '9xl': '8rem',
+// NativeWind theme (direct values, no CSS variables)
+export const nativeWindTheme = {
+  colors: {
+    // Light theme colors (direct values)
+    background: colors.light.background,
+    surface: colors.light.backgroundSurface,
+    foreground: colors.light.foreground,
+    card: colors.light.card,
+    'card-foreground': colors.light.cardForeground,
+    popover: colors.light.popover,
+    'popover-foreground': colors.light.popoverForeground,
+    primary: colors.light.primary,
+    'primary-foreground': colors.light.primaryForeground,
+    secondary: colors.light.secondary,
+    'secondary-foreground': colors.light.secondaryForeground,
+    muted: colors.light.muted,
+    'muted-foreground': colors.light.mutedForeground,
+    accent: colors.light.accent,
+    'accent-foreground': colors.light.accentForeground,
+    destructive: colors.light.destructive,
+    'destructive-foreground': colors.light.destructiveForeground,
+    border: colors.light.border,
+    input: colors.light.input,
+    ring: colors.light.ring,
+    warning: colors.light.warning,
+    'warning-foreground': colors.light.warningForeground,
+    'chart-1': colors.chart['1'],
+    'chart-2': colors.chart['2'],
+    'chart-3': colors.chart['3'],
+    'chart-4': colors.chart['4'],
+    'chart-5': colors.chart['5'],
+
+    // Dark theme colors for NativeWind
+    dark: {
+      background: colors.dark.background,
+      surface: colors.dark.backgroundSurface,
+      foreground: colors.dark.foreground,
+      card: colors.dark.card,
+      'card-foreground': colors.dark.cardForeground,
+      popover: colors.dark.popover,
+      'popover-foreground': colors.dark.popoverForeground,
+      primary: colors.dark.primary,
+      'primary-foreground': colors.dark.primaryForeground,
+      secondary: colors.dark.secondary,
+      'secondary-foreground': colors.dark.secondaryForeground,
+      muted: colors.dark.muted,
+      'muted-foreground': colors.dark.mutedForeground,
+      accent: colors.dark.accent,
+      'accent-foreground': colors.dark.accentForeground,
+      destructive: colors.dark.destructive,
+      'destructive-foreground': colors.dark.destructiveForeground,
+      border: colors.dark.border,
+      input: colors.dark.input,
+      ring: colors.dark.ring,
+      warning: colors.dark.warning,
+      'warning-foreground': colors.dark.warningForeground,
+    },
+  },
+  // Border radius
+  borderRadius: {
+    lg: 8,       // 0.5rem in pixels
+    md: 6,       // 0.375rem in pixels
+    sm: 4,       // 0.25rem in pixels
+    none: 0,
+    full: 9999,
+  },
 };
 
-export const fontWeights = {
-  thin: '100',
-  extralight: '200',
-  light: '300',
-  normal: '400',
-  medium: '500',
-  semibold: '600',
-  bold: '700',
-  extrabold: '800',
-  black: '900',
-};
-
-export const lineHeights = {
-  none: '1',
-  tight: '1.25',
-  snug: '1.375',
-  normal: '1.5',
-  relaxed: '1.625',
-  loose: '2',
-};
-
-export const radii = {
-  none: '0',
-  sm: '0.125rem',
-  DEFAULT: '0.25rem',
-  md: '0.375rem',
-  lg: '0.5rem',
-  xl: '0.75rem',
-  '2xl': '1rem',
-  '3xl': '1.5rem',
-  full: '9999px',
-};
-
-export const shadows = {
-  sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-  DEFAULT: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-  md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-  lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-  xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-  '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-  inner: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)',
-  none: 'none',
-};
-
-export const breakpoints = {
-  sm: '640px',
-  md: '768px',
-  lg: '1024px',
-  xl: '1280px',
-  '2xl': '1536px',
-};
-
-export const zIndices = {
-  0: '0',
-  10: '10',
-  20: '20',
-  30: '30',
-  40: '40',
-  50: '50',
-  auto: 'auto',
-};
-
-export const tokens = {
+// Default export
+const tokens = {
   colors,
-  spacing,
-  fontSizes,
-  fontWeights,
-  lineHeights,
-  radii,
-  shadows,
-  breakpoints,
-  zIndices,
+  cssVariables,
+  tailwindTheme,
+  nativeWindTheme,
+  animations,
 };
 
 export default tokens;
+
+export const cssPath = './css/globals.css';

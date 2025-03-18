@@ -2,7 +2,7 @@ import { baseMetadata } from '@/lib/seo';
 import { Metadata, Viewport } from 'next';
 import { Geist } from 'next/font/google';
 import { ReactNode } from 'react';
-import './globals.css';
+import './styles/globals.css';
 import RootLayoutWrapper from '@/components/layout/root-layout-wrapper'
 import { Toaster } from '@/components/ui/toaster'
 
