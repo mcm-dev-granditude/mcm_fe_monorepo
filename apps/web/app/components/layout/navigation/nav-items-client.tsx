@@ -42,8 +42,8 @@ export function NavItemsClient( {
       <Link
           href={ href }
           className={ cn(
-              'flex items-center space-x-3 px-2 py-2 text-md font-medium rounded-lg hover:bg-accent' +
-              ' transition-colors hover:bg-primary-light',
+              'flex items-center space-x-3 px-2 py-2 text-md font-medium rounded-lg',
+              'transition-all hover:bg-primary-light hover:ring-1 hover:ring-primary-foreground duration-300 ease-in',
               linkClassName
           ) }
           aria-label={ label }
