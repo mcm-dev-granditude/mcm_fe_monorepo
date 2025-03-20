@@ -3,8 +3,7 @@ import eslintConfigPrettier from "eslint-config-prettier";
 import tseslint from "typescript-eslint";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReact from "eslint-plugin-react";
-import reactNativePlugin from "eslint-plugin-react-native";
-import expoPlugin from "eslint-plugin-expo";
+import pluginReactNative from "eslint-plugin-react-native";
 import globals from "globals";
 import { config as baseConfig } from "./base.js";
 
@@ -30,9 +29,8 @@ export const reactNativeConfig = [
   },
   {
     plugins: {
-    "react-hooks": pluginReactHooks,
-      "react-native": reactNativePlugin,
-      "expo": expoPlugin
+      "react-hooks": pluginReactHooks,
+      "react-native": pluginReactNative,
     },
     settings: {
       react: { version: "detect" },

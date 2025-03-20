@@ -165,6 +165,7 @@ const cssVariables = {
 
 // Generate Tailwind theme with CSS variable references
 function generateTailwindTheme() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const tailwindColors: Record<string, any> = {
     border: 'hsl(var(--border))',
     input: 'hsl(var(--input))',

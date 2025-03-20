@@ -1,4 +1,4 @@
-import { nativeWindTheme } from '@repo/tokens'
+import { nativeWindTheme } from '@repo/tokens/src'
 
 /**
  * NativeWind configuration that can be shared between mobile apps
@@ -18,7 +18,9 @@ export const nativeWindConfig = {
 }
 
 interface CustomConfig {
+  // eslint-disable-next-line
   theme?: Record<string, any>
+  // eslint-disable-next-line
   plugins?: Record<string, any>[];
 }
 
