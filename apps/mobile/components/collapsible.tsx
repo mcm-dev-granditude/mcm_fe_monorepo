@@ -1,8 +1,8 @@
 import {PropsWithChildren, useState} from "react";
 import {TouchableOpacity, View} from "react-native";
 import {cn} from "@repo/ui";
-import {ThemedText} from "@/components/themed-text";
-import {ThemedIcon} from "@/components/themed-icon";
+import {NwText} from "@/components/nw-text";
+import {NwIcon} from "@/components/nw-icon";
 import {ChevronRight} from "lucide-react-native";
 
 type CollapsibleProps = PropsWithChildren<{
@@ -20,17 +20,17 @@ export function Collapsible( {children, title, className}: CollapsibleProps ) {
         onPress={ () => setIsOpen( ( value ) => !value ) }
         activeOpacity={ 0.8 }
       >
-        <ThemedIcon
+        <NwIcon
           icon={ChevronRight}
           style={ {transform: [{rotate: isOpen ? "90deg" : "0deg"}]} }
         />
 
-        <ThemedText
+        <NwText
           variant="body"
           className="font-semibold text-red-500"
         >
           { title }
-        </ThemedText>
+        </NwText>
       </TouchableOpacity>
 
       { isOpen && (

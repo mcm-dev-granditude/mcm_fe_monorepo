@@ -1,6 +1,7 @@
 import Animated, {AnimatedStyle} from "react-native-reanimated";
 import {cn} from "@repo/ui";
 import {StyleProp} from "react-native";
+import React from "react";
 
 type ThemedAnimatedViewProps = {
   className?: string;
@@ -9,7 +10,7 @@ type ThemedAnimatedViewProps = {
   style?: StyleProp<any>;
 };
 
-export function ThemedAnimatedView( {
+export function NwAnimatedView( {
                                       className,
                                       animatedStyle,
                                       style,

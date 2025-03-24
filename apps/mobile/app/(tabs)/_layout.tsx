@@ -4,18 +4,18 @@ import {Platform} from "react-native";
 import {Home, Plane} from "lucide-react-native";
 
 import {HapticTab} from "@/components/haptic-tab";
-import {ThemedIcon} from "@/components/themed-icon";
+import {NwIcon} from "@/components/nw-icon";
 import TabBarBackground from "@/components/ui/tab-bar-background";
-import {useTheme} from "@/providers/theme-provider";
 import "../../styles/globals.css";
+import {useThemeColor} from "@/hooks/use-theme-color";
 
 export default function TabLayout() {
-  const { effectiveTheme } = useTheme();
+  const primaryColor = useThemeColor( 'primary')
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: effectiveTheme === 'dark' ? '#7C3AED' : '#6D28D9',
+        tabBarActiveTintColor: primaryColor,
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
@@ -32,7 +32,7 @@ export default function TabLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({color}) => (
-            <ThemedIcon
+            <NwIcon
               icon={Home}
               size={28}
               color={color}
@@ -45,7 +45,7 @@ export default function TabLayout() {
         options={{
           title: "Explore",
           tabBarIcon: ({color}) => (
-            <ThemedIcon
+            <NwIcon
               icon={Plane}
               size={28}
               color={color}

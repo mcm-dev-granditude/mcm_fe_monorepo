@@ -48,7 +48,7 @@ export const reactNativeConfig = [
       "react-native/no-inline-styles": "warn",
       "react-native/no-color-literals": "warn",
       "react-native/no-raw-text": ["warn", {
-        "skip": ["ThemedText", "Text"]
+        "skip": ["Text", "NwText"]
       }],
       "react-native/no-single-element-style-arrays": "warn",
 

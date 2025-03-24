@@ -8,7 +8,7 @@ export type ThemedTextProps = TextProps & {
   variant?: TextVariant;
 }
 
-export function ThemedText( {
+export function NwText( {
                               className,
                               style,
                               variant = "body",

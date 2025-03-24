@@ -7,7 +7,7 @@ interface ThemedIconProps extends LucideProps {
   colorName?: ColorToken;
 }
 
-export function ThemedIcon( {
+export function NwIcon( {
                               icon: Icon,
                               colorName = "primary",
                               color,

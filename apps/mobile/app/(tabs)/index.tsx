@@ -1,36 +1,60 @@
-import React from "react";
-import {ScrollView, View} from "react-native";
-import {ThemedCard} from "@/components/themed-card";
-import {ThemedText} from "@/components/themed-text";
+import {Image, Platform, View} from "react-native";
+
+import ParallaxScrollView from "@/components/parallax-scroll-view";
+import {NwText} from "@/components/nw-text";
+import {Card} from "@/components/card";
+import {ThemeSwitcher} from "@/components/layout/theme-switcher/theme-switcher";
+import reactLogo from "@/assets/images/partial-react-logo.png";
 
 export default function HomeScreen() {
   return (
-    <ScrollView className="flex-1 bg-background dark:bg-background">
-      <View className="p-4">
-        <ThemedText className="text-foreground dark:text-foreground text-2xl font-bold mb-6">
-          Welcome to Themed App
-        </ThemedText>
-
-        <View className="space-y-4">
-          <ThemedCard
-            title="Shared Design System"
-            description="This component uses the same design tokens as the web app"
-            onPress={ () => console.log( "Pressed card 1" ) }
-          />
-
-          <ThemedCard
-            title="Dark Mode Support"
-            description="The theme automatically adapts between light and dark mode"
-            onPress={ () => console.log( "Pressed card 2" ) }
-          />
-
-          <ThemedCard
-            title="NativeWind Integration"
-            description="Using Tailwind classes in React Native with shared tokens"
-            onPress={ () => console.log( "Pressed card 3" ) }
-          />
-        </View>
+    <ParallaxScrollView
+      headerBackgroundColor="muted"
+      headerImage={
+        <Image
+          source={ reactLogo }
+          className="absolute bottom-0 left-0 h-[178px] w-[290px]"
+        />
+      }
+    >
+      <View className="flex-row items-center gap-2 ">
+        <NwText variant="title">Welcome!</NwText>
       </View>
-    </ScrollView>
+
+      <View className="gap-2 mb-2">
+        <NwText variant="subheading">Step 1: Try it</NwText>
+        <NwText variant="body">
+          <NwText
+            variant="body"
+            className="font-semibold"
+          >
+            { Platform.select( {
+              ios: "cmd + d",
+              android: "cmd + m",
+              web: "F12"
+            } ) }
+          </NwText>
+          <NwText>to open developer tools.</NwText>
+        </NwText>
+      </View>
+
+
+      <View className="gap-2 mb-2">
+        <Card
+          title="Card"
+          description="This is a card"
+        />
+        <Card
+          title="Card"
+          description="This is a card"
+        />
+        <Card
+          title="Card"
+          description="This is a card"
+        />
+      </View>
+
+      <ThemeSwitcher />
+    </ParallaxScrollView>
   );
 }

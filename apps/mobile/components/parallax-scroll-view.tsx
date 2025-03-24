@@ -7,7 +7,7 @@ import {cn} from "@repo/ui";
 import {useBottomTabOverflow} from "@/components/ui/tab-bar-background";
 import {useThemeColor} from "@/hooks/use-theme-color";
 import {ColorToken} from "@repo/tokens";
-import {ThemedAnimatedView} from "@/components/themed-animated-view";
+import {NwAnimatedView} from "@/components/nw-animated-view";
 
 const HEADER_HEIGHT = 250;
 
@@ -51,14 +51,14 @@ export default function ParallaxScrollView( {
   } );
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-red-400">
       <Animated.ScrollView
         ref={ scrollRef }
         scrollEventThrottle={ 16 }
         scrollIndicatorInsets={ {bottom} }
         contentContainerStyle={ {paddingBottom: bottom} }
       >
-        <ThemedAnimatedView
+        <NwAnimatedView
           className="overflow-hidden"
           style={ [
             styles.header,
@@ -67,8 +67,8 @@ export default function ParallaxScrollView( {
           ] }
         >
           { headerImage }
-        </ThemedAnimatedView>
-        <View className={ cn( "p-8 gap-4 overflow-hidden", className ) }>
+        </NwAnimatedView>
+        <View className={ cn( "p-8 gap-4 overflow-hidden ", className ) }>
           { children }
         </View>
       </Animated.ScrollView>
