@@ -1,4 +1,4 @@
-import { hexToHSL } from './utils/hex-to-hsl';
+import { hexToHSL } from './utils/hex-to-hsl'
 
 type ThemeColors = {
   background: string;
@@ -90,7 +90,7 @@ const baseColors = {
     '4': '#9c2649',
     '5': '#e85a73'
   } as ChartColors
-};
+}
 
 // Animations definition
 const baseAnimations = {
@@ -136,32 +136,32 @@ const baseAnimations = {
     'fade-in': 'fade-in 0.2s ease-out',
     'bounce-in': 'bounce-in 0.55s cubic-bezier(0.36, 0, 0.66, -0.56)'
   }
-};
+}
 
 // Automatically generate CSS variables from baseColors
-function generateCssVariables(theme: ThemeColors): Record<string, string> {
-  const cssVars: Record<string, string> = {};
+function generateCssVariables( theme: ThemeColors ): Record<string, string> {
+  const cssVars: Record<string, string> = {}
 
   // Process all theme color properties
-  Object.entries(theme).forEach(([key, value]) => {
-    cssVars[`--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`] = hexToHSL(value);
-  });
+  Object.entries( theme ).forEach( ( [ key, value ] ) => {
+    cssVars[`--${ key.replace( /([A-Z])/g, '-$1' ).toLowerCase() }`] = hexToHSL( value )
+  } )
 
-  cssVars['--radius'] = '0.5rem';
+  cssVars['--radius'] = '0.5rem'
 
   // Add chart colors
-  Object.entries(baseColors.chart).forEach(([key, value]) => {
-    cssVars[`--chart-${key}`] = hexToHSL(value);
-  });
+  Object.entries( baseColors.chart ).forEach( ( [ key, value ] ) => {
+    cssVars[`--chart-${ key }`] = hexToHSL( value )
+  } )
 
-  return cssVars;
+  return cssVars
 }
 
 // Generate the CSS variables for both themes
 const cssVariables = {
-  light: generateCssVariables(baseColors.light),
-  dark: generateCssVariables(baseColors.dark)
-};
+  light: generateCssVariables( baseColors.light ),
+  dark: generateCssVariables( baseColors.dark )
+}
 
 // Generate Tailwind theme with CSS variable references
 function generateTailwindTheme() {
@@ -207,12 +207,12 @@ function generateTailwindTheme() {
       foreground: 'hsl(var(--warning-foreground))'
     },
     chart: {}
-  };
+  }
 
   // Add chart colors
-  Object.keys(baseColors.chart).forEach(key => {
-    tailwindColors.chart[key] = `hsl(var(--chart-${key}))`;
-  });
+  Object.keys( baseColors.chart ).forEach( key => {
+    tailwindColors.chart[key] = `hsl(var(--chart-${ key }))`
+  } )
 
   return {
     colors: tailwindColors,
@@ -223,30 +223,30 @@ function generateTailwindTheme() {
     },
     keyframes: baseAnimations.keyframes,
     animation: baseAnimations.animation
-  };
+  }
 }
 
 // Generate NativeWind theme with direct values
 function generateNativeWindTheme() {
-  const lightColors: Record<string, string> = {};
-  const darkColors: Record<string, string> = {};
+  const lightColors: Record<string, string> = {}
+  const darkColors: Record<string, string> = {}
 
   // Process light theme colors
-  Object.entries(baseColors.light).forEach(([key, value]) => {
-    const kebabKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
-    lightColors[kebabKey] = value;
-  });
+  Object.entries( baseColors.light ).forEach( ( [ key, value ] ) => {
+    const kebabKey = key.replace( /([A-Z])/g, '-$1' ).toLowerCase()
+    lightColors[kebabKey] = value
+  } )
 
   // Process dark theme colors
-  Object.entries(baseColors.dark).forEach(([key, value]) => {
-    const kebabKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
-    darkColors[kebabKey] = value;
-  });
+  Object.entries( baseColors.dark ).forEach( ( [ key, value ] ) => {
+    const kebabKey = key.replace( /([A-Z])/g, '-$1' ).toLowerCase()
+    darkColors[kebabKey] = value
+  } )
 
   // Add chart colors to light theme
-  Object.entries(baseColors.chart).forEach(([key, value]) => {
-    lightColors[`chart-${key}`] = value;
-  });
+  Object.entries( baseColors.chart ).forEach( ( [ key, value ] ) => {
+    lightColors[`chart-${ key }`] = value
+  } )
 
   return {
     colors: {
@@ -260,15 +260,15 @@ function generateNativeWindTheme() {
       none: 0,
       full: 9999
     }
-  };
+  }
 }
 
 // Generate all theme objects
-export const colors = baseColors;
-export const animations = baseAnimations;
-export { cssVariables };
-export const tailwindTheme = generateTailwindTheme();
-export const nativeWindTheme = generateNativeWindTheme();
+export const colors = baseColors
+export const animations = baseAnimations
+export { cssVariables }
+export const tailwindTheme = generateTailwindTheme()
+export const nativeWindTheme = generateNativeWindTheme()
 
 // Default export
 const tokens = {
@@ -277,6 +277,7 @@ const tokens = {
   tailwindTheme,
   nativeWindTheme,
   animations
-};
+}
+export * from './hooks/use-tokens'
 
-export default tokens;
+export default tokens

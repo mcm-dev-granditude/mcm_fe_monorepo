@@ -4,7 +4,9 @@
     "moduleResolution": "bundler",
     "resolvePackageJsonExports": true,
     "isolatedModules": true,
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
     "plugins": [
       {
         "name": "next"
@@ -27,8 +29,12 @@
       "@/hooks/*": [
         "app/hooks/*"
       ],
-      "react": ["./node_modules/react"],
-      "react-dom": ["./node_modules/react-dom"]
+      "react": [
+        "./node_modules/react"
+      ],
+      "react-dom": [
+        "./node_modules/react-dom"
+      ]
     }
   },
   "include": [

@@ -1,44 +1,56 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import {Tabs} from "expo-router";
+import React from "react";
+import {Platform} from "react-native";
+import {Home, Plane} from "lucide-react-native";
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-import '../../styles/globals.css'
+import {HapticTab} from "@/components/haptic-tab";
+import {ThemedIcon} from "@/components/themed-icon";
+import TabBarBackground from "@/components/ui/tab-bar-background";
+import {useTheme} from "@/providers/theme-provider";
+import "../../styles/globals.css";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const { effectiveTheme } = useTheme();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: effectiveTheme === 'dark' ? '#7C3AED' : '#6D28D9',
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
+            position: "absolute"
           },
-          default: {},
-        }),
-      }}>
+          default: {}
+        })
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Home",
+          tabBarIcon: ({color}) => (
+            <ThemedIcon
+              icon={Home}
+              size={28}
+              color={color}
+            />
+          )
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Explore",
+          tabBarIcon: ({color}) => (
+            <ThemedIcon
+              icon={Plane}
+              size={28}
+              color={color}
+            />
+          )
         }}
       />
     </Tabs>
