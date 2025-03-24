@@ -3,8 +3,8 @@
 import {Sheet, SheetTrigger} from "@/app/components/ui/sheet";
 import {Menu} from "lucide-react";
 import dynamic from "next/dynamic";
-import {useState} from "react";
 import {Button} from "@/components/ui/button";
+import {useState} from "react";
 
 // Only the drawer content is lazy loaded
 const NavigationDrawerContent = dynamic(

@@ -1,7 +1,7 @@
-import tokens, { colors } from '..'
-
-type ThemeColors = Record<string, string>;
-type ChartColors = Record<string, string>;
+import { baseColors, baseAnimations, ThemeColors, ChartColors } from '../constants';
+import { cssVariables } from '../generators/css-variables';
+import { generateTailwindTheme } from '../generators/tailwind-theme';
+import { generateNativeWindTheme } from '../generators/nativewind-theme';
 
 type ColorTokens = {
   light: ThemeColors;
@@ -9,9 +9,18 @@ type ColorTokens = {
   chart: ChartColors;
 };
 
-export type ColorToken = keyof typeof colors | keyof typeof colors.dark;
+export type ColorToken = keyof typeof baseColors | keyof typeof baseColors.dark;
 
 type ThemeMode = 'light' | 'dark';
+
+// Generate all theme objects for export
+export const tokens = {
+  colors: baseColors,
+  cssVariables,
+  tailwindTheme: generateTailwindTheme(),
+  nativeWindTheme: generateNativeWindTheme(),
+  animations: baseAnimations
+};
 
 /**
  * This hook provides direct access to tokens

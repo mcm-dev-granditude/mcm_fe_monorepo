@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import { tailwindTheme } from '@repo/tokens/src'
+import { tailwindTheme } from '@repo/tokens'
 
 const config = {
   darkMode: [ 'class' ],

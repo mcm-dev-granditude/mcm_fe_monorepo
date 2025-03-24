@@ -19,10 +19,20 @@
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
     "build": "tsc && pnpm run copy-cli && pnpm run build:css",
-    "copy-cli": "mkdir -p dist/cli && cp src/cli/generate-css-file.js dist/cli/",
+    "copy-cli": "mkdir -p dist/cli && cp -r src/cli/*.js dist/cli/",
     "build:css": "mkdir -p css && node ./dist/cli/generate-css-file.js",
-    "dev": "node src/cli/watch-tokens.js",
-    "dev:watch": "concurrently \"tsc --watch\" \"nodemon --watch dist/index.js --exec 'pnpm run copy-cli && pnpm run build:css'\""
+    "dev": "node ./src/cli/watch-tokens.js",
+    "dev:watch": "concurrently \"tsc --watch\" \"nodemon --watch dist/ --exec 'pnpm run build:css'\""
+  },
+  "turbo": {
+    "pipeline": {
+      "build": {
+        "outputs": ["dist/**", "css/**"],
+        "dependsOn": ["^build"]
+      },
+      "lint": {},
+      "check-types": {}
+    }
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

@@ -1,4 +1,4 @@
-import { nativeWindTheme } from '@repo/tokens/src'
+import { nativeWindTheme } from '@repo/tokens'
 
 /**
  * NativeWind configuration that can be shared between mobile apps
