@@ -1,25 +1,25 @@
 "use client";
 
-import {NavItems} from "@/app/components/layout/navigation/nav-items";
-import {ThemeSwitcherClient} from "@/app/components/layout/theme-switcher";
-import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/app/components/ui/sheet";
+import { NavItems } from "@/app/components/layout/navigation/nav-items";
+import { ThemeSwitcherClient } from "@/app/components/layout/theme-switcher";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/app/components/ui/sheet";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
-import {Button} from "@/components/ui/button";
-import {Menu, X} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import {usePathname} from "next/navigation";
-import {FC, useEffect, useRef, useState} from "react";
+import { usePathname } from "next/navigation";
+import { FC, useEffect, useRef, useState } from "react";
 
 export function NavigationDrawerContent() {
   const pathname = usePathname();
-  const closeButtonRef = useRef<HTMLButtonElement>( null );
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
 
-  useEffect( () => {
-    if ( closeButtonRef.current ) {
+  useEffect(() => {
+    if (closeButtonRef.current) {
       closeButtonRef.current.click();
     }
-  }, [pathname] );
+  }, [pathname]);
 
 
   return (
@@ -38,14 +38,14 @@ export function NavigationDrawerContent() {
             </SheetTitle>
             <SheetPrimitive.Close
               asChild
-              ref={ closeButtonRef }
+              ref={closeButtonRef}
             >
               <Button
                 variant="ghost"
                 size="icon"
                 className="p-0 rounded-sm h-8 w-8"
               >
-                <X size={ 20 } />
+                <X size={20} />
                 <span className="sr-only">Close</span>
               </Button>
             </SheetPrimitive.Close>
@@ -67,12 +67,12 @@ export function NavigationDrawerContent() {
 }
 
 const NavigationDrawer: FC = () => {
-  const [open, setOpen] = useState( false );
+  const [open, setOpen] = useState(false);
 
   return (
     <Sheet
-      open={ open }
-      onOpenChange={ setOpen }
+      open={open}
+      onOpenChange={setOpen}
     >
       <SheetTrigger asChild>
         <Button
@@ -80,7 +80,7 @@ const NavigationDrawer: FC = () => {
           size="icon"
           className="rounded-sm p-1 -ml-2 h-10 w-10 md:hidden"
         >
-          <Menu size={ 22 } />
+          <Menu size={22} />
         </Button>
       </SheetTrigger>
       <NavigationDrawerContent />

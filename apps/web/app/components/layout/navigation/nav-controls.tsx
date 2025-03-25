@@ -1,4 +1,4 @@
-import {ThemeSwitcherClient} from "@/app/components/layout/theme-switcher";
+import { ThemeSwitcherClient } from "@/app/components/layout/theme-switcher";
 
 export default function NavigationControls() {
   return (

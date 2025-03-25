@@ -1,9 +1,9 @@
-import {Image, Platform, View} from "react-native";
+import { Image, Platform, View } from "react-native";
 
 import ParallaxScrollView from "@/components/parallax-scroll-view";
-import {NwText} from "@/components/nw-text";
-import {Card} from "@/components/card";
-import {ThemeSwitcher} from "@/components/layout/theme-switcher/theme-switcher";
+import { NwText } from "@/components/nw-text";
+import { Card } from "@/components/card";
+import { ThemeSwitcher } from "@/components/layout/theme-switcher/theme-switcher";
 import reactLogo from "@/assets/images/partial-react-logo.png";
 
 export default function HomeScreen() {
@@ -12,7 +12,7 @@ export default function HomeScreen() {
       headerBackgroundColor="muted"
       headerImage={
         <Image
-          source={ reactLogo }
+          source={reactLogo}
           className="absolute bottom-0 left-0 h-[178px] w-[290px]"
         />
       }
@@ -28,11 +28,11 @@ export default function HomeScreen() {
             variant="body"
             className="font-semibold"
           >
-            { Platform.select( {
+            {Platform.select({
               ios: "cmd + d",
               android: "cmd + m",
               web: "F12"
-            } ) }
+            })}
           </NwText>
           <NwText>to open developer tools.</NwText>
         </NwText>

@@ -1,13 +1,13 @@
-import type {PropsWithChildren, ReactElement} from "react";
-import {useMemo} from "react";
-import {StyleSheet, View} from "react-native";
-import Animated, {interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewOffset} from "react-native-reanimated";
-import {cn} from "@repo/ui";
+import type { PropsWithChildren, ReactElement } from "react";
+import { useMemo } from "react";
+import { StyleSheet, View } from "react-native";
+import Animated, { interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewOffset } from "react-native-reanimated";
+import { cn } from "@repo/ui";
 
-import {useBottomTabOverflow} from "@/components/ui/tab-bar-background";
-import {useThemeColor} from "@/hooks/use-theme-color";
-import {ColorToken} from "@repo/tokens";
-import {NwAnimatedView} from "@/components/nw-animated-view";
+import { useBottomTabOverflow } from "@/components/ui/tab-bar-background";
+import { useThemeColor } from "@/hooks/use-theme-color";
+import { ColorToken } from "@repo/tokens";
+import { NwAnimatedView } from "@/components/nw-animated-view";
 
 const HEADER_HEIGHT = 250;
 
@@ -17,23 +17,23 @@ type Props = PropsWithChildren<{
   className?: string;
 }>;
 
-export default function ParallaxScrollView( {
-                                              children,
-                                              headerImage,
-                                              headerBackgroundColor,
-                                              className
-                                            }: Props ) {
-  const headerBgColor = useThemeColor( headerBackgroundColor );
+export default function ParallaxScrollView({
+                                             children,
+                                             headerImage,
+                                             headerBackgroundColor,
+                                             className
+                                           }: Props) {
+  const headerBgColor = useThemeColor(headerBackgroundColor);
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
-  const scrollOffset = useScrollViewOffset( scrollRef );
+  const scrollOffset = useScrollViewOffset(scrollRef);
   const bottom = useBottomTabOverflow();
 
   // Create dynamic background style with useMemo to avoid inline styles
-  const headerBgStyle = useMemo( () => ( {
+  const headerBgStyle = useMemo(() => ({
     backgroundColor: headerBgColor
-  } ), [headerBgColor] );
+  }), [headerBgColor]);
 
-  const headerAnimatedStyle = useAnimatedStyle( () => {
+  const headerAnimatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
         {
@@ -44,40 +44,40 @@ export default function ParallaxScrollView( {
           )
         },
         {
-          scale: interpolate( scrollOffset.value, [-HEADER_HEIGHT, 0, HEADER_HEIGHT], [2, 1, 1] )
+          scale: interpolate(scrollOffset.value, [-HEADER_HEIGHT, 0, HEADER_HEIGHT], [2, 1, 1])
         }
       ]
     };
-  } );
+  });
 
   return (
     <View className="flex-1 bg-red-400">
       <Animated.ScrollView
-        ref={ scrollRef }
-        scrollEventThrottle={ 16 }
-        scrollIndicatorInsets={ {bottom} }
-        contentContainerStyle={ {paddingBottom: bottom} }
+        ref={scrollRef}
+        scrollEventThrottle={16}
+        scrollIndicatorInsets={{bottom}}
+        contentContainerStyle={{paddingBottom: bottom}}
       >
         <NwAnimatedView
           className="overflow-hidden"
-          style={ [
+          style={[
             styles.header,
             headerBgStyle,
             headerAnimatedStyle
-          ] }
+          ]}
         >
-          { headerImage }
+          {headerImage}
         </NwAnimatedView>
-        <View className={ cn( "p-8 gap-4 overflow-hidden ", className ) }>
-          { children }
+        <View className={cn("p-8 gap-4 overflow-hidden ", className)}>
+          {children}
         </View>
       </Animated.ScrollView>
     </View>
   );
 }
 
-const styles = StyleSheet.create( {
+const styles = StyleSheet.create({
   header: {
     height: HEADER_HEIGHT
   }
-} );
+});

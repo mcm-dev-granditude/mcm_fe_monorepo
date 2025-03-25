@@ -1,19 +1,19 @@
-import {defaultUrl} from "@/lib/utils/default-url";
-import {Metadata} from "next";
-import {appConfig} from "@repo/config";
+import { defaultUrl } from "@/lib/utils/default-url";
+import { Metadata } from "next";
+import { appConfig } from "@repo/config";
 
 
 export const baseMetadata: Metadata = {
-  metadataBase: new URL( defaultUrl ),
+  metadataBase: new URL(defaultUrl),
   title: {
-    default: `${ appConfig.title }`,
-    template: `%s | ${ appConfig.title }`
+    default: `${appConfig.title}`,
+    template: `%s | ${appConfig.title}`
   },
   description: appConfig.description,
   keywords: appConfig.keywords,
-  authors: [{name: `${ appConfig.title } Team`}],
-  creator: `${ appConfig.title }`,
-  publisher: `${ appConfig.title }`,
+  authors: [{name: `${appConfig.title} Team`}],
+  creator: `${appConfig.title}`,
+  publisher: `${appConfig.title}`,
   robots: {
     index: true,
     follow: true,
@@ -24,8 +24,8 @@ export const baseMetadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    siteName: `${ appConfig.title }`,
-    title: `${ appConfig.title }`,
+    siteName: `${appConfig.title}`,
+    title: `${appConfig.title}`,
     description: appConfig.description,
     url: defaultUrl,
     images: [
@@ -33,7 +33,7 @@ export const baseMetadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: `${ appConfig.title }`
+        alt: `${appConfig.title}`
       }
     ],
     locale: "en_US",
@@ -41,7 +41,7 @@ export const baseMetadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${ appConfig.title }`,
+    title: `${appConfig.title}`,
     description: appConfig.description,
     images: ["/twitter-image.png"]
   },
@@ -62,7 +62,7 @@ export const baseMetadata: Metadata = {
     ]
   },
   manifest: "/manifest.json",
-  applicationName: `${ appConfig.title }`,
+  applicationName: `${appConfig.title}`,
   alternates: {
     canonical: defaultUrl
   },

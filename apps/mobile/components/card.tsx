@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, TouchableOpacity, View} from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 interface ThemedCardProps {
   title: string;
@@ -11,26 +11,26 @@ interface ThemedCardProps {
 
 }
 
-export function Card( {title, description, action}: ThemedCardProps ) {
+export function Card({title, description, action}: ThemedCardProps) {
   return (
     <View className="bg-card  rounded-lg p-4 border border-border ">
       <Text className="text-card-foreground  font-bold text-lg mb-2">
-        { title }
+        {title}
       </Text>
       <Text className="text-muted-foreground  mb-4">
-        { description }
+        {description}
       </Text>
 
-      { action?.onPress && (
+      {action?.onPress && (
         <TouchableOpacity
-          onPress={ action.onPress }
+          onPress={action.onPress}
           className="bg-primary primary py-2 px-4 rounded-md"
         >
           <Text className="text-primary-foreground  text-center font-medium">
-            { action.label }
+            {action.label}
           </Text>
         </TouchableOpacity>
-      ) }
+      )}
     </View>
   );
 }

@@ -1,7 +1,7 @@
-import { baseColors, baseAnimations, ThemeColors, ChartColors } from '../constants';
-import { cssVariables } from '../generators/css-variables';
-import { generateTailwindTheme } from '../generators/tailwind-theme';
-import { generateNativeWindTheme } from '../generators/nativewind-theme';
+import { baseAnimations, baseColors, ChartColors, ThemeColors } from "../constants";
+import { cssVariables } from "../generators/css-variables";
+import { generateTailwindTheme } from "../generators/tailwind-theme";
+import { generateNativeWindTheme } from "../generators/nativewind-theme";
 
 type ColorTokens = {
   light: ThemeColors;
@@ -11,7 +11,7 @@ type ColorTokens = {
 
 export type ColorToken = keyof typeof baseColors | keyof typeof baseColors.dark;
 
-type ThemeMode = 'light' | 'dark';
+type ThemeMode = "light" | "dark";
 
 // Generate all theme objects for export
 export const tokens = {
@@ -47,14 +47,14 @@ export function useColorTokens() {
  */
 export function getColorToken(
   colorName: string,
-  mode: ThemeMode = 'light'
+  mode: ThemeMode = "light"
 ): string {
   // Handle chart colors which are in a different structure
-  if (colorName.startsWith('chart')) {
-    const chartKey = colorName.replace('chart', '');
-    return (tokens.colors.chart as ChartColors)[chartKey] || '#000000';
+  if (colorName.startsWith("chart")) {
+    const chartKey = colorName.replace("chart", "");
+    return (tokens.colors.chart as ChartColors)[chartKey] || "#000000";
   }
 
   const themeColors = tokens.colors[mode] as Record<string, string>;
-  return themeColors[colorName] || '#000000';
+  return themeColors[colorName] || "#000000";
 }

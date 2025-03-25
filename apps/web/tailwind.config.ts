@@ -1,4 +1,4 @@
-import {tailwindConfig} from "@repo/config";
+import { tailwindConfig } from "@repo/config";
 
 export default {
   presets: [tailwindConfig],

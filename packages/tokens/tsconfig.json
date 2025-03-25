@@ -10,8 +10,14 @@
     "module": "CommonJS",
     "sourceMap": true,
     "jsx": "react",
-     "baseUrl": "."
+    "baseUrl": "."
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

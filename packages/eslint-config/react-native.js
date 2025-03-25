@@ -1,11 +1,12 @@
 import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
-import tseslint from "typescript-eslint";
-import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReact from "eslint-plugin-react";
+import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactNative from "eslint-plugin-react-native";
 import globals from "globals";
-import { config as baseConfig } from "./base.js";
+import tseslint from "typescript-eslint";
+import {config as baseConfig} from "./base.js";
+
 
 /**
  * A custom ESLint configuration for libraries that use React Native.
@@ -23,17 +24,17 @@ export const reactNativeConfig = [
       ...pluginReact.configs.flat.recommended.languageOptions,
       globals: {
         ...globals.serviceworker,
-        ...globals.browser,
-      },
-    },
+        ...globals.browser
+      }
+    }
   },
   {
     plugins: {
       "react-hooks": pluginReactHooks,
-      "react-native": pluginReactNative,
+      "react-native": pluginReactNative
     },
     settings: {
-      react: { version: "detect" },
+      react: {version: "detect"},
       "react-native/style-sheet-object-names": ["StyleSheet", "ViewStyle", "TextStyle", "ImageStyle"]
     },
     rules: {
@@ -47,13 +48,15 @@ export const reactNativeConfig = [
       "react-native/no-unused-styles": "warn",
       "react-native/no-inline-styles": "warn",
       "react-native/no-color-literals": "warn",
-      "react-native/no-raw-text": ["warn", {
-        "skip": ["Text", "NwText"]
-      }],
+      "react-native/no-raw-text": [
+        "warn", {
+          "skip": ["Text", "NwText"]
+        }
+      ],
       "react-native/no-single-element-style-arrays": "warn",
 
       // Ensure console warnings are active
-      "no-console": ["warn", { "allow": ["warn", "error", "info"] }],
-    },
-  },
+      "no-console": ["warn", {"allow": ["warn", "error", "info"]}]
+    }
+  }
 ];

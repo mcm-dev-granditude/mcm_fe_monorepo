@@ -1,16 +1,16 @@
-import {Tabs} from "expo-router";
+import { Tabs } from "expo-router";
 import React from "react";
-import {Platform} from "react-native";
-import {Home, Plane} from "lucide-react-native";
+import { Platform } from "react-native";
+import { Home, Plane } from "lucide-react-native";
 
-import {HapticTab} from "@/components/haptic-tab";
-import {NwIcon} from "@/components/nw-icon";
+import { HapticTab } from "@/components/haptic-tab";
+import { NwIcon } from "@/components/nw-icon";
 import TabBarBackground from "@/components/ui/tab-bar-background";
 import "../../styles/globals.css";
-import {useThemeColor} from "@/hooks/use-theme-color";
+import { useThemeColor } from "@/hooks/use-theme-color";
 
 export default function TabLayout() {
-  const primaryColor = useThemeColor( 'primary')
+  const primaryColor = useThemeColor("primary");
 
   return (
     <Tabs

@@ -1,5 +1,5 @@
-import {Text, type TextProps} from "react-native";
-import {cn} from "@repo/ui";
+import { Text, type TextProps } from "react-native";
+import { cn } from "@repo/ui";
 
 export type TextVariant = "body" | "title" | "heading" | "subheading" | "caption" | "link"
 
@@ -8,12 +8,12 @@ export type ThemedTextProps = TextProps & {
   variant?: TextVariant;
 }
 
-export function NwText( {
-                              className,
-                              style,
-                              variant = "body",
-                              ...otherProps
-                            }: ThemedTextProps ) {
+export function NwText({
+                         className,
+                         style,
+                         variant = "body",
+                         ...otherProps
+                       }: ThemedTextProps) {
   const variantClasses = {
     body: "text-base leading-normal text-foreground",
     title: "text-4xl font-bold leading-tight text-foreground",
@@ -25,9 +25,9 @@ export function NwText( {
 
   return (
     <Text
-      className={ cn( variantClasses[variant], className ) }
-      style={ style }
-      { ...otherProps }
+      className={cn(variantClasses[variant], className)}
+      style={style}
+      {...otherProps}
     />
   );
 }

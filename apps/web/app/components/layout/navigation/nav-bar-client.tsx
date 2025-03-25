@@ -8,18 +8,18 @@ import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 
 // Only the drawer content is lazy loaded
 const NavigationDrawerContent = dynamic(
-  () => import("./nav-drawer").then( mod => mod.NavigationDrawerContent ),
+  () => import("./nav-drawer").then(mod => mod.NavigationDrawerContent),
   {ssr: false}
 );
 
-export const NavigationBarClient = ()=> {
-  const [open, setOpen] = useState( false );
+export const NavigationBarClient = () => {
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="md:hidden">
       <Sheet
-        open={ open }
-        onOpenChange={ setOpen }
+        open={open}
+        onOpenChange={setOpen}
       >
         <SheetTrigger asChild>
           <Button
@@ -27,11 +27,11 @@ export const NavigationBarClient = ()=> {
             size="icon"
             className="rounded-sm p-1 -ml-2 h-10 w-10"
           >
-            <Menu size={ 22 } />
+            <Menu size={22} />
           </Button>
         </SheetTrigger>
-        { open && <NavigationDrawerContent /> }
+        {open && <NavigationDrawerContent />}
       </Sheet>
     </div>
   );
-}
+};

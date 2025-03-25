@@ -1,9 +1,9 @@
 "use client";
 
-import {cn} from "@repo/ui";
-import {Antenna, Award, Medal, Newspaper, Percent, User} from "lucide-react";
+import { cn } from "@repo/ui";
+import { Antenna, Award, Medal, Newspaper, Percent, User } from "lucide-react";
 import Link from "next/link";
-import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "../../ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../ui/tooltip";
 
 const iconMap = {
   Antenna,
@@ -25,46 +25,46 @@ interface NavItemsClientProps {
   showIcon?: boolean;
 }
 
-export function NavItemsClient( {
-                                  href,
-                                  label,
-                                  iconName,
-                                  iconSize,
-                                  iconClassName,
-                                  linkClassName,
-                                  showLabel = true,
-                                  showIcon = true
+export function NavItemsClient({
+                                 href,
+                                 label,
+                                 iconName,
+                                 iconSize,
+                                 iconClassName,
+                                 linkClassName,
+                                 showLabel = true,
+                                 showIcon = true
 
-                                }: NavItemsClientProps ) {
+                               }: NavItemsClientProps) {
   const Icon = iconMap[iconName];
 
   const content = (
     <Link
-      href={ href }
-      className={ cn(
+      href={href}
+      className={cn(
         "flex items-center space-x-3 px-2 py-2 text-md font-medium rounded-lg",
         "transition-all hover:bg-primary-light hover:ring-1 hover:ring-primary-foreground duration-300 ease-in",
         linkClassName
-      ) }
-      aria-label={ label }
+      )}
+      aria-label={label}
     >
-      { showIcon &&
+      {showIcon &&
         <Icon
-          size={ iconSize }
-          className={ cn( "flex-shrink-0", iconClassName ) }
+          size={iconSize}
+          className={cn("flex-shrink-0", iconClassName)}
         />
       }
-      { showLabel && <span>{ label }</span> }
+      {showLabel && <span>{label}</span>}
     </Link>
   );
 
-  if ( !showLabel ) {
+  if (!showLabel) {
     return (
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger asChild>{ content }</TooltipTrigger>
+          <TooltipTrigger asChild>{content}</TooltipTrigger>
           <TooltipContent>
-            <p>{ label }</p>
+            <p>{label}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

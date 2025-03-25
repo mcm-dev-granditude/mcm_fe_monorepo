@@ -1,21 +1,21 @@
-import type { Config } from 'tailwindcss'
-import { tailwindTheme } from '@repo/tokens'
+import type { Config } from "tailwindcss";
+import { tailwindTheme } from "@repo/tokens";
 
 const config = {
-  darkMode: [ 'class' ],
+  darkMode: ["class"],
   content: [],
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: "2rem",
       screens: {
-        '2xl': '1400px'
+        "2xl": "1400px"
       }
     },
     extend: tailwindTheme
   },
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  plugins: [ require( 'tailwindcss-animate' ) ]
-} satisfies Config
+  plugins: [require("tailwindcss-animate")]
+} satisfies Config;
 
-export default config
+export default config;

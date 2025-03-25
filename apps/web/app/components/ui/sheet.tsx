@@ -25,9 +25,9 @@ function SheetPortal(props: SheetPrimitive.DialogPortalProps) {
 
 // Components transformed to regular components
 function SheetOverlay({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>) {
+                        className,
+                        ...props
+                      }: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>) {
   return (
     <SheetPrimitive.Overlay
       className={cn(
@@ -67,17 +67,17 @@ interface SheetContentProps
 }
 
 function SheetContent({
-  side = "right",
-  className,
-  hideCloseButton,
-  children,
-  ...props
-}: SheetContentProps) {
+                        side = "right",
+                        className,
+                        hideCloseButton,
+                        children,
+                        ...props
+                      }: SheetContentProps) {
   return (
     <SheetPortal>
       <SheetOverlay />
       <SheetPrimitive.Content
-        className={cn(sheetVariants({ side }), className)}
+        className={cn(sheetVariants({side}), className)}
         {...props}
       >
         {!hideCloseButton && (
@@ -94,7 +94,7 @@ function SheetContent({
 
 SheetContent.displayName = "SheetContent";
 
-function SheetHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+function SheetHeader({className, ...props}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div className={cn("flex flex-col space-y-2 text-center sm:text-left", className)} {...props} />
   );
@@ -102,7 +102,7 @@ function SheetHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
 
 SheetHeader.displayName = "SheetHeader";
 
-function SheetFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+function SheetFooter({className, ...props}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
@@ -114,9 +114,9 @@ function SheetFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
 SheetFooter.displayName = "SheetFooter";
 
 function SheetTitle({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>) {
+                      className,
+                      ...props
+                    }: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>) {
   return (
     <SheetPrimitive.Title
       className={cn("text-lg font-semibold text-foreground", className)}
@@ -128,9 +128,9 @@ function SheetTitle({
 SheetTitle.displayName = "SheetTitle";
 
 function SheetDescription({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>) {
+                            className,
+                            ...props
+                          }: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>) {
   return (
     <SheetPrimitive.Description
       className={cn("text-sm text-muted-foreground", className)}

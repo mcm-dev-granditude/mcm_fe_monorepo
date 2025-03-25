@@ -1,10 +1,10 @@
 // CommonJS version
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 // Dynamically require the compiled index.js file
-const tokensModule = require('../index');
-const { cssVariables } = tokensModule;
+const tokensModule = require("../index");
+const {cssVariables} = tokensModule;
 
 /**
  * Generate CSS content from the design tokens
@@ -17,14 +17,14 @@ function generateCSSContent() {
 @layer base {
   :root {
     ${Object.entries(cssVariables.light)
-      .map(([key, value]) => `${key}: ${value};`)
-      .join('\n    ')}
+  .map(([key, value]) => `${key}: ${value};`)
+  .join("\n    ")}
   }
 
   .dark {
     ${Object.entries(cssVariables.dark)
-      .map(([key, value]) => `${key}: ${value};`)
-      .join('\n    ')}
+  .map(([key, value]) => `${key}: ${value};`)
+  .join("\n    ")}
   }
 }
 
@@ -45,16 +45,16 @@ function generateCSSContent() {
 function writeCSS() {
   const cssContent = generateCSSContent();
   // Get the package root directory
-  const packageDir = path.resolve(__dirname, '../../');
-  const cssDir = path.join(packageDir, 'css');
+  const packageDir = path.resolve(__dirname, "../../");
+  const cssDir = path.join(packageDir, "css");
 
   // Create css directory if it doesn't exist
   if (!fs.existsSync(cssDir)) {
-    fs.mkdirSync(cssDir, { recursive: true });
+    fs.mkdirSync(cssDir, {recursive: true});
   }
 
   // Write the file
-  const filePath = path.join(cssDir, 'globals.css');
+  const filePath = path.join(cssDir, "globals.css");
   fs.writeFileSync(filePath, cssContent);
   console.log(`Generated CSS file at: ${filePath}`);
 }

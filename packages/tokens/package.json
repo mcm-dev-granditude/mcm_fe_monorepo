@@ -27,8 +27,13 @@
   "turbo": {
     "pipeline": {
       "build": {
-        "outputs": ["dist/**", "css/**"],
-        "dependsOn": ["^build"]
+        "outputs": [
+          "dist/**",
+          "css/**"
+        ],
+        "dependsOn": [
+          "^build"
+        ]
       },
       "lint": {},
       "check-types": {}
@@ -50,7 +55,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
-    "peerDependencies": {
+  "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   }

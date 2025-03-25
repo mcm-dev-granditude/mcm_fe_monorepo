@@ -1,8 +1,8 @@
-import React, {createContext, ReactNode, useCallback, useContext, useRef, useState} from "react";
-import BottomSheet, {BottomSheetBackdrop, BottomSheetBackdropProps} from "@gorhom/bottom-sheet";
-import {View} from "react-native";
-import {useThemeColor} from "@/hooks/use-theme-color";
-import {GestureHandlerRootView} from "react-native-gesture-handler";
+import React, { createContext, ReactNode, useCallback, useContext, useRef, useState } from "react";
+import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
+import { View } from "react-native";
+import { useThemeColor } from "@/hooks/use-theme-color";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 interface BottomSheetState {
   id: string;
@@ -17,7 +17,7 @@ interface BottomSheetContextType {
 
 const BottomSheetContext = createContext<BottomSheetContextType | undefined>(undefined);
 
-export function BottomSheetProvider({ children }: { children: ReactNode }) {
+export function BottomSheetProvider({children}: {children: ReactNode}) {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [activeSheet, setActiveSheet] = useState<BottomSheetState | null>(null);
   const backgroundColor = useThemeColor("background");
@@ -28,7 +28,7 @@ export function BottomSheetProvider({ children }: { children: ReactNode }) {
     content: ReactNode,
     snapPoints: string[] = ["25%", "50%"]
   ) => {
-    setActiveSheet({ id, content, snapPoints });
+    setActiveSheet({id, content, snapPoints});
     bottomSheetRef.current?.expand();
   }, []);
 
@@ -50,16 +50,16 @@ export function BottomSheetProvider({ children }: { children: ReactNode }) {
   );
 
   return (
-    <BottomSheetContext.Provider value={{ openSheet, closeSheet }}>
+    <BottomSheetContext.Provider value={{openSheet, closeSheet}}>
       {children}
-      <GestureHandlerRootView style={{ flex: 0 }}>
+      <GestureHandlerRootView style={{flex: 0}}>
         {activeSheet && (
           <BottomSheet
             ref={bottomSheetRef}
             snapPoints={activeSheet.snapPoints || ["25%", "50%"]}
             backdropComponent={renderBackdrop}
-            handleIndicatorStyle={{ backgroundColor: mutedForegroundColor }}
-            backgroundStyle={{ backgroundColor }}
+            handleIndicatorStyle={{backgroundColor: mutedForegroundColor}}
+            backgroundStyle={{backgroundColor}}
             enablePanDownToClose
           >
             <View className="p-4">

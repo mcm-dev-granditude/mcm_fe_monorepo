@@ -1,25 +1,25 @@
-import {baseColors} from "../constants";
+import { baseColors } from "../constants";
 
 export function generateNativeWindTheme() {
-  const lightColors: Record<string, string> = {}
-  const darkColors: Record<string, string> = {}
+  const lightColors: Record<string, string> = {};
+  const darkColors: Record<string, string> = {};
 
   // Process light theme colors
-  Object.entries( baseColors.light ).forEach( ( [ key, value ] ) => {
-    const kebabKey = key.replace( /([A-Z])/g, '-$1' ).toLowerCase()
-    lightColors[kebabKey] = value
-  } )
+  Object.entries(baseColors.light).forEach(([key, value]) => {
+    const kebabKey = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+    lightColors[kebabKey] = value;
+  });
 
   // Process dark theme colors
-  Object.entries( baseColors.dark ).forEach( ( [ key, value ] ) => {
-    const kebabKey = key.replace( /([A-Z])/g, '-$1' ).toLowerCase()
-    darkColors[kebabKey] = value
-  } )
+  Object.entries(baseColors.dark).forEach(([key, value]) => {
+    const kebabKey = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+    darkColors[kebabKey] = value;
+  });
 
   // Add chart colors to light theme
-  Object.entries( baseColors.chart ).forEach( ( [ key, value ] ) => {
-    lightColors[`chart-${ key }`] = value
-  } )
+  Object.entries(baseColors.chart).forEach(([key, value]) => {
+    lightColors[`chart-${key}`] = value;
+  });
 
   return {
     colors: {
@@ -33,5 +33,5 @@ export function generateNativeWindTheme() {
       none: 0,
       full: 9999
     }
-  }
+  };
 }

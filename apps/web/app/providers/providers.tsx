@@ -10,13 +10,13 @@ interface ProvidersProps {
 
 // Create a wrapped version of ThemeProvider that explicitly accepts children
 function ThemeProvider({
-  children,
-  ...props
-}: ThemeProviderProps & PropsWithChildren) {
+                         children,
+                         ...props
+                       }: ThemeProviderProps & PropsWithChildren) {
   return <NextThemeProvider {...props}>{children}</NextThemeProvider>;
 }
 
-export function Providers({ children }: ProvidersProps) {
+export function Providers({children}: ProvidersProps) {
   return (
     <ThemeProvider
       attribute="class"

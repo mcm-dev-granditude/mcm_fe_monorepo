@@ -1,4 +1,4 @@
-import {baseAnimations, baseColors} from "../constants";
+import { baseAnimations, baseColors } from "../constants";
 
 export function generateTailwindTheme() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,9 +46,9 @@ export function generateTailwindTheme() {
   };
 
   // Add chart colors
-  Object.keys( baseColors.chart ).forEach( key => {
-    tailwindColors.chart[key] = `hsl(var(--chart-${ key }))`;
-  } );
+  Object.keys(baseColors.chart).forEach(key => {
+    tailwindColors.chart[key] = `hsl(var(--chart-${key}))`;
+  });
 
   return {
     colors: tailwindColors,

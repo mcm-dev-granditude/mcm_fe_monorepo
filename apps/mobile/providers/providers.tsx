@@ -1,22 +1,22 @@
-import type {FC, PropsWithChildren} from "react";
-import {BottomSheetProvider} from "@/providers/bottom-sheet-provider";
-import {ThemeProvider} from "@/providers/theme-provider";
-import {NativeWindDarkMode} from "@/styles/dark-mode";
-import {ColorSchemeName} from "react-native";
-import {DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider} from "@react-navigation/native";
+import type { FC, PropsWithChildren } from "react";
+import { BottomSheetProvider } from "@/providers/bottom-sheet-provider";
+import { ThemeProvider } from "@/providers/theme-provider";
+import { NativeWindDarkMode } from "@/styles/dark-mode";
+import { ColorSchemeName } from "react-native";
+import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from "@react-navigation/native";
 
 interface ProvidersProps extends PropsWithChildren {
   colorScheme: ColorSchemeName;
 }
 
-const Providers: FC<ProvidersProps> = ( {children, colorScheme} ) => {
+const Providers: FC<ProvidersProps> = ({children, colorScheme}) => {
 
   return (
-    <NavigationThemeProvider value={ colorScheme === "dark" ? DarkTheme : DefaultTheme }>
+    <NavigationThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <ThemeProvider>
-        <NativeWindDarkMode colorScheme={ colorScheme }>
+        <NativeWindDarkMode colorScheme={colorScheme}>
           <BottomSheetProvider>
-            { children }
+            {children}
           </BottomSheetProvider>
         </NativeWindDarkMode>
       </ThemeProvider>

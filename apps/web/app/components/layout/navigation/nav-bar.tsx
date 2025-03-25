@@ -1,6 +1,6 @@
-import {NavItems} from "@/app/components/layout/navigation/nav-items";
+import { NavItems } from "@/app/components/layout/navigation/nav-items";
 import Link from "next/link";
-import {NavigationBarClient} from "@/components/layout/navigation/nav-bar-client";
+import { NavigationBarClient } from "@/components/layout/navigation/nav-bar-client";
 import NavigationControls from "@/components/layout/navigation/nav-controls";
 
 export default function NavigationBar() {
@@ -10,7 +10,7 @@ export default function NavigationBar() {
         <div className="flex items-center gap-3 font-semibold min-w-[250px]">
           <Link
             className="hidden md:block"
-            href={ "/" }
+            href={"/"}
           >
             Logo
           </Link>
@@ -19,8 +19,8 @@ export default function NavigationBar() {
         <div className="hidden md:block flex-1">
           <NavItems
             containerClassName="flex-row items-center justify-center space-y-0 space-x-10 p-0 justify-end px-4"
-            showIcon={ false }
-            iconSize={ 22 }
+            showIcon={false}
+            iconSize={22}
           />
         </div>
 

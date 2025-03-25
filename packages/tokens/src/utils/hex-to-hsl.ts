@@ -1,5 +1,5 @@
 export function hexToHSL(hex: string): string {
-  hex = hex.replace(/^#/, '');
+  hex = hex.replace(/^#/, "");
 
   // Parse the hex values
   const r = parseInt(hex.substring(0, 2), 16) / 255;
