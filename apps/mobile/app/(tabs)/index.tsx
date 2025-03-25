@@ -4,7 +4,7 @@ import ParallaxScrollView from "@/components/parallax-scroll-view";
 import { NwText } from "@/components/nw-text";
 import { Card } from "@/components/card";
 import { ThemeSwitcher } from "@/components/layout/theme-switcher/theme-switcher";
-import reactLogo from "@/assets/images/partial-react-logo.png";
+import logo from "@/assets/images/icon.png";
 
 export default function HomeScreen() {
   return (
@@ -12,7 +12,7 @@ export default function HomeScreen() {
       headerBackgroundColor="muted"
       headerImage={
         <Image
-          source={reactLogo}
+          source={logo}
           className="absolute bottom-0 left-0 h-[178px] w-[290px]"
         />
       }

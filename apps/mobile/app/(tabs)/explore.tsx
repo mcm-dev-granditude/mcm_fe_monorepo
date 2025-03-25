@@ -70,7 +70,7 @@ export default function TabTwoScreen() {
           different screen densities
         </NwText>
         <Image
-          source={require("@/assets/images/react-logo.png")}
+          source={require("@/assets/images/icon.png")}
           className="self-center"
         />
         <NwLink href="https://reactnative.dev/docs/images">
