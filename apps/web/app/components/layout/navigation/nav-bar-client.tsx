@@ -1,10 +1,10 @@
 "use client";
 
-import {Sheet, SheetTrigger} from "@/app/components/ui/sheet";
-import {Menu} from "lucide-react";
+import { Menu } from "lucide-react";
 import dynamic from "next/dynamic";
-import {Button} from "@/components/ui/button";
-import {useState} from "react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 
 // Only the drawer content is lazy loaded
 const NavigationDrawerContent = dynamic(
@@ -12,7 +12,7 @@ const NavigationDrawerContent = dynamic(
   {ssr: false}
 );
 
-export function NavigationBarClient() {
+export const NavigationBarClient = ()=> {
   const [open, setOpen] = useState( false );
 
   return (

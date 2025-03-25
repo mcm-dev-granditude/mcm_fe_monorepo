@@ -9,9 +9,21 @@
       ],
       "@repo/*": [
         "../../packages/*"
-      ],
-    }
+      ]
+    },
+    "skipLibCheck": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "../../node_modules/@types"
+    ]
   },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js",
+    "**/node_modules/**"
+  ],
   "include": [
     "**/*.ts",
     "**/*.tsx",

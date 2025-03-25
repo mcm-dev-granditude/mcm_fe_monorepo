@@ -1,6 +1,6 @@
 import * as React from "react";
-import {cva, type VariantProps} from "class-variance-authority";
-import {cn} from "@repo/ui";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@repo/ui";
 
 // This is a shared button component that can be used in both Next.js and React Native (via NativeWind)
 const buttonVariants = cva(
@@ -49,4 +49,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-export {Button, buttonVariants};
+export { Button, buttonVariants };

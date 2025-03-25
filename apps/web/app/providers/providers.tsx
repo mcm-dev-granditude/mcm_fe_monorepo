@@ -1,14 +1,22 @@
 "use client";
 
-import {ThemeProvider} from "next-themes";
-import {ReactNode} from "react";
+import { ThemeProvider as NextThemeProvider, ThemeProviderProps } from "next-themes";
+import { PropsWithChildren, ReactNode } from "react";
 import QueryProvider from "@/app/providers/query-provider";
 
 interface ProvidersProps {
   children: ReactNode;
 }
 
-export function Providers( {children}: ProvidersProps ) {
+// Create a wrapped version of ThemeProvider that explicitly accepts children
+function ThemeProvider({
+  children,
+  ...props
+}: ThemeProviderProps & PropsWithChildren) {
+  return <NextThemeProvider {...props}>{children}</NextThemeProvider>;
+}
+
+export function Providers({ children }: ProvidersProps) {
   return (
     <ThemeProvider
       attribute="class"
@@ -16,7 +24,7 @@ export function Providers( {children}: ProvidersProps ) {
       enableSystem
       disableTransitionOnChange
     >
-      <QueryProvider>{ children }</QueryProvider>
+      <QueryProvider>{children}</QueryProvider>
     </ThemeProvider>
   );
 }

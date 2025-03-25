@@ -1,10 +1,14 @@
 {
-  "extends": "@repo/typescript-config/nextjs.json",
+  "extends": [
+    "@repo/typescript-config/nextjs.json",
+    "../../tsconfig.base.json"
+  ],
   "compilerOptions": {
     "moduleResolution": "bundler",
     "resolvePackageJsonExports": true,
     "isolatedModules": true,
     "typeRoots": [
+      "../../node_modules/@types",
       "./node_modules/@types"
     ],
     "plugins": [
@@ -28,12 +32,6 @@
       ],
       "@/hooks/*": [
         "app/hooks/*"
-      ],
-      "react": [
-        "./node_modules/react"
-      ],
-      "react-dom": [
-        "./node_modules/react-dom"
       ]
     }
   },
@@ -41,8 +39,8 @@
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
-    "next.config.js",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "types/**/*.d.ts"
   ],
   "exclude": [
     "node_modules"

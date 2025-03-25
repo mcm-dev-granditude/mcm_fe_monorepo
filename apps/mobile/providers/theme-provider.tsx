@@ -1,5 +1,5 @@
-import React, {createContext, useContext, useEffect, useState} from "react";
-import {useColorScheme, View} from "react-native";
+import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from "react";
+import { useColorScheme, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type Theme = "light" | "dark" | "system";
@@ -21,7 +21,7 @@ const ThemeContext = createContext<ThemeContextProps>( {
 
 export const useTheme = () => useContext( ThemeContext );
 
-export function ThemeProvider( {children}: {children: React.ReactNode} ) {
+export function ThemeProvider( {children}: PropsWithChildren) {
   const [theme, setThemeState] = useState<Theme>( "system" );
   const colorScheme = useColorScheme();
 
