@@ -1,6 +1,5 @@
 {
   "extends": [
-    "../../tsconfig.base.json",
     "expo/tsconfig.base"
   ],
   "compilerOptions": {
@@ -10,15 +9,9 @@
       "@/*": [
         "./*"
       ],
-      "@repo/*": [
-        "../../packages/*"
-      ]
-    },
-    "skipLibCheck": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "../../node_modules/@types"
-    ]
+      "@repo/ui": ["../../packages/ui/src"],
+      "@repo/ui/*": ["../../packages/ui/src/*"]
+    }
   },
   "exclude": [
     "node_modules",

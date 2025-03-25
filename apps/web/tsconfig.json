@@ -1,7 +1,6 @@
 {
   "extends": [
     "@repo/typescript-config/nextjs.json",
-    "../../tsconfig.base.json"
   ],
   "compilerOptions": {
     "moduleResolution": "bundler",
@@ -20,9 +19,6 @@
     "paths": {
       "@/*": [
         "./*"
-      ],
-      "@repo/*": [
-        "../../packages/*"
       ],
       "@/lib/*": [
         "app/lib/*"
