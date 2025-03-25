@@ -1,15 +1,13 @@
 import React from "react";
-import { ColorSchemeName, View } from "react-native";
+import { View } from "react-native";
+import { useTheme } from "@/providers/theme-provider";
 
 export function NativeWindDarkMode({
-                                     children,
-                                     colorScheme
+                                     children
                                    }: {
   children: React.ReactNode,
-  colorScheme: ColorSchemeName
 }) {
-  // Handle the case where colorScheme might be undefined
-  const isDarkMode = colorScheme === "dark";
+  const {isDarkMode} = useTheme();
 
   return (
     <View className={`flex-1 ${isDarkMode ? "dark" : ""}`}>
@@ -17,10 +15,3 @@ export function NativeWindDarkMode({
     </View>
   );
 }
-
-// Usage example:
-// <NativeWindDarkMode>
-//   <View className="bg-background dark:bg-background text-foreground dark:text-foreground">
-//     <Text>This will adapt to dark mode</Text>
-//   </View>
-// </NativeWindDarkMode>

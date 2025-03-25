@@ -9,14 +9,11 @@ import "../styles/globals.css";
 
 import SpaceMonoFont from "@/assets/fonts/SpaceMono-Regular.ttf";
 import Providers from "@/providers/providers";
-import { useColorScheme } from "react-native";
 import NwStatusBar from "@/components/layout/NwStatusBar";
 
 void SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
   const [fontsLoaded, fontError] = useFonts({
     SpaceMono: SpaceMonoFont
   });
@@ -37,7 +34,7 @@ export default function RootLayout() {
       style={style.root}
       onLayout={onLayoutRootView}
     >
-      <Providers colorScheme={colorScheme}>
+      <Providers>
         <Stack>
           <Stack.Screen
             name="(tabs)"

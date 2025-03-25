@@ -1,26 +1,32 @@
 import type { FC, PropsWithChildren } from "react";
 import { BottomSheetProvider } from "@/providers/bottom-sheet-provider";
-import { ThemeProvider } from "@/providers/theme-provider";
+import { ThemeProvider, useTheme } from "@/providers/theme-provider";
 import { NativeWindDarkMode } from "@/styles/dark-mode";
-import { ColorSchemeName } from "react-native";
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from "@react-navigation/native";
 
-interface ProvidersProps extends PropsWithChildren {
-  colorScheme: ColorSchemeName;
-}
-
-const Providers: FC<ProvidersProps> = ({children, colorScheme}) => {
+const NavigationThemeConnector: FC<PropsWithChildren> = ({ children }) => {
+  const { effectiveTheme } = useTheme();
 
   return (
-    <NavigationThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <ThemeProvider>
-        <NativeWindDarkMode colorScheme={colorScheme}>
+    <NavigationThemeProvider value={effectiveTheme === "dark" ? DarkTheme : DefaultTheme}>
+      {children}
+    </NavigationThemeProvider>
+  );
+};
+
+type ProvidersProps = PropsWithChildren
+
+const Providers: FC<ProvidersProps> = ({ children }) => {
+  return (
+    <ThemeProvider>
+      <NavigationThemeConnector>
+        <NativeWindDarkMode>
           <BottomSheetProvider>
             {children}
           </BottomSheetProvider>
         </NativeWindDarkMode>
-      </ThemeProvider>
-    </NavigationThemeProvider>
+      </NavigationThemeConnector>
+    </ThemeProvider>
   );
 };
 

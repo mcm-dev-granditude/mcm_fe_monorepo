@@ -4,10 +4,10 @@ import { useTheme } from "@/providers/theme-provider";
 
 
 const NwStatusBar: FC = (props: StatusBarProps) => {
-  const {effectiveTheme} = useTheme();
+  const {isDarkMode} = useTheme();
 
   return (
-    <StatusBar style={effectiveTheme} {...props} />
+    <StatusBar style={isDarkMode ? 'light' : 'dark'} {...props} />
   );
 };
 
