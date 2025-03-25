@@ -1,5 +1,5 @@
 import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from "react";
-import { useColorScheme, View } from "react-native";
+import { useColorScheme, View, Appearance } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type Theme = "light" | "dark" | "system";
@@ -10,13 +10,15 @@ interface ThemeContextProps {
   isDarkMode: boolean;
   effectiveTheme: EffectiveTheme;
   setTheme: (theme: Theme) => void;
+  toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextProps>({
   theme: "system",
   isDarkMode: false,
   effectiveTheme: "light",
-  setTheme: () => null
+  setTheme: () => null,
+  toggleTheme: () => null
 });
 
 export const useTheme = () => useContext(ThemeContext);
@@ -45,6 +47,19 @@ export function ThemeProvider({children}: PropsWithChildren) {
     void loadTheme();
   }, []);
 
+  // Effect to override system appearance when not using system theme
+  useEffect(() => {
+    if (theme !== "system") {
+      Appearance.setColorScheme(effectiveTheme);
+    } else {
+      Appearance.setColorScheme(null);
+    }
+
+    return () => {
+      Appearance.setColorScheme(null);
+    };
+  }, [theme, effectiveTheme]);
+
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
     AsyncStorage.setItem("theme", newTheme).catch(error => {
@@ -52,8 +67,10 @@ export function ThemeProvider({children}: PropsWithChildren) {
     });
   };
 
+  const toggleTheme = () => setTheme(effectiveTheme === "light" ? "dark" : "light");
+
   return (
-    <ThemeContext.Provider value={{theme, isDarkMode, effectiveTheme, setTheme}}>
+    <ThemeContext.Provider value={{theme, isDarkMode, effectiveTheme, setTheme, toggleTheme}}>
       <View className={`flex-1 ${isDarkMode ? "dark" : ""}`}>
         {children}
       </View>

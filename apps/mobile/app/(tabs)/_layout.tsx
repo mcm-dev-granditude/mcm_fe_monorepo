@@ -37,7 +37,7 @@ export default function TabLayout() {
               tabBarIcon: ({color}) => (
                 <NwIcon
                   icon={item.icon}
-                  size={28}
+                  size={24}
                   color={color}
                 />
               )
