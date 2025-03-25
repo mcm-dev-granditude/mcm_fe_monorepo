@@ -3,77 +3,77 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-        --background: 0 0% 100%;
-        --background-surface: 0 25% 97%;
-        --foreground: 222 47% 11%;
-        --card: 0 0% 100%;
-        --card-foreground: 222 47% 11%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 222 47% 11%;
-        --primary: 347 100% 38%;
-        --primary-foreground: 0 0% 100%;
-        --primary-light: 0 94% 48%;
-        --secondary: 349 44% 95%;
-        --secondary-foreground: 222 47% 11%;
-        --muted: 349 44% 95%;
-        --muted-foreground: 215 16% 47%;
-        --accent: 347 42% 85%;
-        --accent-foreground: 222 47% 11%;
-        --destructive: 0 84% 60%;
-        --destructive-foreground: 0 0% 100%;
-        --border: 348 30% 87%;
-        --input: 348 30% 87%;
-        --ring: 347 100% 38%;
-        --warning: 38 92% 50%;
-        --warning-foreground: 48 100% 96%;
-        --radius: 0.5rem;
-        --chart-1: 347 100% 38%;
-        --chart-2: 199 89% 48%;
-        --chart-3: 158 81% 38%;
-        --chart-4: 342 61% 38%;
-        --chart-5: 349 76% 63%;
-    }
+  :root {
+    --background: 0 0% 100%;
+    --background-surface: 0 25% 97%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 347 100% 38%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 0 94% 48%;
+    --secondary: 349 44% 95%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 349 44% 95%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 347 42% 85%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 348 30% 87%;
+    --input: 348 30% 87%;
+    --ring: 347 100% 38%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 48 100% 96%;
+    --radius: 0.5rem;
+    --chart-1: 347 100% 38%;
+    --chart-2: 199 89% 48%;
+    --chart-3: 158 81% 38%;
+    --chart-4: 342 61% 38%;
+    --chart-5: 349 76% 63%;
+  }
 
-    .dark {
-        --background: 345 18% 9%;
-        --background-surface: 340 15% 12%;
-        --foreground: 210 40% 98%;
-        --card: 340 15% 12%;
-        --card-foreground: 210 40% 98%;
-        --popover: 340 15% 12%;
-        --popover-foreground: 210 40% 98%;
-        --primary: 347 100% 38%;
-        --primary-foreground: 0 0% 100%;
-        --primary-light: 0 94% 48%;
-        --secondary: 347 30% 17%;
-        --secondary-foreground: 210 40% 98%;
-        --muted: 347 30% 17%;
-        --muted-foreground: 215 20% 65%;
-        --accent: 351 52% 29%;
-        --accent-foreground: 210 40% 98%;
-        --destructive: 0 63% 31%;
-        --destructive-foreground: 0 0% 100%;
-        --border: 347 46% 19%;
-        --input: 347 46% 19%;
-        --ring: 347 100% 38%;
-        --warning: 43 96% 56%;
-        --warning-foreground: 22 78% 26%;
-        --radius: 0.5rem;
-        --chart-1: 347 100% 38%;
-        --chart-2: 199 89% 48%;
-        --chart-3: 158 81% 38%;
-        --chart-4: 342 61% 38%;
-        --chart-5: 349 76% 63%;
-    }
+  .dark {
+    --background: 345 18% 9%;
+    --background-surface: 340 15% 12%;
+    --foreground: 210 40% 98%;
+    --card: 340 15% 12%;
+    --card-foreground: 210 40% 98%;
+    --popover: 340 15% 12%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 347 100% 38%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 0 94% 48%;
+    --secondary: 347 30% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 347 30% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 351 52% 29%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 347 46% 19%;
+    --input: 347 46% 19%;
+    --ring: 347 100% 38%;
+    --warning: 43 96% 56%;
+    --warning-foreground: 22 78% 26%;
+    --radius: 0.5rem;
+    --chart-1: 347 100% 38%;
+    --chart-2: 199 89% 48%;
+    --chart-3: 158 81% 38%;
+    --chart-4: 342 61% 38%;
+    --chart-5: 349 76% 63%;
+  }
 }
 
 @layer base {
-    * {
-        @apply border-border;
-    }
+  * {
+    @apply border-border;
+  }
 
-    body {
-        @apply bg-background text-foreground;
-    }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
