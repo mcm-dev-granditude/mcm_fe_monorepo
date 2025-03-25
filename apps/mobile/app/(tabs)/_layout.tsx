@@ -1,13 +1,13 @@
 import { Tabs } from "expo-router";
 import React from "react";
 import { Platform } from "react-native";
-import { Home, Plane } from "lucide-react-native";
 
 import { HapticTab } from "@/components/haptic-tab";
 import { NwIcon } from "@/components/nw-icon";
 import TabBarBackground from "@/components/ui/tab-bar-background";
 import "../../styles/globals.css";
 import { useThemeColor } from "@/hooks/use-theme-color";
+import { tabItems } from "@/lib/constants";
 
 export default function TabLayout() {
   const primaryColor = useThemeColor("primary");
@@ -27,32 +27,24 @@ export default function TabLayout() {
         })
       }}
     >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Home",
-          tabBarIcon: ({color}) => (
-            <NwIcon
-              icon={Home}
-              size={28}
-              color={color}
-            />
-          )
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: "Explore",
-          tabBarIcon: ({color}) => (
-            <NwIcon
-              icon={Plane}
-              size={28}
-              color={color}
-            />
-          )
-        }}
-      />
+      {
+        tabItems.map((item) => (
+          <Tabs.Screen
+            key={item.name}
+            name={item.name}
+            options={{
+              title: item.label,
+              tabBarIcon: ({color}) => (
+                <NwIcon
+                  icon={item.icon}
+                  size={28}
+                  color={color}
+                />
+              )
+            }}
+          />
+        ))
+      }
     </Tabs>
   );
 }
