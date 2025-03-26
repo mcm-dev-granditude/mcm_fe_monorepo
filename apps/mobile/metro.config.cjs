@@ -1,5 +1,5 @@
-const { getDefaultConfig } = require("expo/metro-config");
-const { withNativeWind } = require("nativewind/metro");
+const {getDefaultConfig} = require("expo/metro-config");
+const {withNativeWind} = require("nativewind/metro");
 const path = require("path");
 
 // Find the project and workspace directories
@@ -15,7 +15,7 @@ config.watchFolders = [workspaceRoot];
 // 2. Let Metro know where to resolve packages
 config.resolver.nodeModulesPaths = [
   path.resolve(projectRoot, "node_modules"),
-  path.resolve(workspaceRoot, "node_modules"),
+  path.resolve(workspaceRoot, "node_modules")
 ];
 
 // 3. Disable hierarchical lookup to ensure consistent resolution
@@ -43,11 +43,11 @@ config.resolver.extraNodeModules = new Proxy(
 
       // Fallback to node_modules
       return path.join(projectRoot, "node_modules", packageName);
-    },
+    }
   }
 );
 
 // Apply NativeWind transformation
-const nativeWindConfig = withNativeWind(config, { input: "./styles/globals.css" });
+const nativeWindConfig = withNativeWind(config, {input: "./app/styles/globals.css"});
 
 module.exports = nativeWindConfig;

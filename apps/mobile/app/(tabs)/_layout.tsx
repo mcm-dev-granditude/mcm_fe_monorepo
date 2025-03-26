@@ -5,7 +5,6 @@ import { Platform } from "react-native";
 import { HapticTab } from "@/components/haptic-tab";
 import { NwIcon } from "@/components/nw-icon";
 import TabBarBackground from "@/components/ui/tab-bar-background";
-import "../../styles/globals.css";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { tabItems } from "@/lib/constants";
 

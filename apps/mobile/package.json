@@ -1,12 +1,13 @@
 {
   "name": "mobile",
   "main": "expo-router/entry",
+  "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "start": "node scripts/gen-css.js &&  expo start",
-    "android": "node scripts/gen-css.js &&  expo start --android",
-    "ios": "node scripts/gen-css.js &&  expo start --ios",
-    "web": "node scripts/gen-css.js &&  expo start --web",
+    "start": "node scripts/gen-css-bundle.js && expo start",
+    "android": "node scripts/gen-css-bundle.js && expo start --android",
+    "ios": "node scripts/gen-css-bundle.js && expo start --ios",
+    "web": "node scripts/gen-css-bundle.js && expo start --web",
     "test": "jest --watchAll",
     "lint": "eslint . --max-warnings 0"
   },
