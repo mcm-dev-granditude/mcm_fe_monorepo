@@ -7,18 +7,17 @@ module.exports = {
     "../../packages/ui/src/**/*.{js,jsx,ts,tsx}"
   ],
   // NativeWind preset is required
+  // eslint-disable-next-line no-undef,@typescript-eslint/no-require-imports
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
-      // Import colors from the tokens package using dynamic import to avoid require
-      // We have to use require here since this is a CommonJS module, but we can make ESLint happy
       colors: (function() {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        return require("@repo/tokens").nativeWindTheme.colors;
+        // eslint-disable-next-line no-undef,@typescript-eslint/no-require-imports
+        return require("@repo/tokens").tailwindTheme.colors;
       })(),
       borderRadius: (function() {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        return require("@repo/tokens").nativeWindTheme.borderRadius;
+        // eslint-disable-next-line no-undef,@typescript-eslint/no-require-imports
+        return require("@repo/tokens").tailwindTheme.borderRadius;
       })()
     }
   },

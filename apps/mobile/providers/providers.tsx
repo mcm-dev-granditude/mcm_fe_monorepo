@@ -1,11 +1,10 @@
 import type { FC, PropsWithChildren } from "react";
 import { BottomSheetProvider } from "@/providers/bottom-sheet-provider";
 import { ThemeProvider, useTheme } from "@/providers/theme-provider";
-import { NativeWindDarkMode } from "@/styles/dark-mode";
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from "@react-navigation/native";
 
-const NavigationThemeConnector: FC<PropsWithChildren> = ({ children }) => {
-  const { effectiveTheme } = useTheme();
+const NavigationThemeConnector: FC<PropsWithChildren> = ({children}) => {
+  const {effectiveTheme} = useTheme();
 
   return (
     <NavigationThemeProvider value={effectiveTheme === "dark" ? DarkTheme : DefaultTheme}>
@@ -16,15 +15,13 @@ const NavigationThemeConnector: FC<PropsWithChildren> = ({ children }) => {
 
 type ProvidersProps = PropsWithChildren
 
-const Providers: FC<ProvidersProps> = ({ children }) => {
+const Providers: FC<ProvidersProps> = ({children}) => {
   return (
     <ThemeProvider>
       <NavigationThemeConnector>
-        <NativeWindDarkMode>
-          <BottomSheetProvider>
-            {children}
-          </BottomSheetProvider>
-        </NativeWindDarkMode>
+        <BottomSheetProvider>
+          {children}
+        </BottomSheetProvider>
       </NavigationThemeConnector>
     </ThemeProvider>
   );

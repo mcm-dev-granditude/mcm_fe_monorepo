@@ -1,7 +1,6 @@
 import { baseAnimations, baseColors, ChartColors, ThemeColors } from "../constants";
 import { cssVariables } from "../generators/css-variables";
 import { generateTailwindTheme } from "../generators/tailwind-theme";
-import { generateNativeWindTheme } from "../generators/nativewind-theme";
 
 type ColorTokens = {
   light: ThemeColors;
@@ -18,7 +17,6 @@ export const tokens = {
   colors: baseColors,
   cssVariables,
   tailwindTheme: generateTailwindTheme(),
-  nativeWindTheme: generateNativeWindTheme(),
   animations: baseAnimations
 };
 
@@ -28,7 +26,6 @@ export const tokens = {
 export function useTokens() {
   return {
     colors: tokens.colors as ColorTokens,
-    nativeWindTheme: tokens.nativeWindTheme,
     animations: tokens.animations
   };
 }

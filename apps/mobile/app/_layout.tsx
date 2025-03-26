@@ -1,11 +1,11 @@
+import "../styles/globals.css";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useCallback } from "react";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
-import "../styles/globals.css";
 
 import SpaceMonoFont from "@/assets/fonts/SpaceMono-Regular.ttf";
 import Providers from "@/providers/providers";
