@@ -4,12 +4,19 @@ import path from "path";
 import {fileURLToPath} from "url";
 import buildTokensBundle from "./compile-repo-pkgs.js";
 
+
+const config = {
+  bundle: "tokens-bundle.js",
+  outputDir: "../app/styles",
+  output: "globals.css"
+};
+
 // Get the absolute paths
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const bundleFile = path.join(__dirname, "tokens-bundle.js");
-const outputDir = path.resolve(__dirname, "../app/styles");
-const outputFile = path.join(outputDir, "globals.css");
+const bundleFile = path.join(__dirname, config.bundle);
+const outputDir = path.resolve(__dirname, config.outputDir);
+const outputFile = path.join(outputDir, config.output);
 
 async function main() {
   try {

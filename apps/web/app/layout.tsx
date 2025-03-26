@@ -5,9 +5,6 @@ import { ReactNode } from "react";
 import "./styles/globals.css";
 import RootLayoutWrapper from "@/components/layout/root-layout-wrapper";
 import { Toaster } from "@/components/ui/toaster";
-import { appConfig, configureBrand } from "@repo/config";
-
-configureBrand(appConfig.appId);
 
 export const viewport: Viewport = {
   width: "device-width",
