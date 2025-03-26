@@ -1,7 +1,11 @@
-import { baseColors, ThemeColors } from "../constants";
+// packages/tokens/src/generators/css-variables.ts
+import { ChartColors, ThemeColors } from "../constants";
 import { hexToHSL } from "../utils/hex-to-hsl";
 
-export function generateCssVariables(theme: ThemeColors): Record<string, string> {
+export function generateCssVariables(
+  theme: ThemeColors,
+  chartColors?: ChartColors
+): Record<string, string> {
   const cssVars: Record<string, string> = {};
 
   // Process all theme color properties
@@ -12,32 +16,32 @@ export function generateCssVariables(theme: ThemeColors): Record<string, string>
   cssVars["--radius"] = "0.5rem";
 
   // Add chart colors
-  Object.entries(baseColors.chart).forEach(([key, value]) => {
-    cssVars[`--chart-${key}`] = hexToHSL(value);
-  });
+  if (chartColors) {
+    Object.entries(chartColors).forEach(([key, value]) => {
+      cssVars[`--chart-${key}`] = hexToHSL(value);
+    });
+  }
 
   return cssVars;
 }
 
-export const cssVariables = {
-  light: generateCssVariables(baseColors.light),
-  dark: generateCssVariables(baseColors.dark)
-};
-
-export const generateCSSContent = (): string => {
+export function generateCSSContent(vars: {
+  light: Record<string, string>;
+  dark: Record<string, string>
+}): string {
   return `@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    ${Object.entries(cssVariables.light)
+    ${Object.entries(vars.light)
   .map(([key, value]) => `${key}: ${value};`)
   .join("\n    ")}
   }
 
   .dark {
-    ${Object.entries(cssVariables.dark)
+    ${Object.entries(vars.dark)
   .map(([key, value]) => `${key}: ${value};`)
   .join("\n    ")}
   }
@@ -52,4 +56,4 @@ export const generateCSSContent = (): string => {
     @apply bg-background text-foreground;
   }
 }`;
-};
+}

@@ -1,6 +1,6 @@
 import { baseAnimations, baseColors, ChartColors, ThemeColors } from "../constants";
-import { cssVariables } from "../generators/css-variables";
 import { generateTailwindTheme } from "../generators/tailwind-theme";
+import { cssVariables } from "../index";
 
 type ColorTokens = {
   light: ThemeColors;

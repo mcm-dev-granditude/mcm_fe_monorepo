@@ -1,49 +1,16 @@
-// CommonJS version
 const fs = require("fs");
 const path = require("path");
 
 // Dynamically require the compiled index.js file
 const tokensModule = require("../index");
-const {cssVariables} = tokensModule;
 
 /**
- * Generate CSS content from the design tokens
- */
-function generateCSSContent() {
-  return `@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  :root {
-    ${Object.entries(cssVariables.light)
-  .map(([key, value]) => `${key}: ${value};`)
-  .join("\n    ")}
-  }
-
-  .dark {
-    ${Object.entries(cssVariables.dark)
-  .map(([key, value]) => `${key}: ${value};`)
-  .join("\n    ")}
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-  }
-}`;
-}
-
-/**
- * Write the CSS to a file in the package's css directory
+ * Generate CSS and write to a file
  */
 function writeCSS() {
-  const cssContent = generateCSSContent();
+  // Get CSS content (including any overrides that have been applied)
+  const cssContent = tokensModule.getCssContent();
+
   // Get the package root directory
   const packageDir = path.resolve(__dirname, "../../");
   const cssDir = path.join(packageDir, "css");
