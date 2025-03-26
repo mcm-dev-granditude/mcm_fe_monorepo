@@ -1,7 +1,8 @@
 import { useTheme } from "@/providers/theme-provider";
-import { ColorToken, getColorToken } from "@repo/tokens";
+import { ColorToken, getBrandColorToken } from "@repo/tokens";
+import { appConfig } from "@repo/config";
 
 export function useThemeColor(colorName: ColorToken): string {
   const {effectiveTheme} = useTheme();
-  return getColorToken(colorName, effectiveTheme);
+  return getBrandColorToken(appConfig.brandId, colorName, effectiveTheme);
 }

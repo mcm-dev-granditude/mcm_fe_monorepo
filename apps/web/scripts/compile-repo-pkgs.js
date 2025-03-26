@@ -16,7 +16,7 @@ import { generateBrandCSS } from "@repo/tokens";
 import { appConfig } from "@repo/config";
 
 // Generate CSS and output it
-const brandId = appConfig.appId;
+const brandId = appConfig.brandId;
 const cssContent = generateBrandCSS(brandId);
 console.log(cssContent);
 `);

@@ -1,18 +1,20 @@
-import { applyOverrides, getCssContent } from "../index";
-import { AvailableBrands, overrides } from "../brand-overrides/overrides";
+import { BrandOverrides } from "../index";
+import { BrandId, themeRegistry } from "../brands/theme-registry";
+import { generateCSSContent, generateCssVariables } from "./css-variables";
+import { getBrandColors } from "../brands/get-brand-colors";
 
-export function generateBrandCSS(brandId: AvailableBrands = "default"): string {
-  // Reset any previous overrides
-  applyOverrides({});
+const getCssVariables = (o: BrandOverrides) => {
+  const colors = getBrandColors(o);
+  return (
+    {
+      light: generateCssVariables(colors.light, colors.chart),
+      dark: generateCssVariables(colors.dark, colors.chart)
+    }
+  );
+};
 
-  switch (brandId) {
-    case "demo":
-      applyOverrides(overrides.demo);
-      break;
-    default:
-      break;
-  }
-
-  // Generate and return the CSS
-  return getCssContent();
+export function generateBrandCSS(brandId: BrandId = "default"): string {
+  const o = themeRegistry[brandId];
+  const cssVariables = getCssVariables(o);
+  return generateCSSContent(cssVariables);
 }

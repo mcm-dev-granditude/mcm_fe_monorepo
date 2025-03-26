@@ -11,14 +11,7 @@ export type BrandOverrides = {
   chart?: DeepPartial<ChartColors>;
 };
 
-// Default exports with no overrides
-let overrides: BrandOverrides = {};
-
-export function applyOverrides(brandOverrides: BrandOverrides = {}) {
-  overrides = brandOverrides;
-}
-
-export function getColors() {
+export function getBrandColors(overrides: BrandOverrides = {}) {
   return {
     light: deepmerge(baseColors.light, overrides.light || {}),
     dark: deepmerge(baseColors.dark, overrides.dark || {}),

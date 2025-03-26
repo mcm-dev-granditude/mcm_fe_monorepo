@@ -4,7 +4,7 @@ const {generateBrandCSS} = require("@repo/tokens");
 const {appConfig} = require("@repo/config");
 
 // Get the brand ID from the app config
-const brandId = appConfig.appId;
+const brandId = appConfig.brandId;
 
 // Generate the CSS for this brand
 const cssContent = generateBrandCSS(brandId);
