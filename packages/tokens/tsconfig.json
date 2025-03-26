@@ -1,20 +1,10 @@
 {
   "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "declaration": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "strict": true,
-    "target": "ES2018",
-    "module": "CommonJS",
-    "sourceMap": true,
-    "jsx": "react",
-    "baseUrl": "."
+    "outDir": "dist"
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
+    "src"
   ],
   "exclude": [
     "node_modules",

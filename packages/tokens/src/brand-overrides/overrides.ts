@@ -1,6 +1,8 @@
 import { BrandOverrides } from "../utils/override";
 
-export const testBrand: BrandOverrides = {
+export type AvailableBrands = "default" | "demo";
+
+const demoOverrides: BrandOverrides = {
   light: {
     primary: "#0088cc",
     primaryLight: "#33aadd",
@@ -16,4 +18,9 @@ export const testBrand: BrandOverrides = {
   chart: {
     "1": "#0088cc"
   }
+};
+
+export const overrides: Record<AvailableBrands, BrandOverrides> = {
+  "default": {},
+  "demo": demoOverrides
 };

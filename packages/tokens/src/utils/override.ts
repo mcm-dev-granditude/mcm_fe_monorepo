@@ -1,5 +1,5 @@
 import { baseColors, ChartColors, ThemeColors } from "../constants";
-import deepmerge from "deepmerge"; // Note: lowercase import
+import deepmerge from "deepmerge";
 
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
