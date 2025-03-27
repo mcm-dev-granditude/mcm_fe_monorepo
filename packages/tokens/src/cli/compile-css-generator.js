@@ -8,26 +8,34 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // Get the absolute path to the monorepo root
 const rootDir = path.resolve(__dirname, "../../../../");
+
 const inputFile = path.join(__dirname, "../generators/css-brand-generator.ts");
 
-// The output file will be a JS bundle that can be executed directly
-const outputFile = (outputPath) => {
-  // Make sure outputPath is relative to the monorepo root
-  const fullPath = path.isAbsolute(outputPath)
-                   ? outputPath
-                   : path.join(rootDir, outputPath);
+/**
+ * Builds the tokens bundle and outputs it to the specified path
+ * @param {string} outputPath - Full path to the output file, or directory where the bundle should be created
+ * @returns {Promise<boolean>} - Whether the build was successful
+ */
+async function buildTokensBundle(outputPath) {
+  let outfile;
 
-  // Ensure directory exists
-  const outputDir = path.dirname(fullPath);
+  // Handle both cases - if outputPath is a directory or a full file path
+  if (path.extname(outputPath) === "") {
+    // It's a directory, append the default filename
+    outfile = path.join(outputPath, "tokens-bundle.js");
+  } else {
+    // It's already a file path
+    outfile = outputPath;
+  }
+
+  // Ensure the directory exists
+  const outputDir = path.dirname(outfile);
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, {recursive: true});
   }
 
-  return path.join(outputDir, "tokens-bundle.js");
-};
+  console.log("Outputting tokens bundle to:", outfile);
 
-async function buildTokensBundle(outputPath) {
-  const outfile = outputFile(outputPath);
   try {
     await build({
       entryPoints: [inputFile],
