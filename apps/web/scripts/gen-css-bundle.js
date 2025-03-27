@@ -1,19 +1,20 @@
+import buildTokensBundle from "@repo/tokens/src/cli/compile-css-generator.js";
 import {execSync} from "child_process";
 import fs from "fs";
 import path from "path";
 import {fileURLToPath} from "url";
-import buildTokensBundle from "./compile-repo-pkgs.js";
 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const config = {
-  bundle: "tokens-bundle.js",
+  bundle: "../tokens-bundle.js",
   outputDir: "../app/styles",
   output: "globals.css"
 };
 
 // Get the absolute paths
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const bundleFile = path.join(__dirname, config.bundle);
 const outputDir = path.resolve(__dirname, config.outputDir);
 const outputFile = path.join(outputDir, config.output);
@@ -21,7 +22,8 @@ const outputFile = path.join(outputDir, config.output);
 async function main() {
   try {
     console.log("Building tokens bundle...");
-    const bundleBuilt = await buildTokensBundle();
+    // Pass the actual directory where we want to create the bundle
+    const bundleBuilt = await buildTokensBundle(__dirname);
 
     if (!bundleBuilt) {
       process.exit(1);
@@ -49,4 +51,4 @@ async function main() {
   }
 }
 
-main();
+main().then();
