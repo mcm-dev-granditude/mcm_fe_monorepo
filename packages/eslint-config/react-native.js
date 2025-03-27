@@ -50,7 +50,7 @@ export const reactNativeConfig = [
       "react-native/no-color-literals": "warn",
       "react-native/no-raw-text": [
         "warn", {
-          "skip": ["Text", "NwText"]
+          "skip": ["Text", "NwText", "NwButton"]
         }
       ],
       "react-native/no-single-element-style-arrays": "warn",

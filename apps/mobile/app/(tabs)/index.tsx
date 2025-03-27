@@ -1,10 +1,12 @@
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native";
 import { NwText } from "@/components/nw-text";
-import { Pressable } from "react-native";
-import { useTheme } from "@/providers/theme-provider";
+import { NwButton } from "@/components/ui/nw-button";
+import * as React from "react";
+import { buttonVariants, cn } from "@repo/ui";
 
 export default function HomeScreen() {
-  const {toggleTheme} = useTheme();
+  const className = cn(buttonVariants({variant: "default", size: "default", className: ""}));
+  console.log(className);
 
   return (
     <SafeAreaView className="flex-1 bg-background">
@@ -14,11 +16,12 @@ export default function HomeScreen() {
       >
         Home Screen
       </NwText>
-      <Pressable
-        onPress={toggleTheme}
+
+      <NwButton
+        id="livescore"
       >
-        <NwText variant="heading">Toggle theme</NwText>
-      </Pressable>
+        Live Score
+      </NwButton>
     </SafeAreaView>
   );
 }
