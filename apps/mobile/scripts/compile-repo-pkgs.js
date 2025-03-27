@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "../../..");
 
-// Create a temporary file that imports and uses your tokens package
+// Create a temporary file that imports and uses the tokens package
 const tempInputFile = path.join(__dirname, "temp-tokens-entry.ts");
 fs.writeFileSync(tempInputFile, `
 // Import the functions we need
