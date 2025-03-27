@@ -1,4 +1,3 @@
-// packages/tokens/src/index.ts
 import { generateTailwindTheme } from "./generators/tailwind-theme";
 import * as brandOverrides from "./brands/theme-registry";
 import { BrandId } from "./brands/theme-registry";
