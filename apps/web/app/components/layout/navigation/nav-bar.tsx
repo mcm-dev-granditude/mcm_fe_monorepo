@@ -5,7 +5,10 @@ import NavigationControls from "@/components/layout/navigation/nav-controls";
 
 export default function NavigationBar() {
   return (
-    <nav className="bg-primary text-primary-foreground from-transparent via-background/80 to-background z-20 fixed top-0 right-0 left-0 w-full h-16">
+    <nav
+      id="nav-bar"
+      className="bg-primary text-primary-foreground from-transparent via-background/80 to-background z-20 fixed top-0 right-0 left-0 w-full h-16"
+    >
       <div className="h-full w-full max-w-7xl mx-auto flex justify-between items-center p-3 text-sm">
         <div className="flex items-center gap-3 font-semibold min-w-[250px]">
           <Link

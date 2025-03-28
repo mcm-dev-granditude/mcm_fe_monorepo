@@ -25,6 +25,7 @@ export default function HomeScreen() {
       <NwWebView
         url={homeUrl}
         onMessage={handleWebViewMessage}
+        injectedJavaScript={""}
       />
     </SafeAreaView>
   );

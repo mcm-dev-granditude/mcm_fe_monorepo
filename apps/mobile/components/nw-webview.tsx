@@ -4,7 +4,8 @@ import { WebView, WebViewMessageEvent } from "react-native-webview";
 import { useTheme } from "@/providers/theme-provider";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { cn } from "@repo/ui";
-import { bridgeScript } from "@/webviews/bridge";
+import { bridgeScript } from "@/webviews/bridge-script";
+import { removeNavbarScript } from "@/webviews/remove-navbar-script";
 import { linkHandlerScript } from "@/webviews/link-handler-script";
 
 
@@ -29,6 +30,7 @@ export function NwWebView({
 
   const defaultInjectedJs = `
     ${bridgeScript(effectiveTheme)}
+    ${removeNavbarScript}
     ${linkHandlerScript}
     true;
   `;
@@ -50,10 +52,10 @@ export function NwWebView({
         containerStyle={styles.container}
         sharedCookiesEnabled={true}
         allowsBackForwardNavigationGestures
-        pullToRefreshEnabled
         cacheEnabled={true}
         domStorageEnabled={true}
         javaScriptEnabled={true}
+        pullToRefreshEnabled={false}
       />
       {isLoading && (
         <View
