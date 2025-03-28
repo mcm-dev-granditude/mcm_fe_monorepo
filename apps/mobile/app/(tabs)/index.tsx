@@ -3,10 +3,10 @@ import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { NwText } from "@/components/nw-text";
 import { NwWebView } from "@/components/nw-webview";
+import { getWebViewUrl } from "@/config/web-view.config";
 
 export default function HomeScreen() {
-  // Directly use the IP that works for your physical device
-  const homeUrl = "http://192.168.8.183:3000/";
+  const homeUrl = getWebViewUrl("home");
 
   // Handle messages from WebView
   const handleWebViewMessage = (event: any) => {

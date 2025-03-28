@@ -1,5 +1,3 @@
-// packages/config/src/webview-config.ts
-
 export interface WebViewConfig {
   baseUrl: string;
   routes: {
@@ -12,7 +10,7 @@ export interface WebViewConfig {
 // Directly use the IP that works for your physical device
 const getBaseUrl = (): string => {
   if (process.env.NODE_ENV === "production") {
-    return "https://matchcentermedia.vercel.app";
+    return process.env.VERCEL_URL || "";
   }
 
   // Actual IP address for physical devices
