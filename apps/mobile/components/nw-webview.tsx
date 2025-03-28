@@ -1,6 +1,12 @@
 import React, { useRef, useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
+import { useTheme } from "@/providers/theme-provider";
+import { useThemeColor } from "@/hooks/use-theme-color";
+import { cn } from "@repo/ui";
+import { bridgeScript } from "@/webviews/bridge";
+import { linkHandlerScript } from "@/webviews/link-handler-script";
+
 
 interface NwWebViewProps {
   url: string;
@@ -11,40 +17,33 @@ interface NwWebViewProps {
 
 export function NwWebView({
                             url,
-                            // injectedJavaScript,
+                            injectedJavaScript,
                             onMessage,
                             className = ""
                           }: NwWebViewProps) {
   const [isLoading, setIsLoading] = useState(true);
   const webViewRef = useRef<WebView>(null);
-  // const {colorScheme} = useColorScheme();
-  // const backgroundColor = useThemeColor("background");
+  const {effectiveTheme} = useTheme();
+  const backgroundColor = useThemeColor("background");
 
-  // // Set up the bridge to handle messages from web to native
-  // const defaultInjectedJs = `
-  //   window.ReactNativeBridge = {
-  //     postMessage: (data) => {
-  //       window.ReactNativeWebView.postMessage(JSON.stringify(data));
-  //     },
-  //     getColorScheme: () => "${colorScheme}"
-  //   };
-  //
-  //   // Inject color scheme class for Tailwind
-  //   document.documentElement.classList.add('${colorScheme}');
-  //   true;
-  // `;
 
-  // const combinedJs = injectedJavaScript
-  //   ? `${defaultInjectedJs}\n${injectedJavaScript}`
-  //   : defaultInjectedJs;
+  const defaultInjectedJs = `
+    ${bridgeScript(effectiveTheme)}
+    ${linkHandlerScript}
+    true;
+  `;
+
+  const combinedJs = injectedJavaScript
+    ? `${defaultInjectedJs}\n$${injectedJavaScript}`
+    : defaultInjectedJs;
 
   return (
-    <View className={`flex-1 ${className}`}>
+    <View className={cn("flex-1", className)}>
       <WebView
         ref={webViewRef}
         source={{uri: url}}
-        // injectedJavaScript={combinedJs}
-        // style={{backgroundColor}}
+        injectedJavaScript={combinedJs}
+        style={{backgroundColor}}
         onMessage={onMessage}
         onLoadStart={() => setIsLoading(true)}
         onLoadEnd={() => setIsLoading(false)}
@@ -63,7 +62,7 @@ export function NwWebView({
         >
           <ActivityIndicator
             size="large"
-            color="#1971c2"
+            className="text-primary"
           />
         </View>
       )}
