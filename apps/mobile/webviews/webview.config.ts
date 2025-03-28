@@ -12,8 +12,8 @@ export interface WebViewRegistry {
 export const webViewRegistry: WebViewRegistry = {
   baseUrl: getWebServerUrl(),
   routes: {
-    home: "/",
-    news: "/news"
+    home: "embedded/",
+    news: "embedded/news"
   }
 };
 

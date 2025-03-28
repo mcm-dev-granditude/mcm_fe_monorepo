@@ -1,4 +1,5 @@
 import { cn } from "@repo/ui";
+import React from "react";
 
 interface PageWrapperProps {
   className?: string,

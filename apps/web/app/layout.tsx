@@ -2,9 +2,9 @@ import { baseMetadata } from "@/lib/seo";
 import { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import { ReactNode } from "react";
-import "./styles/globals.css";
-import RootLayoutWrapper from "@/components/layout/root-layout-wrapper";
+import "@/app/styles/globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { Providers } from "@/app/providers/providers";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -36,7 +36,9 @@ export default function RootLayout({
     >
     <body className="bg-background text-foreground">
     <Toaster />
-    <RootLayoutWrapper>{children}</RootLayoutWrapper>
+    <Providers>
+      {children}
+    </Providers>
     </body>
     </html>
   );

@@ -1,13 +1,15 @@
 import NavigationBar from "@/app/components/layout/navigation/nav-bar";
-import { Providers } from "@/app/providers/providers";
+import React from "react";
 
-export default function RootLayoutWrapper({children}: React.PropsWithChildren) {
+interface RootLayoutWrapperProps extends React.PropsWithChildren {
+  withNav?: boolean;
+}
+
+export default function RootLayoutWrapper({children, withNav}: RootLayoutWrapperProps) {
   return (
-    <Providers>
-      <div className="relative min-h-screen flex flex-col">
-        <NavigationBar />
-        <main className="flex-1 flex w-full max-w-7xl mx-auto p-5 pt-16">{children}</main>
-      </div>
-    </Providers>
+    <div className="relative min-h-screen flex flex-col">
+      {withNav && <NavigationBar />}
+      <main className={`flex-1 flex w-full max-w-7xl mx-auto p-5 ${withNav ? "pt-16" : ""}`}>{children}</main>
+    </div>
   );
 }
