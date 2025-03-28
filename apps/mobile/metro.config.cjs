@@ -21,19 +21,27 @@ config.resolver.nodeModulesPaths = [
 // 3. Disable hierarchical lookup to ensure consistent resolution
 config.resolver.disableHierarchicalLookup = true;
 
-// 4. Add custom resolver for workspace packages
+// 4. Add custom resolver for workspace packages and WebView dependencies
 config.resolver.extraNodeModules = new Proxy(
   {},
   {
     get: (target, name) => {
       const packageName = String(name);
 
+      // Ensure react and react-native are always resolved from the mobile app
+      // This is important for WebView compatibility
+      if (packageName === "react" || packageName === "react-native") {
+        return path.join(projectRoot, "node_modules", packageName);
+      }
+
       // Handle workspace packages
       if (packageName.startsWith("@repo/")) {
+        const namePart = packageName.split("/")[1];
+
         const packagePath = path.join(
           workspaceRoot,
           "packages",
-          packageName.replace("@repo/", "")
+          namePart
         );
 
         if (require("fs").existsSync(packagePath)) {
@@ -47,7 +55,12 @@ config.resolver.extraNodeModules = new Proxy(
   }
 );
 
-// Apply NativeWind transformation
+// 5. Ensure we're not excluding any important file types
+// This helps with loading assets in WebViews
+config.resolver.assetExts = config.resolver.assetExts || [];
+config.resolver.assetExts.push("db", "mp3", "ttf", "obj", "png", "jpg", "jpeg", "svg");
+
+// 6. Apply NativeWind transformation
 const nativeWindConfig = withNativeWind(config, {input: "./app/styles/globals.css"});
 
 module.exports = nativeWindConfig;

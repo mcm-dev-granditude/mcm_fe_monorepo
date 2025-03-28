@@ -1,13 +1,13 @@
 import React, { useRef, useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { WebView, WebViewMessageEvent } from "react-native-webview";
 import { useColorScheme } from "nativewind";
-import { WebView } from "react-native-webview";
 import { useThemeColor } from "@/hooks/use-theme-color";
 
 interface NwWebViewProps {
   url: string;
   injectedJavaScript?: string;
-  onMessage?: (event: any) => void;
+  onMessage?: (event: WebViewMessageEvent) => void;
   className?: string;
 }
 
@@ -56,6 +56,7 @@ export function NwWebView({
         pullToRefreshEnabled
         cacheEnabled={true}
         domStorageEnabled={true}
+        javaScriptEnabled={true}
       />
       {isLoading && (
         <View

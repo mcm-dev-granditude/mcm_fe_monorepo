@@ -1,27 +1,64 @@
-import { SafeAreaView } from "react-native";
+import React from "react";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { NwText } from "@/components/nw-text";
-import { NwButton } from "@/components/ui/nw-button";
-import * as React from "react";
-import { buttonVariants, cn } from "@repo/ui";
+import { NwWebView } from "@/components/nw-webview";
 
 export default function HomeScreen() {
-  const className = cn(buttonVariants({variant: "default", size: "default", className: ""}));
-  console.log(className);
+  // Directly use the IP that works for your physical device
+  const homeUrl = "http://192.168.8.183:3000/";
+
+  // Handle messages from WebView
+  const handleWebViewMessage = (event: any) => {
+    try {
+      const data = JSON.parse(event.nativeEvent.data);
+      console.log("Message from WebView:", data);
+
+      // Handle different message types
+      if (data.type === "navigation") {
+        // Handle navigation requests
+      }
+    } catch (error) {
+      console.error("Error parsing WebView message:", error);
+    }
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-background">
-      <NwText
-        variant="heading"
-        className="text-foreground p-4"
-      >
-        Home Screen
-      </NwText>
+      <View className="flex-1">
+        <View className="p-2 border-b border-border">
+          <NwText
+            variant="heading"
+            className="text-foreground"
+          >Home</NwText>
+        </View>
 
-      <NwButton
-        id="livescore"
-      >
-        Live Score
-      </NwButton>
+        <NwWebView
+          url={homeUrl}
+          onMessage={handleWebViewMessage}
+          injectedJavaScript={`
+            // Handle links to keep them in the WebView
+            document.addEventListener('click', function(e) {
+              var target = e.target;
+              while (target && target.tagName !== 'A') {
+                target = target.parentNode;
+              }
+              if (target && target.tagName === 'A') {
+                e.preventDefault();
+                var href = target.getAttribute('href');
+                if (href && !href.startsWith('http')) {
+                  window.ReactNativeBridge.postMessage({
+                    type: 'navigation',
+                    payload: { path: href }
+                  });
+                } else if (href) {
+                  window.location.href = href;
+                }
+              }
+            }, true);
+          `}
+        />
+      </View>
     </SafeAreaView>
   );
 }
