@@ -3,10 +3,12 @@ import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { NwText } from "@/components/nw-text";
 import { NwWebView } from "@/components/nw-webview";
-import { getWebViewUrl } from "@/config/web-view.config";
+import { getWebViewUrl } from "@/config/webview.config";
 
 export default function HomeScreen() {
   const homeUrl = getWebViewUrl("home");
+
+  console.log("Home URL:", getWebViewUrl("home"));
 
   // Handle messages from WebView
   const handleWebViewMessage = (event: any) => {

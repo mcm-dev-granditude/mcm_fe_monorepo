@@ -1,8 +1,6 @@
 import React, { useRef, useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
-import { useColorScheme } from "nativewind";
-import { useThemeColor } from "@/hooks/use-theme-color";
 
 interface NwWebViewProps {
   url: string;
@@ -13,44 +11,44 @@ interface NwWebViewProps {
 
 export function NwWebView({
                             url,
-                            injectedJavaScript,
+                            // injectedJavaScript,
                             onMessage,
                             className = ""
                           }: NwWebViewProps) {
   const [isLoading, setIsLoading] = useState(true);
   const webViewRef = useRef<WebView>(null);
-  const {colorScheme} = useColorScheme();
-  const backgroundColor = useThemeColor("background");
+  // const {colorScheme} = useColorScheme();
+  // const backgroundColor = useThemeColor("background");
 
-  // Setup the bridge to handle messages from web to native
-  const defaultInjectedJs = `
-    window.ReactNativeBridge = {
-      postMessage: (data) => {
-        window.ReactNativeWebView.postMessage(JSON.stringify(data));
-      },
-      getColorScheme: () => "${colorScheme}"
-    };
-    
-    // Inject color scheme class for Tailwind
-    document.documentElement.classList.add('${colorScheme}');
-    true;
-  `;
+  // // Set up the bridge to handle messages from web to native
+  // const defaultInjectedJs = `
+  //   window.ReactNativeBridge = {
+  //     postMessage: (data) => {
+  //       window.ReactNativeWebView.postMessage(JSON.stringify(data));
+  //     },
+  //     getColorScheme: () => "${colorScheme}"
+  //   };
+  //
+  //   // Inject color scheme class for Tailwind
+  //   document.documentElement.classList.add('${colorScheme}');
+  //   true;
+  // `;
 
-  const combinedJs = injectedJavaScript
-    ? `${defaultInjectedJs}\n${injectedJavaScript}`
-    : defaultInjectedJs;
+  // const combinedJs = injectedJavaScript
+  //   ? `${defaultInjectedJs}\n${injectedJavaScript}`
+  //   : defaultInjectedJs;
 
   return (
     <View className={`flex-1 ${className}`}>
       <WebView
         ref={webViewRef}
         source={{uri: url}}
-        injectedJavaScript={combinedJs}
+        // injectedJavaScript={combinedJs}
+        // style={{backgroundColor}}
         onMessage={onMessage}
         onLoadStart={() => setIsLoading(true)}
         onLoadEnd={() => setIsLoading(false)}
-        style={{backgroundColor}}
-        containerStyle={{flexGrow: 1}}
+        containerStyle={styles.container}
         sharedCookiesEnabled={true}
         allowsBackForwardNavigationGestures
         pullToRefreshEnabled
@@ -72,3 +70,9 @@ export function NwWebView({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});

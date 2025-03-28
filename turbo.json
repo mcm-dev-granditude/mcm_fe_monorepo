@@ -5,7 +5,10 @@
   ],
   "globalEnv": [
     "VERCEL_URL",
-    "EXPO_OS"
+    "EXPO_OS",
+    "NODE_ENV",
+    "EXPO_PUBLIC_VERCEL_URL",
+    "EXPO_PUBLIC_LOCAL_SERVER_IP"
   ],
   "ui": "tui",
   "tasks": {
