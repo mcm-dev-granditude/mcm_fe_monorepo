@@ -5,6 +5,7 @@ import { useTheme } from "@/providers/theme-provider";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { cn } from "@repo/ui";
 import { bridgeScript, linkHandlerScript, noBounceScript, viewportScript } from "@/webviews";
+import { REQUESTED_FROM } from "@repo/config";
 
 
 interface NwWebViewProps {
@@ -42,7 +43,7 @@ export function NwWebView({
     <View className={cn("flex-1", className)}>
       <WebView
         ref={webViewRef}
-        source={{uri: url}}
+        source={{uri: url, headers: {"X-Requested-From": REQUESTED_FROM}}}
         injectedJavaScript={combinedJs}
         style={{backgroundColor}}
         onMessage={onMessage}

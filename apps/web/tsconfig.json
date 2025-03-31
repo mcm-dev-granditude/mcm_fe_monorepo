@@ -20,9 +20,6 @@
       "@/*": [
         "./*"
       ],
-      "@/lib/*": [
-        "app/lib/*"
-      ],
       "@/components/*": [
         "app/components/*"
       ],
