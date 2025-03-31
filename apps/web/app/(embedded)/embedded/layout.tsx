@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { ReactNode } from "react";
 import RootLayoutWrapper from "@/components/layout/root-layout-wrapper";
+import PageWrapper from "@/components/layout/page-wrapper";
 
 export const metadata: Metadata = {
   title: "Hemsida",
@@ -17,6 +18,10 @@ export default function EmbeddedLayout({
   children: ReactNode;
 }>) {
   return (
-    <RootLayoutWrapper>{children}</RootLayoutWrapper>
+    <RootLayoutWrapper>
+      <PageWrapper className="min-h-auto pb-6">
+        {children}
+      </PageWrapper>
+    </RootLayoutWrapper>
   );
 }
