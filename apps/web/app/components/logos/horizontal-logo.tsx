@@ -1,5 +1,3 @@
-import logo from "./logo.svg";
-import { Box } from "lucide-react";
 import { cn } from "@repo/ui";
 import Image from "next/image";
 
@@ -9,11 +7,14 @@ interface LogoProps {
 
 export function HorizontalLogo({className}: LogoProps) {
   return (
-    <Box className={cn(className)}>
+    <div className={cn(className)}>
       <Image
-        src={logo}
+        width={180}
+        height={60}
+        unoptimized
+        src={"/logo.svg"}
         alt="Logo"
       />
-    </Box>
+    </div>
   );
 }

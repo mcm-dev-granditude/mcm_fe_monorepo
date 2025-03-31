@@ -2,6 +2,7 @@ import { NavItems } from "@/app/components/layout/navigation/nav-items";
 import Link from "next/link";
 import { NavigationBarClient } from "@/components/layout/navigation/nav-bar-client";
 import NavigationControls from "@/components/layout/navigation/nav-controls";
+import { HorizontalLogo } from "@/components/logos/horizontal-logo";
 
 export default function NavigationBar() {
   return (
@@ -9,13 +10,13 @@ export default function NavigationBar() {
       id="nav-bar"
       className="bg-primary text-primary-foreground from-transparent via-background/80 to-background z-20 fixed top-0 right-0 left-0 w-full h-16"
     >
-      <div className="h-full w-full max-w-7xl mx-auto flex justify-between items-center p-3 text-sm">
-        <div className="flex items-center gap-3 font-semibold min-w-[250px]">
+      <div className="h-full w-full max-w-7xl mx-auto flex justify-between items-center p-3 text-sm ">
+        <div className="flex items-center gap-3 font-semibold min-w-[250px] ">
           <Link
-            className="hidden md:block"
+            className="block"
             href={"/"}
           >
-            Logo
+            <HorizontalLogo className="w-[120px] md:w-[180px]" />
           </Link>
         </div>
 
