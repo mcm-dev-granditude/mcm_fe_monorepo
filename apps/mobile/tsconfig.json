@@ -14,6 +14,18 @@
       ],
       "@repo/ui/*": [
         "../../packages/ui/src/*"
+      ],
+      "@repo/config": [
+        "../../packages/config"
+      ],
+      "@repo/config/*": [
+        "../../packages/config/*"
+      ],
+      "@repo/tokens": [
+        "../../packages/tokens"
+      ],
+      "@repo/tokens/*": [
+        "../../packages/tokens/*"
       ]
     }
   },
