@@ -9,7 +9,7 @@ import "react-native-reanimated";
 
 import SpaceMonoFont from "@/assets/fonts/SpaceMono-Regular.ttf";
 import Providers from "@/providers/providers";
-import NwStatusBar from "@/components/layout/NwStatusBar";
+import NwStatusBar from "@/components/layout/nw-status-bar";
 
 void SplashScreen.preventAutoHideAsync();
 

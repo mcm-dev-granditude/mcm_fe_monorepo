@@ -1,10 +1,11 @@
 import React, { useCallback, useRef, useState } from "react";
-import { ActivityIndicator, Linking, StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
 import { useTheme } from "@/providers/theme-provider";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { cn } from "@repo/ui";
 import { bridgeScript, linkHandlerScript, noBounceScript, viewportScript } from "@/lib/webviews";
+import { BrowserModal } from "@/components/layout/browser-modal";
 
 interface NwWebViewProps {
   url: string;
@@ -24,6 +25,10 @@ export function NwWebView({
   const webViewRef = useRef<WebView>(null);
   const {effectiveTheme} = useTheme();
   const backgroundColor = useThemeColor("background");
+
+  // State for in-app browser modal
+  const [browserModalVisible, setBrowserModalVisible] = useState(false);
+  const [externalUrl, setExternalUrl] = useState("");
 
   // Function to append app parameter to URLs
   function appendAppParam(urlToModify: string): string {
@@ -57,7 +62,6 @@ export function NwWebView({
   const handleWebViewMessage = useCallback(async (event: WebViewMessageEvent) => {
     try {
       const data = JSON.parse(event.nativeEvent.data);
-      console.log("Message from WebView:", data);
 
       if (data.type === "navigation") {
         if (data.url) {
@@ -68,9 +72,10 @@ export function NwWebView({
           setCurrentUrl(appendAppParam(fullUrl));
         }
       } else if (data.type === "externalLink") {
-        const externalUrl = data.url || (data.payload && data.payload.url);
-        if (externalUrl) {
-          await Linking.openURL(externalUrl);
+        const extUrl = data.url || (data.payload && data.payload.url);
+        if (extUrl) {
+          setExternalUrl(extUrl);
+          setBrowserModalVisible(true);
         }
       }
 
@@ -109,10 +114,16 @@ export function NwWebView({
         >
           <ActivityIndicator
             size="large"
-            className="text-primary"
+            className="text-secondary"
           />
         </View>
       )}
+
+      <BrowserModal
+        isVisible={browserModalVisible}
+        url={externalUrl}
+        onClose={() => setBrowserModalVisible(false)}
+      />
     </View>
   );
 }
