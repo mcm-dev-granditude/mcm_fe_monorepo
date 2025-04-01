@@ -11,7 +11,7 @@ document.addEventListener("click", function(e) {
     let href = target.getAttribute("href");
     
     // Handle internal navigation
-    if (href && !href.startsWith("http")) {
+    if (href && !href.startsWith("http") && !href.startsWith("//")) {
       // Check if it's already an embedded path
       if (!href.startsWith("/embedded/")) {
         // Convert to embedded path
@@ -22,21 +22,14 @@ document.addEventListener("click", function(e) {
           type: "navigation",
           payload: { path: embeddedPath }
         });
-        
-        // Navigate within the WebView
-        window.location.href = embeddedPath;
       } else {
-        // Already an embedded path
         window.ReactNativeBridge.postMessage({
           type: "navigation",
           payload: { path: href }
         });
-        
-        // Navigate within the WebView
-        window.location.href = href;
       }
     } else if (href) {
-      // External link - decide if you want to open it in the WebView or external browser
+      // External link - ONLY send message, don't navigate in WebView
       window.ReactNativeBridge.postMessage({
         type: "externalLink",
         payload: { url: href }

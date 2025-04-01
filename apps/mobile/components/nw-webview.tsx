@@ -1,18 +1,10 @@
-// components/nw-webview.tsx
 import React, { useCallback, useRef, useState } from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
-import { WebView, WebViewMessageEvent, WebViewNavigation } from "react-native-webview";
+import { ActivityIndicator, Linking, StyleSheet, View } from "react-native";
+import { WebView, WebViewMessageEvent } from "react-native-webview";
 import { useTheme } from "@/providers/theme-provider";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { cn } from "@repo/ui";
-import { REQUESTED_FROM } from "@repo/config";
-import {
-  bridgeScript,
-  handleNavigationMessage,
-  linkHandlerScript,
-  noBounceScript,
-  viewportScript
-} from "@/lib/webviews";
+import { bridgeScript, linkHandlerScript, noBounceScript, viewportScript } from "@/lib/webviews";
 
 interface NwWebViewProps {
   url: string;
@@ -28,10 +20,27 @@ export function NwWebView({
                             className = ""
                           }: NwWebViewProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const [currentUrl, setCurrentUrl] = useState(url);
+  const [currentUrl, setCurrentUrl] = useState(appendAppParam(url));
   const webViewRef = useRef<WebView>(null);
   const {effectiveTheme} = useTheme();
   const backgroundColor = useThemeColor("background");
+
+  // Function to append app parameter to URLs
+  function appendAppParam(urlToModify: string): string {
+    try {
+      const urlObj = new URL(urlToModify);
+
+      // Only add the param for embedded routes
+      if (urlObj.pathname.startsWith("/embedded")) {
+        urlObj.searchParams.set("app", "true");
+      }
+
+      return urlObj.toString();
+    } catch (error) {
+      console.error("Error appending app param to URL:", error);
+      return urlToModify;
+    }
+  }
 
   const defaultInjectedJs = `
     ${bridgeScript(effectiveTheme)}
@@ -45,46 +54,43 @@ export function NwWebView({
     ? `${defaultInjectedJs}\n${injectedJavaScript}`
     : defaultInjectedJs;
 
-  const handleWebViewMessage = useCallback((event: WebViewMessageEvent) => {
+  const handleWebViewMessage = useCallback(async (event: WebViewMessageEvent) => {
     try {
       const data = JSON.parse(event.nativeEvent.data);
       console.log("Message from WebView:", data);
 
-      // Handle navigation messages
       if (data.type === "navigation") {
-        handleNavigationMessage(data, (newUrl) => {
-          // Update the source URL - this will cause WebView to navigate
-          setCurrentUrl(newUrl);
-          // No need to call a method on the ref, the source prop update will trigger navigation
-        });
+        if (data.url) {
+          setCurrentUrl(appendAppParam(data.url));
+        } else if (data.payload && data.payload.path) {
+          const baseUrl = new URL(currentUrl).origin;
+          const fullUrl = `${baseUrl}${data.payload.path}`;
+          setCurrentUrl(appendAppParam(fullUrl));
+        }
+      } else if (data.type === "externalLink") {
+        const externalUrl = data.url || (data.payload && data.payload.url);
+        if (externalUrl) {
+          await Linking.openURL(externalUrl);
+        }
       }
 
-      // Call the original onMessage if provided
-      if (onMessage) {
-        onMessage(event);
-      }
-    } catch (error) {
-      console.error("Error parsing WebView message:", error);
+      onMessage?.(event);
+    } catch (e) {
+      // todo -- Error in toast
+      console.error("Error parsing WebView message:", e);
     }
-  }, [onMessage]);
-
-  // Handle navigation state changes
-  const onNavigationStateChange = (navState: WebViewNavigation) => {
-    // You can track navigation state changes here if needed
-    console.log("Navigation state changed:", navState.url);
-  };
+  }, [onMessage, currentUrl]);
 
   return (
     <View className={cn("flex-1", className)}>
       <WebView
         ref={webViewRef}
-        source={{uri: currentUrl, headers: {"X-Requested-From": REQUESTED_FROM}}}
+        source={{uri: currentUrl}}
         injectedJavaScript={combinedJs}
         style={{backgroundColor}}
         onMessage={handleWebViewMessage}
         onLoadStart={() => setIsLoading(true)}
         onLoadEnd={() => setIsLoading(false)}
-        onNavigationStateChange={onNavigationStateChange}
         containerStyle={styles.container}
         sharedCookiesEnabled={true}
         allowsBackForwardNavigationGestures

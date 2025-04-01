@@ -1,1 +1,0 @@
-export const REQUESTED_FROM = "MCM-MOBILE";

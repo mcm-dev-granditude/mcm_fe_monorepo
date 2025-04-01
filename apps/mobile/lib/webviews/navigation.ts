@@ -17,7 +17,7 @@ export const createNavigationMessage = (
 });
 
 export const handleNavigationMessage = (
-  data: any,
+  data: NavigationMessage,
   navigate: (url: string) => void
 ): void => {
   if (data.type === "navigation" && data.route) {

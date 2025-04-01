@@ -1,14 +1,12 @@
-// lib/middleware/embedded.ts
 import { NextRequest, NextResponse } from "next/server";
-import { REQUESTED_FROM } from "@repo/config";
 
 export function embeddedRouteMiddleware(request: NextRequest) {
-  const {pathname} = request.nextUrl;
+  const {pathname, searchParams} = request.nextUrl;
 
   if (pathname.startsWith("/embedded")) {
-    const requestedFrom = request.headers.get("x-requested-from");
+    const isApp = searchParams.has("app");
 
-    if (requestedFrom !== REQUESTED_FROM) {
+    if (!isApp) {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
