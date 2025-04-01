@@ -9,14 +9,16 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "icon": "./assets/images/icon.png",
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.mcm.matchcentermedia",
+      "icon": "./assets/images/icon.png"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.mcm.matchcentermedia"
     },
     "web": {
       "bundler": "metro",

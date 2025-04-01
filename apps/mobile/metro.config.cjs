@@ -1,5 +1,6 @@
 const {getDefaultConfig} = require("expo/metro-config");
 const {withNativeWind} = require("nativewind/metro");
+const {wrapWithReanimatedMetroConfig} = require("react-native-reanimated/metro-config");
 const path = require("path");
 
 // Find the project and workspace directories
@@ -63,4 +64,7 @@ config.resolver.assetExts.push("db", "mp3", "ttf", "obj", "png", "jpg", "jpeg", 
 // 6. Apply NativeWind transformation
 const nativeWindConfig = withNativeWind(config, {input: "./app/styles/globals.css"});
 
-module.exports = nativeWindConfig;
+// Apply Reanimated transformation (must be last)
+const finalConfig = wrapWithReanimatedMetroConfig(nativeWindConfig);
+
+module.exports = finalConfig;
