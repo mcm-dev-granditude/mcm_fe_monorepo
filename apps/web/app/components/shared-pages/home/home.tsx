@@ -1,5 +1,4 @@
 import PageWrapper from "@/components/layout/page-wrapper";
-import DynamicRender from "@/components/shared-pages/dynamic-render";
 
 export default function Home({className}: {className?: string}) {
   return (
@@ -40,8 +39,6 @@ export default function Home({className}: {className?: string}) {
         uncertainty, guided only by the flickering lantern of our stubborn determination. Such is the nature of our
         collective journey through the nonsensical tapestry we have woven for ourselves.
       </p>
-
-      <DynamicRender />
     </PageWrapper>
   );
 }
