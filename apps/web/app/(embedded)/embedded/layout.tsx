@@ -4,7 +4,6 @@ import RootLayoutWrapper from "@/components/layout/root-layout-wrapper";
 import PageWrapper from "@/components/layout/page-wrapper";
 
 export const metadata: Metadata = {
-  title: "Hemsida",
   robots: {
     index: false,
     follow: false

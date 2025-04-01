@@ -1,9 +1,14 @@
 import { FC } from "react";
 import NewsDetail from "@/components/shared-pages/news/news-detail";
+import { Metadata } from "next";
 
 interface PageProps {
   params: Promise<{slug: string}>;
 }
+
+export const metadata: Metadata = {
+  title: "Nyheter"
+};
 
 const Page: FC<PageProps> = async ({params}) => {
   const p = await params;

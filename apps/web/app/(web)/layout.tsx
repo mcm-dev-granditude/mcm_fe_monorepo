@@ -5,8 +5,7 @@ import RootLayoutWrapper from "@/components/layout/root-layout-wrapper";
 import PageWrapper from "@/components/layout/page-wrapper";
 
 export const metadata: Metadata = {
-  ...baseMetadata,
-  title: "Hemsida"
+  ...baseMetadata
 };
 
 
