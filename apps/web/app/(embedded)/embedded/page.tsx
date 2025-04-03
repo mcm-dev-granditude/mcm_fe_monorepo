@@ -8,6 +8,6 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <Home />
+    <Home className="min-h-auto pb-6" />
   );
 }

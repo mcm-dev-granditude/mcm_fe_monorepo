@@ -8,13 +8,20 @@
     "EXPO_OS",
     "NODE_ENV",
     "EXPO_PUBLIC_VERCEL_URL",
-    "EXPO_PUBLIC_LOCAL_SERVER_IP"
+    "EXPO_PUBLIC_LOCAL_SERVER_IP",
+    "CONTENTFUL_SPACE_ID",
+    "CONTENTFUL_ACCESS_TOKEN",
+    "CONTENTFUL_ENVIRONMENT"
   ],
-  "ui": "tui",
-  "tasks": {
+  "pipeline": {
     "build": {
       "dependsOn": [
         "^build"
+      ],
+      "env": [
+        "CONTENTFUL_SPACE_ID",
+        "CONTENTFUL_ACCESS_TOKEN",
+        "CONTENTFUL_ENVIRONMENT"
       ],
       "inputs": [
         "$TURBO_DEFAULT$",
@@ -40,7 +47,12 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "dependsOn": []
+      "dependsOn": [],
+      "env": [
+        "CONTENTFUL_SPACE_ID",
+        "CONTENTFUL_ACCESS_TOKEN",
+        "CONTENTFUL_ENVIRONMENT"
+      ]
     },
     "start": {
       "cache": false,

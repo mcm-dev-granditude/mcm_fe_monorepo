@@ -12,9 +12,12 @@ export const buttonVariants = cva(
           " active:bg-surface/80",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 active:bg-secondary/80",
         ghost: "hover:bg-surface hover:text-foreground active:bg-primary/80",
-        link: "text-foreground underline-offset-4 hover:underline"
+        link: "text-foreground underline-offset-4 hover:underline",
+        "mcm-main": "w-fit font-bold text-base md:text-xl text-center text-primary-foreground rounded-lg bg-primary" +
+          " px-10 py-4 md:py-6 z-10 hover:bg-primary-light transition-colors max-w-auto"
       },
       size: {
+        "no-size": "",
         default: "px-4 h-16",
         sm: "h-9 rounded-md px-3",
         lg: "rounded-md px-8 h-20",
