@@ -8,6 +8,7 @@ import {
   TypeLandingBlockSkeleton
 } from "@repo/config/contentful";
 import { Button } from "@/components/ui/button";
+import FullWidthSection from "@/components/layout/full-width-section";
 
 
 export default function LandingBlock({blockData}: ContentfulBlockProps<TypeLandingBlockSkeleton>) {
@@ -24,7 +25,10 @@ export default function LandingBlock({blockData}: ContentfulBlockProps<TypeLandi
   const buttonTextUppercase = safeText(buttonText).toUpperCase();
 
   return (
-    <section className="relative w-full">
+    <FullWidthSection
+      id="fw-section"
+      className="bg-primary"
+    >
       <div
         className="flex flex-col justify-center items-center w-full h-[70vh] md:h-[80vh] bg-no-repeat bg-cover bg-center"
         style={{
@@ -51,6 +55,6 @@ export default function LandingBlock({blockData}: ContentfulBlockProps<TypeLandi
           </Button>
         </div>
       </div>
-    </section>
+    </FullWidthSection>
   );
 }

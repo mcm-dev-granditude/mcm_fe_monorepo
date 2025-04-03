@@ -37,8 +37,6 @@ export async function getContentfulPage(slug: string): Promise<ContentfulPage | 
       include: 10
     });
 
-    console.dir(entries.errors, {depth: 4});
-
     if (entries.items.length === 0) {
       return null;
     }
@@ -81,8 +79,7 @@ export async function getAllContentfulSlugs(): Promise<string[]> {
     });
 
     return entries.items.map(item => {
-      const slug = item.fields.slug as string;
-      return slug === "home" ? "/" : slug;
+      return item.fields.slug as string;
     });
   } catch (error) {
     console.error("Error fetching slugs from Contentful:", error);

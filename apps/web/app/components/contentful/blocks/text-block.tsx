@@ -1,6 +1,3 @@
-// components/blocks/TextBlock.tsx
-
-
 import { ContentfulBlockProps, getAssetUrl, TypeTextBlockSkeleton } from "@repo/config/contentful";
 
 export default function TextBlock({blockData}: ContentfulBlockProps<TypeTextBlockSkeleton>) {
