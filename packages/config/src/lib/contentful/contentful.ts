@@ -13,25 +13,24 @@ const graphqlClient = new GraphQLClient(
 );
 
 
-// // Query to fetch all page slugs for static path generation
-// export async function fetchAllPageSlugs() {
-//   const query = `
-//     query {
-//       pageCollection {
-//         items {
-//           slug
-//         }
-//       }
-//     }
-//   `;
-//
-//   const response = await graphqlClient.request(query);
-//   return response.pageCollection.items.map((page: {slug: string}) => page.slug);
-// }
+export async function fetchAllPageSlugs() {
+  const query = `
+    query GetContenfulPageBySlug {
+  contentPageCollection(where: { excludeFromSiteBuild_not: true }) {
+    items {
+      slug
+    }
+  }
+}
+  `;
+
+  const response = await graphqlClient.request(query);
+  return response.pageCollection.items.map((page: {slug: string}) => page.slug);
+}
 
 export async function getContentfulPage(slug: string) {
   const query = `
-query GetContentPage($slug: String!) {
+query GetContentfulPage($slug: String!) {
   contentPageCollection(where: {slug: $slug}, limit: 1) {
     items {
       title
