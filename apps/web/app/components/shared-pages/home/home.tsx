@@ -1,19 +1,14 @@
 import { getContentfulPage } from "@repo/config/contentful";
 import BlockRenderer from "@/components/contentful/block-renderer";
 import ScrollToTop from "@/components/common/scroll-to-top";
-import ContentfulPageNotFound from "@/components/common/contentful-page-not-found";
 import PageWrapper from "@/components/layout/page-wrapper";
+import { notFound } from "next/navigation";
 
 export default async function HomePage({className}: {className?: string}) {
   const page = await getContentfulPage("/");
 
   if (!page) {
-    return (
-      <ContentfulPageNotFound
-        title="Homepage"
-        slug="/"
-      />
-    );
+    return notFound();
   }
 
   return (
