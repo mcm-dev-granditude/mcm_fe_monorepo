@@ -1,11 +1,15 @@
 import { ContentfulBlockProps, getAssetUrl, TypeTextBlockSkeleton } from "@repo/config/contentful";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { Document } from "@contentful/rich-text-types";
 
 export default function TextBlock({blockData}: ContentfulBlockProps<TypeTextBlockSkeleton>) {
   const {title, preamble, text, centerText, optionalBackgroundImage} = blockData.fields;
 
-  // Set background style if provided
+  // Background styling
   let backgroundStyle = {};
   const backgroundImageUrl = getAssetUrl(optionalBackgroundImage);
+
+  console.log(backgroundImageUrl);
 
   if (backgroundImageUrl) {
     backgroundStyle = {
@@ -15,48 +19,60 @@ export default function TextBlock({blockData}: ContentfulBlockProps<TypeTextBloc
     };
   }
 
-  // Set text alignment class based on centerText prop
   const textAlignClass = centerText ? "text-center" : "text-left";
 
-  // Safety check for text content
-  const textContent = typeof text === "string" ? text : "";
-  const titleContent = typeof title === "string" ? title : "";
-  const preambleContent = typeof preamble === "string" ? preamble : "";
+  // Handle different potential formats of text
+  const renderText = () => {
+    if (!text) return null;
+
+    if (typeof text === "object" && text.nodeType) {
+      return documentToReactComponents(text as unknown as Document);
+    }
+
+    if (typeof text === "string") {
+      return text.split("\n\n").map((paragraph, index) => (
+        <p
+          key={index}
+          className="mb-4 last:mb-0"
+        >
+          {paragraph.split("\n").map((line, i) => (
+            <span key={i}>
+              {line}
+              {i < paragraph.split("\n").length - 1 && <br />}
+            </span>
+          ))}
+        </p>
+      ));
+    }
+
+    return null;
+  };
 
   return (
-    <div
-      className="max-w-4xl mx-auto px-4 py-8 md:py-12"
+    <section
+      className="w-full px-4 py-8 md:py-12"
       style={backgroundStyle}
+      data-testid="text-block"
     >
-      {title && (
-        <h2 className={`text-2xl md:text-3xl font-bold mb-6 ${textAlignClass}`}>
-          {titleContent}
-        </h2>
-      )}
+      <div className="max-w-4xl mx-auto text-foreground">
+        {title && (
+          <h2 className={`text-2xl md:text-3xl font-bold mb-6 ${textAlignClass}`}>
+            {typeof title === "string" ? title : ""}
+          </h2>
+        )}
 
-      {preamble && (
-        <div className={`text-lg font-medium mb-6 ${textAlignClass}`}>
-          {preambleContent}
-        </div>
-      )}
+        {preamble && (
+          <div className={`text-lg font-medium mb-6 ${textAlignClass}`}>
+            {typeof preamble === "string" ? preamble : ""}
+          </div>
+        )}
 
-      {text && (
-        <div className={`prose max-w-none ${textAlignClass}`}>
-          {textContent.split("\n\n").map((paragraph, index) => (
-            <p
-              key={index}
-              className="mb-4 last:mb-0"
-            >
-              {paragraph.split("\n").map((line, i) => (
-                <span key={i}>
-                  {line}
-                  {i < paragraph.split("\n").length - 1 && <br />}
-                </span>
-              ))}
-            </p>
-          ))}
-        </div>
-      )}
-    </div>
+        {text && (
+          <div className={`prose max-w-none ${textAlignClass}`}>
+            {renderText()}
+          </div>
+        )}
+      </div>
+    </section>
   );
 }
