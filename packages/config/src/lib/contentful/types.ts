@@ -1,17 +1,22 @@
-// lib/component-types.ts
-import { ComponentType } from "react";
-import { EntrySkeletonType } from "contentful";
-import { ContentfulEntry } from "./generated-types/helpers";
+import { ContentPageBlocksItem } from "@/src/lib/contentful/generated/graphql";
 
-/**
- * Props for any Contentful block component
- */
-export interface ContentfulBlockProps<T extends EntrySkeletonType> {
-  blockData: ContentfulEntry<T>;
+export interface ContentfulPage {
+  title?: string | null;
+  slug?: string | null;
+  description?: string | null;
+  keywords?: string | null;
+  excludeFromSiteBuild?: boolean | null;
+  excludePageFromInternalSearch?: boolean | null;
+  sys: {
+    id: string;
+  };
+  isMcmNewsPage?: boolean | null;
+  showScrollToTopButton?: boolean | null;
+  blocks?: ContentPageBlocksItem[];
 }
 
-/**
- * Type for a component that can render a Contentful block
- */
-export type ContentfulComponent<T extends EntrySkeletonType = any> =
-  ComponentType<ContentfulBlockProps<T>>;
+export interface BlockCollectionResponse {
+  [key: string]: {
+    items: Array<ContentPageBlocksItem>;
+  };
+}

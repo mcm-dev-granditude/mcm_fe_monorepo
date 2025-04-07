@@ -1,26 +1,29 @@
+// src/app/page.tsx
 import { getContentfulPage } from "@repo/config/contentful";
 import PageWrapper from "@/components/layout/page-wrapper";
+import BlockRenderer from "@/components/contentful/block-renderer";
+import ScrollToTop from "@/components/common/scroll-to-top";
+import { notFound } from "next/navigation";
 
 export default async function HomePage({className}: {className?: string}) {
+  let page = null;
+
   try {
-    await getContentfulPage("/");
+    page = await getContentfulPage("/");
   } catch (e) {
-    console.error(e);
+    console.error("Error fetching home page:", e);
   }
 
-  // const page = await getContentfulPage("/");
+  if (!page) {
+    return notFound();
+  }
 
-  // if (!page) {
-  //   return notFound();
-  // }
-  //
   return (
     <PageWrapper className={className}>
-      <h1>Home</h1>
       {/* Visually hidden H1 for SEO */}
-      {/*<h1 className="sr-only">{page.title}</h1>*/}
-      {/*<BlockRenderer blocks={page.blocks} />*/}
-      {/*<ScrollToTop show={!!page.showScrollToTopButton} />*/}
+      <h1 className="sr-only">{page.title}</h1>
+      <BlockRenderer blocks={page.blocks} />
+      <ScrollToTop show={!!page.showScrollToTopButton} />
     </PageWrapper>
   );
 }

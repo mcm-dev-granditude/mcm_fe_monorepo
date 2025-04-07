@@ -1,28 +1,15 @@
-// components/blocks/LandingBlock.tsx
+// src/components/contentful/blocks/landing-block.tsx
 import Link from "next/link";
-import {
-  ContentfulBlockProps,
-  getAssetUrl,
-  getEntrySlug,
-  safeText,
-  TypeLandingBlockSkeleton
-} from "@repo/config/contentful";
 import { Button } from "@/components/ui/button";
 import FullWidthSection from "@/components/layout/full-width-section";
+import { LandingBlock } from "@repo/config/contentful";
 
+export interface LandingBlockComponentProps {
+  block: LandingBlock;
+}
 
-export default function LandingBlock({blockData}: ContentfulBlockProps<TypeLandingBlockSkeleton>) {
-  const {title, backgroundImage, buttonText, internalLink} = blockData.fields;
-
-  // Skip rendering if required props are missing
-  if (!title || !backgroundImage || !buttonText || !internalLink) {
-    return null;
-  }
-
-  const backgroundImageUrl = getAssetUrl(backgroundImage, "?q=60");
-  const linkSlug = getEntrySlug(internalLink);
-  const titleText = safeText(title).toUpperCase();
-  const buttonTextUppercase = safeText(buttonText).toUpperCase();
+export default function LandingBlockComponent({block}: LandingBlockComponentProps) {
+  const {title, backgroundImage, buttonText, internalLink} = block;
 
   return (
     <FullWidthSection
@@ -32,13 +19,13 @@ export default function LandingBlock({blockData}: ContentfulBlockProps<TypeLandi
       <div
         className="flex flex-col justify-center items-center w-full h-[70vh] md:h-[80vh] bg-no-repeat bg-cover bg-center"
         style={{
-          backgroundImage: backgroundImageUrl
-            ? `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url(${backgroundImageUrl})`
+          backgroundImage: backgroundImage?.url
+            ? `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url(${backgroundImage?.url || ""})`
             : undefined
         }}
       >
         <h2 className="w-[90%] max-w-[44rem] mx-auto my-8 text-2xl md:text-4xl leading-tight md:leading-[4.875rem] -tracking-[0.04rem] font-bold text-center text-white z-10">
-          {titleText}
+          {title}
         </h2>
 
         <div className="flex items-center justify-center">
@@ -48,9 +35,9 @@ export default function LandingBlock({blockData}: ContentfulBlockProps<TypeLandi
             size="no-size"
           >
             <Link
-              href={linkSlug}
+              href={internalLink?.url || ""}
             >
-              {buttonTextUppercase}
+              {buttonText}
             </Link>
           </Button>
         </div>

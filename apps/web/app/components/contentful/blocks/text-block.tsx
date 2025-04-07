@@ -1,15 +1,14 @@
-import { ContentfulBlockProps, getAssetUrl, TypeTextBlockSkeleton } from "@repo/config/contentful";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { Document } from "@contentful/rich-text-types";
+import { TextBlock } from "@repo/config/contentful";
 
-export default function TextBlock({blockData}: ContentfulBlockProps<TypeTextBlockSkeleton>) {
-  const {title, preamble, text, centerText, optionalBackgroundImage} = blockData.fields;
+export interface TextBlockComponentProps {
+  block: TextBlock;
+}
 
-  // Background styling
+export default function TextBlockComponent({block}: TextBlockComponentProps) {
+  const {title, preamble, text, centerText, optionalBackgroundImage} = block;
+
   let backgroundStyle = {};
-  const backgroundImageUrl = getAssetUrl(optionalBackgroundImage);
-
-  console.log(backgroundImageUrl);
+  const backgroundImageUrl = optionalBackgroundImage?.url;
 
   if (backgroundImageUrl) {
     backgroundStyle = {
@@ -21,31 +20,23 @@ export default function TextBlock({blockData}: ContentfulBlockProps<TypeTextBloc
 
   const textAlignClass = centerText ? "text-center" : "text-left";
 
-  // Handle different potential formats of text
   const renderText = () => {
     if (!text) return null;
 
-    if (typeof text === "object" && text.nodeType) {
-      return documentToReactComponents(text as unknown as Document);
-    }
-
-    if (typeof text === "string") {
-      return text.split("\n\n").map((paragraph, index) => (
-        <p
-          key={index}
-          className="mb-4 last:mb-0"
-        >
-          {paragraph.split("\n").map((line, i) => (
-            <span key={i}>
+    return text.split("\n\n").map((paragraph, index) => (
+      <p
+        key={index}
+        className="mb-4 last:mb-0"
+      >
+        {paragraph.split("\n").map((line, i) => (
+          <span key={i}>
               {line}
-              {i < paragraph.split("\n").length - 1 && <br />}
+            {i < paragraph.split("\n").length - 1 && <br />}
             </span>
-          ))}
-        </p>
-      ));
-    }
+        ))}
+      </p>
+    ));
 
-    return null;
   };
 
   return (
@@ -57,13 +48,13 @@ export default function TextBlock({blockData}: ContentfulBlockProps<TypeTextBloc
       <div className="max-w-4xl mx-auto text-foreground">
         {title && (
           <h2 className={`text-2xl md:text-3xl font-bold mb-6 ${textAlignClass}`}>
-            {typeof title === "string" ? title : ""}
+            {title}
           </h2>
         )}
 
         {preamble && (
           <div className={`text-lg font-medium mb-6 ${textAlignClass}`}>
-            {typeof preamble === "string" ? preamble : ""}
+            {preamble}
           </div>
         )}
 
