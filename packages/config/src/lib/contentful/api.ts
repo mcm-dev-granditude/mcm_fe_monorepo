@@ -1,7 +1,7 @@
 import { gql, GraphQLClient } from "graphql-request";
-import { fragmentMap } from "@/src/lib/contentful/queries/fragments";
-import { ContentPageBlocksItem, getSdk } from "@/src/lib/contentful/generated/graphql";
-import { BlockCollectionResponse, ContentfulPage } from "@/src/lib/contentful/types";
+import { fragmentMap } from "./queries/fragments";
+import { ContentPageBlocksItem, getSdk } from "./generated/graphql";
+import { BlockCollectionResponse, ContentfulPage } from "./types";
 
 
 // GraphQL client setup
@@ -15,7 +15,7 @@ const graphqlClient = new GraphQLClient(
   {headers}
 );
 
-const sdk = getSdk(graphqlClient);
+export const sdk = getSdk(graphqlClient);
 
 // Get all page slugs for static generation
 export async function getAllContentfulPageSlugs(): Promise<string[]> {
@@ -68,48 +68,58 @@ export async function getContentfulPage(slug: string): Promise<ContentfulPage | 
     // Step 3: Create queries for each block type
     type BlockQueryInfo = {
       type: string;
+      ids: string[];
+      queryString: string;
       promise: Promise<BlockCollectionResponse>;
     };
 
     const blockQueries: BlockQueryInfo[] = Object.entries(blocksByType)
     .map(([blockType, ids]) => {
-      const query = generateBlockQuery(blockType, ids);
-      if (!query) return null;
+      const queryString = generateBlockQuery(blockType, ids);
+      if (!queryString) return null;
 
       return {
         type: blockType,
-        // Cast the promise to our expected response type
-        promise: graphqlClient.request<BlockCollectionResponse>(query, {ids})
+        ids,
+        queryString,
+        promise: graphqlClient.request<BlockCollectionResponse>(queryString, {ids})
       };
     })
     .filter((query): query is BlockQueryInfo => query !== null);
 
-    // Step 4: Execute all block queries in parallel
-    const blockResults = await Promise.all(blockQueries.map(query => query.promise));
+    // Step 4: Execute all block queries in parallel using Promise.allSettled instead of Promise.all
+    const blockResults = await Promise.allSettled(blockQueries.map(query => query.promise));
 
     // Step 5: Create a map of blocks by ID
     const blocksById: Record<string, ContentPageBlocksItem> = {};
 
-    blockQueries.forEach((query, index) => {
-      const result = blockResults[index];
-      const collectionName = `${query.type.charAt(0).toLowerCase() + query.type.slice(1)}Collection`;
+    blockResults.forEach((result, index) => {
+      const query = blockQueries[index];
 
-      // Add each block to the map, keyed by its ID
-      const collection = result?.[collectionName];
-      if (collection?.items) {
-        collection.items.forEach((block: ContentPageBlocksItem) => {
-          if (block?.sys?.id) {
-            blocksById[block.sys.id] = block;
-          }
-        });
+      if (!query) return;
+
+      if (result.status === "fulfilled") {
+        const collectionName = `${query.type.charAt(0).toLowerCase() + query.type.slice(1)}Collection`;
+        const collection = result.value?.[collectionName];
+
+        if (collection?.items) {
+          collection.items.forEach((block: ContentPageBlocksItem) => {
+            if (block?.sys?.id) {
+              blocksById[block.sys.id] = block;
+            }
+          });
+        }
+      } else {
+        console.error(`Error fetching blocks of type ${query.type}:`, result.reason);
+        console.error(`Failed query for block type ${query.type} with IDs:`, query.ids);
+        console.error(`Failed query string:`, query.queryString);
       }
     });
 
-    // Step 6: Reconstruct blocks in original order
+    // Step 6: Set blocks in original order
     const blocks = page.blocksCollection.items.map((blockRef) => {
       if (!blockRef?.sys?.id) return blockRef;
 
-      // Return the full block data if we found it, otherwise the reference
       return blocksById[blockRef.sys.id] || blockRef;
     }) as ContentPageBlocksItem[];
 
@@ -124,14 +134,11 @@ export async function getContentfulPage(slug: string): Promise<ContentfulPage | 
   }
 }
 
-// Function to generate a query for fetching specific blocks by their IDs
 export function generateBlockQuery(blockType: string, ids: string[]) {
-  // Skip if no IDs
   if (ids.length === 0) {
     return null;
   }
 
-  // Get the fragment for this block type
   const fragmentKey = `${blockType}Fragment`;
   const fragment = fragmentMap[fragmentKey as keyof typeof fragmentMap];
 
@@ -140,10 +147,8 @@ export function generateBlockQuery(blockType: string, ids: string[]) {
     return null;
   }
 
-  // Create the collection name (e.g., "LandingBlock" -> "landingBlockCollection")
   const collectionName = `${blockType.charAt(0).toLowerCase() + blockType.slice(1)}Collection`;
 
-  // Generate a GraphQL query with explicit operation name and the fragment
   return gql`
     ${fragment}
     query Get${blockType}ById($ids: [String!]) {
@@ -154,4 +159,17 @@ export function generateBlockQuery(blockType: string, ids: string[]) {
       }
     }
   `;
+}
+
+export async function fetchPageBySlug(slug: string) {
+  let page = null;
+
+  try {
+    page = await getContentfulPage(slug);
+    return page;
+  } catch (e) {
+    console.error("Error fetching page:", e);
+  }
+
+  return null;
 }

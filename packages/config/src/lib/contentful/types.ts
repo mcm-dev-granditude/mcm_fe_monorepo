@@ -1,4 +1,4 @@
-import { ContentPageBlocksItem } from "@/src/lib/contentful/generated/graphql";
+import { ContentPageBlocksItem } from "./generated/graphql";
 
 export interface ContentfulPage {
   title?: string | null;
@@ -7,6 +7,7 @@ export interface ContentfulPage {
   keywords?: string | null;
   excludeFromSiteBuild?: boolean | null;
   excludePageFromInternalSearch?: boolean | null;
+  excludePageFromExternalSearch?: boolean | null;
   sys: {
     id: string;
   };

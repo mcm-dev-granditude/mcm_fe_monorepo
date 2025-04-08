@@ -10219,33 +10219,33 @@ export type CfblocksMultiTypeNestedFilter = {
   sys: InputMaybe<SysFilter>;
 };
 
-export type CardBlockFragment = { __typename?: 'CardBlock', title: string | null, isImageLeft: boolean | null, buttonText: string | null, smallVersion: boolean | null, sys: { __typename?: 'Sys', id: string }, backgroundImage: { __typename?: 'Asset', url: string | null, title: string | null, description: string | null } | null, richText: { __typename?: 'CardBlockRichText', json: any } | null, buttonLink: { __typename?: 'ContentPage', slug: string | null } | null };
+export type CardBlockFragment = { __typename: 'CardBlock', title: string | null, isImageLeft: boolean | null, buttonText: string | null, smallVersion: boolean | null, sys: { __typename?: 'Sys', id: string }, backgroundImage: { __typename?: 'Asset', url: string | null } | null, richText: { __typename?: 'CardBlockRichText', json: any } | null, buttonLink: { __typename?: 'ContentPage', slug: string | null } | null };
 
-export type LandingBlockFragment = { __typename?: 'LandingBlock', title: string | null, buttonText: string | null, sys: { __typename?: 'Sys', id: string }, backgroundImage: { __typename?: 'Asset', url: string | null, title: string | null, description: string | null } | null, internalLink: { __typename?: 'ContentPage', slug: string | null } | null };
+export type LandingBlockFragment = { __typename: 'LandingBlock', title: string | null, buttonText: string | null, sys: { __typename?: 'Sys', id: string }, backgroundImage: { __typename?: 'Asset', url: string | null } | null, internalLink: { __typename?: 'ContentPage', slug: string | null } | null };
 
-export type HeroBlockFragment = { __typename?: 'HeroBlock', paragraph: string | null, opacity: number | null, sys: { __typename?: 'Sys', id: string }, image: { __typename?: 'Asset', url: string | null, title: string | null, description: string | null } | null };
+export type HeroBlockFragment = { __typename: 'HeroBlock', paragraph: string | null, opacity: number | null, sys: { __typename?: 'Sys', id: string }, image: { __typename?: 'Asset', url: string | null, title: string | null, description: string | null } | null };
 
-export type TextBlockFragment = { __typename?: 'TextBlock', title: string | null, text: string | null, preamble: string | null, centerText: boolean | null, sys: { __typename?: 'Sys', id: string }, optionalBackgroundImage: { __typename?: 'Asset', url: string | null, title: string | null, description: string | null } | null };
+export type TextBlockFragment = { __typename: 'TextBlock', title: string | null, text: string | null, preamble: string | null, centerText: boolean | null, sys: { __typename?: 'Sys', id: string }, optionalBackgroundImage: { __typename?: 'Asset', url: string | null, title: string | null, description: string | null } | null };
 
-export type LoginBlockFragment = { __typename?: 'LoginBlock', sys: { __typename?: 'Sys', id: string } };
+export type LoginBlockFragment = { __typename: 'LoginBlock', sys: { __typename?: 'Sys', id: string } };
 
-export type WidgetBlockFragment = { __typename?: 'WidgetBlock', title: string | null, text: string | null, addRedBoxToTitle: boolean | null, sys: { __typename?: 'Sys', id: string }, image: { __typename?: 'Asset', url: string | null, title: string | null, description: string | null } | null };
+export type WidgetBlockFragment = { __typename: 'WidgetBlock', title: string | null, text: string | null, addRedBoxToTitle: boolean | null, sys: { __typename?: 'Sys', id: string }, image: { __typename?: 'Asset', url: string | null, title: string | null, description: string | null } | null };
 
-export type CardListBlockFragment = { __typename?: 'CardListBlock', sys: { __typename?: 'Sys', id: string }, cardListCollection: { __typename?: 'CardListBlockCardListCollection', items: Array<{ __typename?: 'CardBlock', title: string | null, isImageLeft: boolean | null, buttonText: string | null, smallVersion: boolean | null, sys: { __typename?: 'Sys', id: string }, backgroundImage: { __typename?: 'Asset', url: string | null, title: string | null, description: string | null } | null, richText: { __typename?: 'CardBlockRichText', json: any } | null, buttonLink: { __typename?: 'ContentPage', slug: string | null } | null } | null> } | null };
+export type CardListBlockFragment = { __typename: 'CardListBlock', sys: { __typename?: 'Sys', id: string }, cardListCollection: { __typename?: 'CardListBlockCardListCollection', items: Array<{ __typename: 'CardBlock', title: string | null, isImageLeft: boolean | null, buttonText: string | null, smallVersion: boolean | null, sys: { __typename?: 'Sys', id: string }, backgroundImage: { __typename?: 'Asset', url: string | null } | null, richText: { __typename?: 'CardBlockRichText', json: any } | null, buttonLink: { __typename?: 'ContentPage', slug: string | null } | null } | null> } | null };
 
-export type LiveScoreBlockFragment = { __typename?: 'LiveScoreBlock', title: string | null, noLiveMatchesAvailable: string | null, closedMatches: string | null, sys: { __typename?: 'Sys', id: string }, sportsCollection: { __typename?: 'LiveScoreBlockSportsCollection', items: Array<{ __typename?: 'Sport', sportId: string | null, icon: { __typename?: 'Asset', url: string | null, title: string | null } | null } | null> } | null, tournamentSortOrderCollection: { __typename?: 'LiveScoreBlockTournamentSortOrderCollection', items: Array<{ __typename?: 'Tournament', tournamentId: string | null, tournamentName: string | null, country: string | null, flagIcon: { __typename?: 'Asset', url: string | null, title: string | null } | null } | null> } | null };
+export type LiveScoreBlockFragment = { __typename: 'LiveScoreBlock', title: string | null, noLiveMatchesAvailable: string | null, closedMatches: string | null, sys: { __typename?: 'Sys', id: string }, sportsCollection: { __typename?: 'LiveScoreBlockSportsCollection', items: Array<{ __typename?: 'Sport', sportId: string | null, icon: { __typename?: 'Asset', url: string | null, title: string | null } | null } | null> } | null, tournamentSortOrderCollection: { __typename?: 'LiveScoreBlockTournamentSortOrderCollection', items: Array<{ __typename?: 'Tournament', tournamentId: string | null, tournamentName: string | null, country: string | null, flagIcon: { __typename?: 'Asset', url: string | null, title: string | null } | null } | null> } | null };
 
-export type BetSuggestionBlockFragment = { __typename?: 'BetSuggestionBlock', title: string | null, sys: { __typename?: 'Sys', id: string }, sportsCollection: { __typename?: 'BetSuggestionBlockSportsCollection', items: Array<{ __typename?: 'Sport', sportId: string | null, icon: { __typename?: 'Asset', url: string | null, title: string | null } | null } | null> } | null };
+export type BetSuggestionBlockFragment = { __typename: 'BetSuggestionBlock', title: string | null, sys: { __typename?: 'Sys', id: string }, sportsCollection: { __typename?: 'BetSuggestionBlockSportsCollection', items: Array<{ __typename?: 'Sport', sportId: string | null, icon: { __typename?: 'Asset', url: string | null, title: string | null } | null } | null> } | null };
 
-export type TournamentStandingsBlockFragment = { __typename?: 'TournamentStandingsBlock', sys: { __typename?: 'Sys', id: string }, sport: { __typename?: 'Sport', sportId: string | null, tournamentsCollection: { __typename?: 'SportTournamentsCollection', items: Array<{ __typename?: 'Tournament', tournamentName: string | null, tournamentId: string | null, inActivate: boolean | null } | null> } | null, image: { __typename?: 'Asset', url: string | null, title: string | null } | null } | null };
+export type TournamentStandingsBlockFragment = { __typename: 'TournamentStandingsBlock', sys: { __typename?: 'Sys', id: string }, sport: { __typename?: 'Sport', sportId: string | null, tournamentsCollection: { __typename?: 'SportTournamentsCollection', items: Array<{ __typename?: 'Tournament', tournamentName: string | null, tournamentId: string | null, inActivate: boolean | null } | null> } | null, image: { __typename?: 'Asset', url: string | null, title: string | null } | null } | null };
 
-export type CardLinkBlockFragment = { __typename?: 'CardLinkBlock', label: string | null, sys: { __typename?: 'Sys', id: string }, backgroundImage: { __typename?: 'Asset', url: string | null, title: string | null } | null, link: { __typename?: 'ContentPage', slug: string | null } | null };
+export type CardLinkBlockFragment = { __typename: 'CardLinkBlock', label: string | null, sys: { __typename?: 'Sys', id: string }, backgroundImage: { __typename?: 'Asset', url: string | null, title: string | null } | null, link: { __typename?: 'ContentPage', slug: string | null } | null };
 
-export type NewsBlockFragment = { __typename?: 'NewsBlock', newsSource: string | null, sys: { __typename?: 'Sys', id: string }, mcmNewsList: { __typename?: 'McmNewsList', mcmNewsListCollection: { __typename?: 'McmNewsListMcmNewsListCollection', items: Array<{ __typename?: 'McmNewsBlock', title: string | null, description: string | null, text: string | null, pubDate: string | null, image: { __typename?: 'Asset', url: string | null, title: string | null } | null, logoImage: { __typename?: 'Asset', url: string | null, title: string | null } | null, linkToNewsPage: { __typename?: 'ContentPage', slug: string | null } | null } | null> } | null } | null };
+export type NewsBlockFragment = { __typename: 'NewsBlock', newsSource: string | null, sys: { __typename?: 'Sys', id: string }, mcmNewsList: { __typename?: 'McmNewsList', mcmNewsListCollection: { __typename?: 'McmNewsListMcmNewsListCollection', items: Array<{ __typename?: 'McmNewsBlock', title: string | null, description: string | null, text: string | null, pubDate: string | null, image: { __typename?: 'Asset', url: string | null, title: string | null } | null, logoImage: { __typename?: 'Asset', url: string | null, title: string | null } | null, linkToNewsPage: { __typename?: 'ContentPage', slug: string | null } | null } | null> } | null } | null };
 
-export type McmNewsBlockFragment = { __typename?: 'McmNewsBlock', title: string | null, description: string | null, text: string | null, pubDate: string | null, sys: { __typename?: 'Sys', id: string }, image: { __typename?: 'Asset', url: string | null, title: string | null } | null, logoImage: { __typename?: 'Asset', url: string | null, title: string | null } | null, linkToNewsPage: { __typename?: 'ContentPage', slug: string | null } | null };
+export type McmNewsBlockFragment = { __typename: 'McmNewsBlock', title: string | null, description: string | null, text: string | null, pubDate: string | null, sys: { __typename?: 'Sys', id: string }, image: { __typename?: 'Asset', url: string | null, title: string | null } | null, logoImage: { __typename?: 'Asset', url: string | null, title: string | null } | null, linkToNewsPage: { __typename?: 'ContentPage', slug: string | null } | null };
 
-export type OddsComparsionBlockFragment = { __typename?: 'OddsComparsionBlock', sys: { __typename?: 'Sys', id: string }, sport: { __typename?: 'Sport', sportId: string | null, tournamentsCollection: { __typename?: 'SportTournamentsCollection', items: Array<{ __typename?: 'Tournament', tournamentName: string | null, tournamentId: string | null, inActivate: boolean | null } | null> } | null, image: { __typename?: 'Asset', url: string | null, title: string | null } | null } | null };
+export type OddsComparsionBlockFragment = { __typename: 'OddsComparsionBlock', sys: { __typename?: 'Sys', id: string }, sport: { __typename?: 'Sport', sportId: string | null, tournamentsCollection: { __typename?: 'SportTournamentsCollection', items: Array<{ __typename?: 'Tournament', tournamentName: string | null, tournamentId: string | null, inActivate: boolean | null } | null> } | null, image: { __typename?: 'Asset', url: string | null, title: string | null } | null } | null };
 
 export type GetAllPageSlugsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -10261,14 +10261,13 @@ export type GetPageBySlugQueryResponse = { __typename?: 'Query', contentPageColl
 
 export const LandingBlockFragmentDoc = gql`
     fragment LandingBlock on LandingBlock {
+  __typename
   sys {
     id
   }
   title
   backgroundImage {
     url
-    title
-    description
   }
   buttonText
   internalLink {
@@ -10278,6 +10277,7 @@ export const LandingBlockFragmentDoc = gql`
     `;
 export const HeroBlockFragmentDoc = gql`
     fragment HeroBlock on HeroBlock {
+  __typename
   sys {
     id
   }
@@ -10292,6 +10292,7 @@ export const HeroBlockFragmentDoc = gql`
     `;
 export const TextBlockFragmentDoc = gql`
     fragment TextBlock on TextBlock {
+  __typename
   sys {
     id
   }
@@ -10308,6 +10309,7 @@ export const TextBlockFragmentDoc = gql`
     `;
 export const LoginBlockFragmentDoc = gql`
     fragment LoginBlock on LoginBlock {
+  __typename
   sys {
     id
   }
@@ -10315,6 +10317,7 @@ export const LoginBlockFragmentDoc = gql`
     `;
 export const WidgetBlockFragmentDoc = gql`
     fragment WidgetBlock on WidgetBlock {
+  __typename
   sys {
     id
   }
@@ -10330,13 +10333,12 @@ export const WidgetBlockFragmentDoc = gql`
     `;
 export const CardBlockFragmentDoc = gql`
     fragment CardBlock on CardBlock {
+  __typename
   sys {
     id
   }
   backgroundImage {
     url
-    title
-    description
   }
   title
   richText {
@@ -10352,10 +10354,11 @@ export const CardBlockFragmentDoc = gql`
     `;
 export const CardListBlockFragmentDoc = gql`
     fragment CardListBlock on CardListBlock {
+  __typename
   sys {
     id
   }
-  cardListCollection {
+  cardListCollection(limit: 10) {
     items {
       ...CardBlock
     }
@@ -10364,6 +10367,7 @@ export const CardListBlockFragmentDoc = gql`
     `;
 export const LiveScoreBlockFragmentDoc = gql`
     fragment LiveScoreBlock on LiveScoreBlock {
+  __typename
   sys {
     id
   }
@@ -10394,6 +10398,7 @@ export const LiveScoreBlockFragmentDoc = gql`
     `;
 export const BetSuggestionBlockFragmentDoc = gql`
     fragment BetSuggestionBlock on BetSuggestionBlock {
+  __typename
   sys {
     id
   }
@@ -10411,6 +10416,7 @@ export const BetSuggestionBlockFragmentDoc = gql`
     `;
 export const TournamentStandingsBlockFragmentDoc = gql`
     fragment TournamentStandingsBlock on TournamentStandingsBlock {
+  __typename
   sys {
     id
   }
@@ -10432,6 +10438,7 @@ export const TournamentStandingsBlockFragmentDoc = gql`
     `;
 export const CardLinkBlockFragmentDoc = gql`
     fragment CardLinkBlock on CardLinkBlock {
+  __typename
   sys {
     id
   }
@@ -10447,6 +10454,7 @@ export const CardLinkBlockFragmentDoc = gql`
     `;
 export const NewsBlockFragmentDoc = gql`
     fragment NewsBlock on NewsBlock {
+  __typename
   sys {
     id
   }
@@ -10476,6 +10484,7 @@ export const NewsBlockFragmentDoc = gql`
     `;
 export const McmNewsBlockFragmentDoc = gql`
     fragment McmNewsBlock on McmNewsBlock {
+  __typename
   sys {
     id
   }
@@ -10498,6 +10507,7 @@ export const McmNewsBlockFragmentDoc = gql`
     `;
 export const OddsComparsionBlockFragmentDoc = gql`
     fragment OddsComparsionBlock on OddsComparsionBlock {
+  __typename
   sys {
     id
   }

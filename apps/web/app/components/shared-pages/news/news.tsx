@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cn } from "@repo/ui";
 
 const newsProviders = [
   {slug: "mcm-nyheter", label: "MCM Nyheter"},
@@ -10,7 +11,7 @@ const newsProviders = [
 
 export default function News({className}: {className?: string}) {
   return (
-    <>
+    <div className={cn(className)}>
       <h1 className="text-xl font-bold mb-4">News!</h1>
 
       <div className="w-full bg-surface flex flex-wrap gap-4">
@@ -29,5 +30,5 @@ export default function News({className}: {className?: string}) {
           ))
         }
       </div>
-    </>);
+    </div>);
 };

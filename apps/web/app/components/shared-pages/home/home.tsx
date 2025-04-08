@@ -1,18 +1,11 @@
-// src/app/page.tsx
-import { getContentfulPage } from "@repo/config/contentful";
 import PageWrapper from "@/components/layout/page-wrapper";
 import BlockRenderer from "@/components/contentful/block-renderer";
 import ScrollToTop from "@/components/common/scroll-to-top";
 import { notFound } from "next/navigation";
+import { fetchPageBySlug } from "@repo/config/contentful";
 
 export default async function HomePage({className}: {className?: string}) {
-  let page = null;
-
-  try {
-    page = await getContentfulPage("/");
-  } catch (e) {
-    console.error("Error fetching home page:", e);
-  }
+  const page = await fetchPageBySlug("/");
 
   if (!page) {
     return notFound();
@@ -27,3 +20,4 @@ export default async function HomePage({className}: {className?: string}) {
     </PageWrapper>
   );
 }
+

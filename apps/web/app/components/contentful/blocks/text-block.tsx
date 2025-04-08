@@ -47,9 +47,12 @@ export default function TextBlockComponent({block}: TextBlockComponentProps) {
     >
       <div className="max-w-4xl mx-auto text-foreground">
         {title && (
-          <h2 className={`text-2xl md:text-3xl font-bold mb-6 ${textAlignClass}`}>
-            {title}
-          </h2>
+          <div className="flex flex-col items-center">
+            <h2 className={`text-2xl md:text-xl font-bold mb-3 ${textAlignClass}`}>
+              {title}
+            </h2>
+            <div className="border-b-4 border-primary w-[20%] mb-8" />
+          </div>
         )}
 
         {preamble && (

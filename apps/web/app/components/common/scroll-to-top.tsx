@@ -1,7 +1,12 @@
 "use client";
 import React from "react";
+import { useWebView } from "@repo/ui";
 
 const ScrollToTop = ({show}: {show: boolean}) => {
+  const {isInWebView} = useWebView();
+
+  if (isInWebView) return null;
+
   return (
     <div>
       {/* Scroll to Top Button */}

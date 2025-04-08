@@ -108,7 +108,7 @@ export const CardListBlockFragment = gql`
     sys {
       id
     }
-    cardListCollection(limit: 10) {
+    cardListCollection(limit: 20, where:{sys:{id_exists:true}}) {
       items {
         ...CardBlock
       }
@@ -123,7 +123,7 @@ export const LiveScoreBlockFragment = gql`
       id
     }
     title
-    sportsCollection {
+    sportsCollection(limit: 20) {
       items {
         sportId
         icon {
@@ -134,7 +134,7 @@ export const LiveScoreBlockFragment = gql`
     }
     noLiveMatchesAvailable
     closedMatches
-    tournamentSortOrderCollection {
+    tournamentSortOrderCollection(limit: 20, where:{sys:{id_exists:true}}) {
       items {
         tournamentId
         tournamentName
@@ -155,7 +155,7 @@ export const BetSuggestionBlockFragment = gql`
       id
     }
     title
-    sportsCollection {
+    sportsCollection(limit: 20, where:{sys:{id_exists:true}}) {
       items {
         sportId
         icon {
@@ -175,7 +175,7 @@ export const TournamentStandingsBlockFragment = gql`
     }
     sport {
       sportId
-      tournamentsCollection {
+      tournamentsCollection(limit: 20, where:{sys:{id_exists:true}}) {
         items {
           tournamentName
           tournamentId
@@ -215,7 +215,7 @@ export const NewsBlockFragment = gql`
     }
     newsSource
     mcmNewsList {
-      mcmNewsListCollection {
+      mcmNewsListCollection(limit: 10, where:{sys:{id_exists:true}}) {
         items {
           title
           image {
@@ -270,7 +270,7 @@ export const OddsComparsionBlockFragment = gql`
     }
     sport {
       sportId
-      tournamentsCollection {
+      tournamentsCollection(limit: 20, where:{sys:{id_exists:true}}) {
         items {
           tournamentName
           tournamentId

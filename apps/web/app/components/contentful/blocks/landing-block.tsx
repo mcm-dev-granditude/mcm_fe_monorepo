@@ -1,4 +1,3 @@
-// src/components/contentful/blocks/landing-block.tsx
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import FullWidthSection from "@/components/layout/full-width-section";
