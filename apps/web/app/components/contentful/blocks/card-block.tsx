@@ -58,14 +58,14 @@ export default function CardBlockComponent({block}: CardBlockComponentProps) {
 
   return (
     <div
-      className="flex flex-col h-full bg-background rounded-lg shadow-lg overflow-hidden dark:bg-surface"
+      className="flex flex-col h-full bg-background rounded-lg  overflow-hidden dark:bg-surface w-[90%]  pb-6"
       data-testid="card-block"
     >
       <div
-        className="w-full h-60 relative"
+        className="w-full h-60 relative rounded-lg"
         style={imageStyle}
       />
-      <div className="p-6 pb-10 flex flex-col flex-grow">
+      <div className="p-6 px-10 pb-10 flex flex-col flex-grow shadow-lg w-[90%] mx-auto mt-[-40px] z-10 rounded-lg bg-background">
         <h3 className="text-2xl font-bold mb-6 text-center relative">
           {title}
           <span className="absolute left-1/2 transform -translate-x-1/2 bottom-[-12px] w-12 h-1 bg-primary" />

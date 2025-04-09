@@ -11,7 +11,7 @@ export default async function NewsBlockComponent({block}: NewsBlockComponentProp
   );
 
   const initialData = await getInitialNews({
-    source: block.newsSource || "all",
+    source: block.newsSource === "Alla nyheter" ? "all" : block.newsSource || "all",
     mcmNews
   });
 

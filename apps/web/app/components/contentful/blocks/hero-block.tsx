@@ -50,12 +50,12 @@ export default function HeroBlockComponent({block}: HeroBlockComponentProps) {
           {opacityOverlay}
 
           <div className="relative z-20">
-            <h2 className="text-xl md:text-4xl leading-tight uppercase text-center max-w-[44rem] font-bold tracking-tight">
+            <h2 className="text-xl md:text-4xl leading-tight uppercase text-center max-w-[44rem] font-bold tracking-tight text-foreground">
               {paragraph}
             </h2>
 
             {title && (
-              <h3 className="mt-4 text-lg md:text-2xl text-center">
+              <h3 className="mt-4 text-lg md:text-2xl text-center text-foreground">
                 {title}
               </h3>
             )}
