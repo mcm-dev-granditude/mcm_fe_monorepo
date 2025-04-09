@@ -11,9 +11,9 @@ import { CardListBlockComponentProps } from "@/components/contentful/blocks/card
 import { HeroBlockComponentProps } from "@/components/contentful/blocks/hero-block";
 import { LiveScoreBlockComponentProps } from "@/components/contentful/blocks/live-score-block";
 import { McmNewsBlockComponentProps } from "@/components/contentful/blocks/mcm-news-block";
-import { NewsBlockComponentProps } from "@/components/contentful/blocks/news-block/news-block";
 import { OddsComparsionBlockComponentProps } from "@/components/contentful/blocks/odds-comparison-block";
 import { LoginBlockComponentProps } from "@/components/contentful/blocks/login-block";
+import { NewsBlockComponentProps } from "@/components/contentful/blocks/news-block/types";
 
 
 type BlockComponentProps = {

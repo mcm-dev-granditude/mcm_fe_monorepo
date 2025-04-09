@@ -41,14 +41,11 @@ export default async function Page({
                                    }: any) {
   const p = await params;
   const decodedSlug = formatSlug(p.slug);
-  console.log("Slug: ", decodedSlug);
   const page = await fetchPageBySlug(decodedSlug);
 
   if (!page) {
     return notFound();
   }
-
-  console.dir(page.blocks, {depth: null});
 
   return (
     <PageWrapper>

@@ -1,10 +1,11 @@
-// components/NewsBlock.tsx
 import { useState } from "react";
 import { NewsCard } from "@/components/contentful/blocks/news-block/news-card";
 import { Button } from "@/components/ui/button";
 import { NewsBlockComponentProps } from "@/components/contentful/blocks/news-block/types";
 import { useNewsFeed } from "@/components/contentful/blocks/news-block/use-news-feed";
 import { NewsFilter } from "@/components/contentful/blocks/news-block/news-filter";
+import { LoadinggSpinner } from "@/components/ui/loading-spinner";
+import { McmNewsBlock } from "@repo/config/contentful";
 
 
 const ITEMS_PER_PAGE = 20;
@@ -12,7 +13,13 @@ const ITEMS_PER_PAGE = 20;
 export default function NewsBlockComponent({block}: NewsBlockComponentProps) {
   const [source, setSource] = useState<string>(block.newsSource || "all");
   const [visible, setVisible] = useState(ITEMS_PER_PAGE);
-  const {news, loading, error} = useNewsFeed(source);
+
+  const mcmNews = block.mcmNewsList?.mcmNewsListCollection?.items || [];
+  const {news, loading, error} = useNewsFeed({
+    source,
+    mcmNews: mcmNews as McmNewsBlock[]
+  });
+
 
   if (error) {
     return (
@@ -31,7 +38,7 @@ export default function NewsBlockComponent({block}: NewsBlockComponentProps) {
 
       {loading ? (
         <div className="flex justify-center p-8">
-          <LoadingSpinner />
+          <LoadinggSpinner />
         </div>
       ) : (
         <>

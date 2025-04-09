@@ -1,7 +1,7 @@
-// components/NewsCard.tsx
 import { format } from "date-fns";
 import { NewsItem } from "@/components/contentful/blocks/news-block/types";
 import Image from "next/image";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 
 interface NewsCardProps {
   item: NewsItem;
