@@ -8,6 +8,13 @@ interface NewsCardProps {
 }
 
 export function NewsCard({item}: NewsCardProps) {
+  // Check if image exists and has a url property that's a string
+  const hasValidImage = Boolean(
+    item.image &&
+    typeof item.image.url === "string" &&
+    item.image.url.trim() !== ""
+  );
+
   return (
     <Card className="h-full transition-all hover:scale-[1.02]">
       <a
@@ -16,11 +23,11 @@ export function NewsCard({item}: NewsCardProps) {
         rel="noopener noreferrer"
         className="block h-full"
       >
-        {item.image && (
+        {hasValidImage && (
           <div className="relative h-48 w-full overflow-hidden rounded-t-lg">
             <Image
-              src={item.image.url}
-              alt={item.image.alt || item.title}
+              src={item.image!.url}
+              alt={item.image?.alt || item.title}
               fill
               className="object-cover"
             />
@@ -39,15 +46,6 @@ export function NewsCard({item}: NewsCardProps) {
           <span className="text-sm text-muted-foreground">
             {format(new Date(item.pubDate), "PPP")}
           </span>
-          {item.logoUrl && (
-            <Image
-              src={item.logoUrl}
-              alt={item.source}
-              width={24}
-              height={24}
-              className="h-6 w-auto"
-            />
-          )}
         </CardFooter>
       </a>
     </Card>

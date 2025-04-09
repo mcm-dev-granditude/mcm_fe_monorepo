@@ -52,12 +52,15 @@ export function NewsBlockClient({block, initialData}: NewsBlockClientProps) {
       ) : (
         <>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {news.slice(0, visible).map((item) => (
-              <NewsCard
-                key={item.id}
-                item={item}
-              />
-            ))}
+            {news.slice(0, visible).map((item) => {
+              return (
+                <NewsCard
+                  key={`${item.title}-${item.pubDate}`}
+                  item={item}
+
+                />
+              );
+            })}
           </div>
 
           {visible < news.length && (

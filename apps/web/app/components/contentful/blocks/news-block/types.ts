@@ -1,4 +1,3 @@
-// types/news.ts
 import { NewsBlock } from "@repo/config/contentful";
 
 export interface NewsSource {
@@ -14,10 +13,10 @@ export interface NewsItem {
   link: string;
   pubDate: string;
   source: string;
-  image?: {
+  image: {
     url: string;
     alt?: string;
-  };
+  } | null;
   logoUrl?: string;
 }
 

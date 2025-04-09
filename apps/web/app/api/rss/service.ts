@@ -1,5 +1,5 @@
 import { RSS_LINKS } from "@/app/api/rss/config/rss-config";
-import { RssParser } from "@/app/api/rss/utils/rss-parser";
+import { RssParser } from "@/app/api/rss/parsers/rss-parser";
 import { NewsItem } from "@/components/contentful/blocks/news-block/types";
 
 export async function fetchRssItems(source: string): Promise<NewsItem[]> {
