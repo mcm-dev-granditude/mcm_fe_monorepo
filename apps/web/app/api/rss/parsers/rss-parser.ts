@@ -27,7 +27,7 @@ export class RssParser {
 
       // If there's no parser, use a basic parser
       if (!source?.parser) {
-        return itemsArray.map((item: any) => {
+        const parsedItems = itemsArray.map((item: any) => {
           // Try to extract image from different possible sources
           let image = null;
 
@@ -37,6 +37,7 @@ export class RssParser {
               url: item.enclosure["@_url"],
               alt: item.title?.trim() || ""
             };
+            console.log(`[RSS Parser] Found enclosure image: ${image.url}`);
           }
           // Then check media:thumbnail
           else if (item["media:thumbnail"] && item["media:thumbnail"]["@_url"] &&
@@ -46,6 +47,9 @@ export class RssParser {
               url: item["media:thumbnail"]["@_url"],
               alt: item.title?.trim() || ""
             };
+            console.log(`[RSS Parser] Found media:thumbnail image: ${image.url}`);
+          } else {
+            console.log(`[RSS Parser] No image found for item: ${item.title?.substring(0, 30) || "Untitled"}...`);
           }
 
           return {
@@ -59,9 +63,31 @@ export class RssParser {
             logoImage: null
           };
         });
+
+        // Count items with images
+        const itemsWithImages = parsedItems.filter(item => item.image !== null).length;
+        console.log(`[RSS Parser] ${itemsWithImages} out of ${parsedItems.length} items have images for source: ${url}`);
+
+        return parsedItems;
       }
 
-      return itemsArray.map(item => source.parser!.parse(item));
+      const parsedItems = itemsArray.map(item => {
+        const parsedItem = source.parser!.parse(item);
+
+        if (parsedItem.image) {
+          console.log(`[RSS Parser] Custom parser found image: ${parsedItem.image.url} for item: ${parsedItem.title.substring(0, 30)}...`);
+        } else {
+          console.log(`[RSS Parser] Custom parser found NO image for item: ${parsedItem.title.substring(0, 30)}...`);
+        }
+
+        return parsedItem;
+      });
+
+      // Count items with images
+      const itemsWithImages = parsedItems.filter(item => item.image !== null).length;
+      console.log(`[RSS Parser] ${itemsWithImages} out of ${parsedItems.length} items have images for source: ${url}`);
+
+      return parsedItems;
     } catch (error) {
       console.error(`Error parsing RSS feed from ${url}:`, error);
       return [];

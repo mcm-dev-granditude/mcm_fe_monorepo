@@ -4,17 +4,18 @@ export interface RssSourceParser {
   getSourceId(): string;
 }
 
+export interface RssImageData {
+  url: string;
+  alt: string;
+}
+
 export interface RssItem {
   id: string;
   title: string;
   description: string;
   link: string;
   pubDate: string;
-  image: {
-    url: string;
-    alt: string;
-  } | null;
   source: string;
+  image: RssImageData | string | null;
   logoImage: string | null;
 }
-

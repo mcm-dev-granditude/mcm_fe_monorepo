@@ -21,8 +21,12 @@ export function useNewsFeed({source, mcmNews, initialData}: UseNewsFeedProps) {
       link: item.link,
       pubDate: item.pubDate,
       source: item.source,
-      image: item.image?.url,
-      logoImage: item.logoUrl
+      // Create proper image format (can be object or null)
+      image: item.image ? {
+        url: item.image.url,
+        alt: item.image.alt || item.title
+      } : null,
+      logoImage: item.logoUrl || null
     }));
   }, [initialData]);
 
@@ -43,7 +47,6 @@ export function useNewsFeed({source, mcmNews, initialData}: UseNewsFeedProps) {
     initialData: initialRssData
   });
 
-
   const rssNewsItems = useMemo(() => {
     if (!rawRssNews) return [];
 
@@ -54,11 +57,17 @@ export function useNewsFeed({source, mcmNews, initialData}: UseNewsFeedProps) {
       link: item.link,
       pubDate: item.pubDate,
       source: item.source,
-      image: item.image ? {
-        url: item.image,
-        alt: item.title
-      } : undefined,
-      logoUrl: item.logoImage
+      image: item.image
+        ? {
+          url: typeof item.image === "string"
+            ? item.image
+            : item.image.url,
+          alt: typeof item.image === "string"
+            ? item.title
+            : (item.image.alt || item.title)
+        }
+        : null,
+      logoUrl: item.logoImage || undefined
     }));
   }, [rawRssNews]);
 
