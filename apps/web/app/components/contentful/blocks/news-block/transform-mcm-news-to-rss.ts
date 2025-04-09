@@ -12,7 +12,7 @@ export function transformMcmNewsToRssItems(mcmNews: McmNewsBlock[]): NewsItem[] 
     image: news.image ? {
       url: news.image.url || "",
       alt: news.image.title || news.title || ""
-    } : undefined,
+    } : null,
     logoUrl: news.logoImage?.url || ""
   }));
 }

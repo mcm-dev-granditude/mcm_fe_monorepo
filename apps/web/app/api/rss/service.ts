@@ -30,7 +30,6 @@ export async function fetchRssItems(source: string): Promise<NewsItem[]> {
   return items;
 }
 
-// Helper function to correctly map from RssItem to NewsItem
 function mapRssItemToNewsItem(item: RssItem, source: string): NewsItem {
   return {
     id: item.id,

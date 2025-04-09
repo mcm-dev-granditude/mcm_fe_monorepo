@@ -9,7 +9,6 @@ interface NewsFilterProps {
 export function NewsFilter({value, onChange}: NewsFilterProps) {
   return (
     <div className="flex items-center gap-2">
-      <span className="font-medium">Filter:</span>
       <Select
         value={value}
         onValueChange={onChange}

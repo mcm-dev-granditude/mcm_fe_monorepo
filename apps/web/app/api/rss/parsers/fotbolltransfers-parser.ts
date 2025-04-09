@@ -9,8 +9,6 @@ export class FotbolltransfersParser extends BaseRssParser {
   parse(rawItem: any): RssItem {
     const description = this.cleanDescription(rawItem.description || "");
 
-    // Use the extractMediaThumbnailImage method from the base class
-    // or use extractBestImage which tries all extraction methods
     const image = this.extractBestImage(rawItem);
 
     return {

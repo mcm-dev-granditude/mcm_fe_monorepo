@@ -21,7 +21,6 @@ export function useNewsFeed({source, mcmNews, initialData}: UseNewsFeedProps) {
       link: item.link,
       pubDate: item.pubDate,
       source: item.source,
-      // Create proper image format (can be object or null)
       image: item.image ? {
         url: item.image.url,
         alt: item.image.alt || item.title
