@@ -5,6 +5,7 @@ import ScrollToTop from "@/components/common/scroll-to-top";
 import PageWrapper from "@/components/layout/page-wrapper";
 import { appConfig } from "@repo/config";
 import { fetchPageBySlug, getAllContentfulPageSlugs } from "@repo/config/contentful";
+import { formatSlug } from "@/lib/utils/format-slug";
 
 
 export async function generateStaticParams() {
@@ -18,7 +19,8 @@ export async function generateMetadata({
                                          params
                                          // eslint-disable-next-line
                                        }: any): Promise<Metadata> {
-  const decodedSlug = decodeURIComponent(params.slug);
+  const p = await params;
+  const decodedSlug = formatSlug(p.slug);
   const page = await fetchPageBySlug(decodedSlug);
 
   if (!page) {
@@ -37,12 +39,16 @@ export default async function Page({
                                      params
                                      // eslint-disable-next-line
                                    }: any) {
-  const decodedSlug = decodeURIComponent(params.slug);
+  const p = await params;
+  const decodedSlug = formatSlug(p.slug);
+  console.log("Slug: ", decodedSlug);
   const page = await fetchPageBySlug(decodedSlug);
 
   if (!page) {
     return notFound();
   }
+
+  console.dir(page.blocks, {depth: null});
 
   return (
     <PageWrapper>

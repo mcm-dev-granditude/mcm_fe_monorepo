@@ -11,7 +11,7 @@ import { CardListBlockComponentProps } from "@/components/contentful/blocks/card
 import { HeroBlockComponentProps } from "@/components/contentful/blocks/hero-block";
 import { LiveScoreBlockComponentProps } from "@/components/contentful/blocks/live-score-block";
 import { McmNewsBlockComponentProps } from "@/components/contentful/blocks/mcm-news-block";
-import { NewsBlockComponentProps } from "@/components/contentful/blocks/news-block";
+import { NewsBlockComponentProps } from "@/components/contentful/blocks/news-block/news-block";
 import { OddsComparsionBlockComponentProps } from "@/components/contentful/blocks/odds-comparison-block";
 import { LoginBlockComponentProps } from "@/components/contentful/blocks/login-block";
 
@@ -46,7 +46,7 @@ const blockRegistry: {
   HeroBlock: dynamic(() => import("./hero-block")),
   LiveScoreBlock: dynamic(() => import("./live-score-block")),
   McmNewsBlock: dynamic(() => import("./mcm-news-block")),
-  NewsBlock: dynamic(() => import("./news-block")),
+  NewsBlock: dynamic(() => import("./news-block/news-block")),
   OddsComparsionBlock: dynamic(() => import("./odds-comparison-block")),
   TournamentStandingsBlock: dynamic(() => import("./tournament-standings-block")),
   WidgetBlock: dynamic(() => import("./widget-block"))

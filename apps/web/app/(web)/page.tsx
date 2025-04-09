@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   return {
-    title: `${page.title} | Your Site Name`,
+    title: page.title,
     description: page.description,
     keywords: page.keywords,
     robots: page.excludePageFromExternalSearch ? "noindex,follow" : undefined
