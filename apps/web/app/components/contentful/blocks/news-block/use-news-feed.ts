@@ -3,35 +3,35 @@ import { useMemo } from "react";
 import { McmNewsBlock } from "@repo/config/contentful";
 import { RssItem } from "@/app/api/rss/types";
 import { NewsItem } from "@/components/contentful/blocks/news-block/types";
+import { transformMcmNewsToRssItems } from "@/components/contentful/blocks/news-block/transform-mcm-news-to-rss";
 
 interface UseNewsFeedProps {
   source: string;
   mcmNews: McmNewsBlock[];
+  initialData?: NewsItem[];
 }
 
-function transformMcmNewsToRssItems(mcmNews: McmNewsBlock[]): NewsItem[] {
-  return mcmNews.map((news): NewsItem => ({
-    id: news._id,
-    title: news.title || "",
-    description: news.description || news.text || "",
-    link: news.linkToNewsPage?.sys?.id || "",
-    pubDate: news.pubDate || new Date().toISOString(),
-    source: "MCM",
-    image: news.image ? {
-      url: news.image.url || "",
-      alt: news.image.title || news.title || ""
-    } : undefined,
-    logoUrl: news.logoImage?.url || ""
-  }));
-}
+export function useNewsFeed({source, mcmNews, initialData}: UseNewsFeedProps) {
+  const initialRssData = useMemo(() => {
+    if (!initialData) return undefined;
+    return initialData.map((item): RssItem => ({
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      link: item.link,
+      pubDate: item.pubDate,
+      source: item.source,
+      image: item.image?.url,
+      logoImage: item.logoUrl
+    }));
+  }, [initialData]);
 
-
-export function useNewsFeed({source, mcmNews}: UseNewsFeedProps) {
   const {data: rawRssNews, isLoading: isRssLoading, error: rssError} = useQuery<RssItem[]>({
     queryKey: ["rss-news", source],
     queryFn: async () => {
       if (source !== "MCM") {
-        const response = await fetch(`/api/news?source=${source}`);
+        const encodedSource = encodeURIComponent(source);
+        const response = await fetch(`/api/rss?source=${encodedSource}`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -39,12 +39,15 @@ export function useNewsFeed({source, mcmNews}: UseNewsFeedProps) {
       }
       return [];
     },
-    enabled: source !== "MCM"
+    enabled: source !== "MCM",
+    initialData: initialRssData
   });
 
-  // Transform RSS items to NewsItem format
-  const rssNews = useMemo(() => {
-    return (rawRssNews || []).map((item): NewsItem => ({
+
+  const rssNewsItems = useMemo(() => {
+    if (!rawRssNews) return [];
+
+    return rawRssNews.map((item): NewsItem => ({
       id: item.id,
       title: item.title,
       description: item.description,
@@ -67,11 +70,11 @@ export function useNewsFeed({source, mcmNews}: UseNewsFeedProps) {
   }, [mcmNews, source]);
 
   const allNews = useMemo(() => {
-    const news = [...rssNews, ...mcmNewsItems];
+    const news = [...rssNewsItems, ...mcmNewsItems];
     return news.sort((a, b) =>
       new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
     );
-  }, [rssNews, mcmNewsItems]);
+  }, [rssNewsItems, mcmNewsItems]);
 
   return {
     news: allNews,

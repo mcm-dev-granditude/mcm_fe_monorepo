@@ -1,6 +1,6 @@
 // Server Component
 import { navItems } from "@/lib/constants/nav-menu-items";
-import { NavItemsClient } from "./nav-items-client";
+import { NavItemsClient } from "./nav-items.client";
 import { cn } from "@repo/ui";
 
 interface NavItemsProps {

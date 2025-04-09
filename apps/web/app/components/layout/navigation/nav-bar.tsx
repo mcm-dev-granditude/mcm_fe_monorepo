@@ -1,6 +1,6 @@
 import { NavItems } from "@/app/components/layout/navigation/nav-items";
 import Link from "next/link";
-import { NavigationBarClient } from "@/components/layout/navigation/nav-bar-client";
+import { NavigationBarClient } from "@/components/layout/navigation/nav-bar.client";
 import NavigationControls from "@/components/layout/navigation/nav-controls";
 import { HorizontalLogo } from "@/components/logos/horizontal-logo";
 
