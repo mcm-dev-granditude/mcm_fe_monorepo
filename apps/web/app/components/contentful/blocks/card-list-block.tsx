@@ -13,7 +13,7 @@ export default function CardListBlockComponent({block}: CardListBlockComponentPr
       className="w-full py-16 bg-background"
       data-testid="card-list-block"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 w-[90%] max-w-[1000px] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mx-auto ">
         {cards.length > 0 &&
           cards.map((card) => {
             if (card && card.__typename === "CardBlock") {
