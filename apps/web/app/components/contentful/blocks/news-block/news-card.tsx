@@ -44,29 +44,20 @@ export function NewsCard({item}: NewsCardProps) {
   };
 
   const decodeHtmlEntities = (text: string): string => {
-    const textArea = document.createElement("textarea");
-    textArea.innerHTML = text;
-    return textArea.value;
-  };
-
-  const decodeHtmlEntitiesSafe = (text: string): string => {
-    if (typeof window === "undefined") {
-      return text
-      .replace(/&amp;/g, "&")
-      .replace(/&lt;/g, "<")
-      .replace(/&gt;/g, ">")
-      .replace(/&quot;/g, "\"")
-      .replace(/&#039;/g, "'")
-      .replace(/&#8221;/g, "\"")
-      .replace(/&#8211;/g, "–")
-      .replace(/&#8217;/g, "");
-    } else {
-      return decodeHtmlEntities(text);
-    }
+    return text
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, "\"")
+    .replace(/&#039;/g, "'")
+    .replace(/&#8221;/g, "\"")
+    .replace(/&#8211;/g, "–")
+    .replace(/&#8217;/g, "'");
   };
 
   const stripHtmlAndTruncate = (html: string, maxLength: number = 150): string => {
-    const decoded = decodeHtmlEntitiesSafe(html);
+    const decoded = decodeHtmlEntities(html);
 
     const plainText = decoded.replace(/<[^>]+>/g, "");
 
@@ -81,7 +72,7 @@ export function NewsCard({item}: NewsCardProps) {
     return cleanText.substring(0, breakPoint) + "...";
   };
 
-  const decodedTitle = decodeHtmlEntitiesSafe(item.title);
+  const decodedTitle = decodeHtmlEntities(item.title);
 
   return (
     <Card className="h-full transition-all hover:scale-[1.02]">

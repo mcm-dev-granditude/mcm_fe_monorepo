@@ -80,10 +80,10 @@ export function NewsBlockClient({block, initialData}: NewsBlockClientProps) {
           {visible < news.length && (
             <div className="flex justify-center pt-4">
               <Button
-                variant="outline"
+                variant="ghost"
                 onClick={() => setVisible(v => v + ITEMS_PER_PAGE)}
               >
-                Mer nyheter
+                Ladda fler nyheter...
               </Button>
             </div>
           )}

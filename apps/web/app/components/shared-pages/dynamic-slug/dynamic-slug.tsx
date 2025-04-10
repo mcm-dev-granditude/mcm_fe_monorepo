@@ -1,30 +1,32 @@
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { formatSlug } from "@/lib/utils/format-slug";
+import { fetchPageBySlug, getAllContentfulPageSlugs } from "@repo/config/contentful";
+import PageWrapper from "@/components/layout/page-wrapper";
 import BlockRenderer from "@/components/contentful/block-renderer";
 import ScrollToTop from "@/components/common/scroll-to-top";
-import PageWrapper from "@/components/layout/page-wrapper";
+import { notFound } from "next/navigation";
 import { appConfig } from "@repo/config";
-import { fetchPageBySlug, getAllContentfulPageSlugs } from "@repo/config/contentful";
-import { formatSlug } from "@/lib/utils/format-slug";
-
+import { Metadata } from "next";
+import { PageProps } from "@/types/page-props";
 
 export async function generateStaticParams() {
   const slugs = await getAllContentfulPageSlugs();
+
   return slugs
   .filter(slug => slug !== "/")
-  .map(slug => ({slug}));
+  .map((slug) => ({
+    slug: slug.replace(/^\/|\/$/g, "").split("/")
+  }));
 }
 
 export async function generateMetadata({
                                          params
-                                         // eslint-disable-next-line
-                                       }: any): Promise<Metadata> {
-  const p = await params;
-  const decodedSlug = formatSlug(p.slug);
+                                       }: PageProps<{slug?: string[]}>): Promise<Metadata> {
+  const rawSlugArray = await params.then(r => r.slug) || [];
+  const decodedSlug = formatSlug(rawSlugArray.join("/"));
   const page = await fetchPageBySlug(decodedSlug);
 
   if (!page) {
-    return notFound();
+    notFound();
   }
 
   return {
@@ -35,21 +37,19 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({
-                                     params
-                                     // eslint-disable-next-line
-                                   }: any) {
-  const p = await params;
-  const decodedSlug = formatSlug(p.slug);
+export default async function DynamicSlug({
+                                            params
+                                          }: PageProps<{slug: string[]}>) {
+  const rawSlugArray = await params.then(r => r.slug) || [];
+  const decodedSlug = formatSlug(rawSlugArray.join("/"));
   const page = await fetchPageBySlug(decodedSlug);
 
   if (!page) {
-    return notFound();
+    notFound();
   }
 
   return (
     <PageWrapper>
-      {/* Visually hidden H1 for SEO */}
       <h1 className="sr-only">{page.title}</h1>
       <BlockRenderer blocks={page.blocks} />
       <ScrollToTop show={!!page.showScrollToTopButton} />

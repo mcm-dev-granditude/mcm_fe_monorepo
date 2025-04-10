@@ -16,7 +16,7 @@ export default function EmbeddedLayout({
   children: ReactNode;
 }>) {
   return (
-    <RootLayoutWrapper>
+    <RootLayoutWrapper mainClassName="pb-16">
       {children}
     </RootLayoutWrapper>
   );

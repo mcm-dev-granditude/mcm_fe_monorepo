@@ -54,7 +54,6 @@ export async function fetchRssItems(source: string): Promise<NewsItem[]> {
         }
       } else {
         console.warn(`[fetchRssItems] Unknown source: "${source}" (normalized: "${normalizedSource}")`);
-        console.log("[fetchRssItems] Available sources:", Object.keys(RSS_LINKS));
       }
     }
   } catch (error) {
