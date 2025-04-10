@@ -34,7 +34,8 @@ export default function BlockRenderer({blocks = []}: BlockRendererProps) {
         return (
           <Suspense
             key={key}
-            fallback={<div className="p-4">Loading block...</div>}
+            fallback={
+              <div className="p-4 w-full h-[100vh] flex items-center justify-center">Loading...</div>}
           >
             {/* eslint-disable-next-line */}
             <BlockComponent block={block as any} />

@@ -19,11 +19,6 @@ export class RssParser {
 
       const source = getSourceByUrl(url);
 
-      if (itemsArray.length > 0) {
-        console.log(`[RSS Parser] Processing ${itemsArray.length} items from ${url}`);
-        console.log("[RSS Parser] First item sample:", JSON.stringify(itemsArray[0], null, 2).substring(0, 500) + "...");
-      }
-
       if (!source?.parser) {
         return itemsArray.map((item: any) => {
           let image = null;

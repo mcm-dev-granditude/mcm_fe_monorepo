@@ -7,24 +7,58 @@ export async function fetchRssItems(source: string): Promise<NewsItem[]> {
   let items: NewsItem[] = [];
 
   if (!source) {
+    console.error("No source provided to fetchRssItems");
     return items;
   }
 
   try {
-    if (source === "all") {
-      const rssPromises = Object.entries(RSS_LINKS).map(([key, url]) =>
-        RssParser.parseRssFeed(url).then(items =>
-          items.map(item => mapRssItemToNewsItem(item, key))
-        )
-      );
+    const normalizedSource = source.toLowerCase();
+
+    // Case 1: All sources
+    if (normalizedSource === "all" || normalizedSource === "alla nyheter") {
+      const rssPromises = Object.entries(RSS_LINKS).map(([key, url]) => {
+        if (!url) {
+          console.warn(`[fetchRssItems] Empty URL for source: ${key}`);
+          return Promise.resolve([]);
+        }
+
+        return RssParser.parseRssFeed(url)
+        .then(items => items.map(item => {
+          return mapRssItemToNewsItem(item, key);
+        }))
+        .catch(error => {
+          console.error(`[fetchRssItems] Error fetching RSS feed for ${key}:`, error);
+          return [] as NewsItem[];
+        });
+      });
+
       items = (await Promise.all(rssPromises)).flat();
-    } else if (source in RSS_LINKS) {
-      const rssUrl = RSS_LINKS[source as keyof typeof RSS_LINKS];
-      const rssItems = await RssParser.parseRssFeed(rssUrl);
-      items = rssItems.map(item => mapRssItemToNewsItem(item, source));
+    } else {
+      const sourceKey = Object.keys(RSS_LINKS).find(
+        key => key.toLowerCase() === normalizedSource
+      );
+
+      if (sourceKey) {
+        const rssUrl = RSS_LINKS[sourceKey as keyof typeof RSS_LINKS];
+
+        if (!rssUrl) {
+          return items;
+        }
+
+
+        try {
+          const rssItems = await RssParser.parseRssFeed(rssUrl);
+          items = rssItems.map(item => mapRssItemToNewsItem(item, sourceKey));
+        } catch (error) {
+          console.error(`[fetchRssItems] Error fetching RSS feed for ${sourceKey}:`, error);
+        }
+      } else {
+        console.warn(`[fetchRssItems] Unknown source: "${source}" (normalized: "${normalizedSource}")`);
+        console.log("[fetchRssItems] Available sources:", Object.keys(RSS_LINKS));
+      }
     }
   } catch (error) {
-    console.error("Error fetching RSS feeds:", error);
+    console.error("[fetchRssItems] Error fetching RSS feeds:", error);
   }
 
   return items;
@@ -32,7 +66,7 @@ export async function fetchRssItems(source: string): Promise<NewsItem[]> {
 
 function mapRssItemToNewsItem(item: RssItem, source: string): NewsItem {
   return {
-    id: item.id,
+    id: item.id || `${item.title}-${item.pubDate}`,
     title: item.title,
     description: item.description,
     link: item.link,

@@ -19,7 +19,8 @@ export function getSourceByUrl(url: string): ExtendedNewsSource | undefined {
 const fotbolltransfersParser = new FotbolltransfersParser();
 
 export const NEWS_SOURCES: ExtendedNewsSource[] = [
-  {id: "all", name: "all", displayName: "All News"},
+  {id: "all", name: "all", displayName: "Alla Nyheter"},
+  {id: "MCM", name: "MCM", displayName: "MCM Nyheter"},
   {
     id: "fotbollskanalen",
     name: "Fotbollskanalen",

@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     const items = await fetchRssItems(source);
     return NextResponse.json(items);
   } catch (error) {
-    console.error("Error fetching RSS feeds:", error);
+    console.error("[route]: ", error instanceof Error ? error.message : error);
     return NextResponse.json(
       {error: "Failed to fetch news"},
       {status: 500}

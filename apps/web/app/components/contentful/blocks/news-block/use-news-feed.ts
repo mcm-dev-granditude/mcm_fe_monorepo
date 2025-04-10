@@ -11,10 +11,26 @@ interface UseNewsFeedProps {
   initialData?: NewsItem[];
 }
 
+// Map UI display sources to API source IDs
+const SOURCE_MAP: Record<string, string> = {
+  "Alla nyheter": "all",
+  "all": "all"
+  // Add other mappings if needed
+};
+
 export function useNewsFeed({source, mcmNews, initialData}: UseNewsFeedProps) {
+  const apiSource = SOURCE_MAP[source] || source;
+
   const initialRssData = useMemo(() => {
     if (!initialData) return undefined;
-    return initialData.map((item): RssItem => ({
+
+    const nonMcmInitialData = initialData.filter(item => item.source !== "MCM");
+
+    const filteredData = apiSource !== "all"
+      ? nonMcmInitialData.filter(item => item.source.toLowerCase() === apiSource.toLowerCase())
+      : nonMcmInitialData;
+
+    return filteredData.map((item): RssItem => ({
       id: item.id,
       title: item.title,
       description: item.description,
@@ -27,22 +43,23 @@ export function useNewsFeed({source, mcmNews, initialData}: UseNewsFeedProps) {
       } : null,
       logoImage: item.logoUrl || null
     }));
-  }, [initialData]);
+  }, [initialData, apiSource]);
 
   const {data: rawRssNews, isLoading: isRssLoading, error: rssError} = useQuery<RssItem[]>({
-    queryKey: ["rss-news", source],
+    queryKey: ["rss-news", apiSource],
     queryFn: async () => {
-      if (source !== "MCM") {
-        const encodedSource = encodeURIComponent(source);
-        const response = await fetch(`/api/rss?source=${encodedSource}`);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
+      const encodedSource = encodeURIComponent(apiSource);
+      const response = await fetch(`/api/rss?source=${encodedSource}`);
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-      return [];
+
+      const data = await response.json();
+
+      return data.filter((item: RssItem) => item.source !== "MCM");
     },
-    enabled: source !== "MCM",
+    enabled: true,
     initialData: initialRssData
   });
 
@@ -71,11 +88,12 @@ export function useNewsFeed({source, mcmNews, initialData}: UseNewsFeedProps) {
   }, [rawRssNews]);
 
   const mcmNewsItems = useMemo(() => {
-    if (source === "MCM" || source === "all") {
+    // Only include MCM news for "all" or "MCM" sources
+    if (apiSource === "MCM" || apiSource === "all") {
       return transformMcmNewsToRssItems(mcmNews);
     }
     return [];
-  }, [mcmNews, source]);
+  }, [mcmNews, apiSource]);
 
   const allNews = useMemo(() => {
     const news = [...rssNewsItems, ...mcmNewsItems];

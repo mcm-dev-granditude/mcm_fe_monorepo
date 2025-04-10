@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NewsCard } from "@/components/contentful/blocks/news-block/news-card";
 import { Button } from "@/components/ui/button";
 import { NewsBlockComponentProps, NewsItem } from "@/components/contentful/blocks/news-block/types";
@@ -19,6 +19,10 @@ export function NewsBlockClient({block, initialData}: NewsBlockClientProps) {
   const [source, setSource] = useState<string>(block.newsSource || "all");
   const [visible, setVisible] = useState(ITEMS_PER_PAGE);
 
+  useEffect(() => {
+    setVisible(ITEMS_PER_PAGE);
+  }, [source]);
+
   const mcmNews = (block.mcmNewsList?.mcmNewsListCollection?.items || []).filter(
     (item): item is McmNewsBlock => item !== null
   );
@@ -26,7 +30,7 @@ export function NewsBlockClient({block, initialData}: NewsBlockClientProps) {
   const {news, loading, error} = useNewsFeed({
     source,
     mcmNews,
-    initialData: source === (block.newsSource || "all") ? initialData : undefined
+    initialData
   });
 
 
@@ -49,18 +53,15 @@ export function NewsBlockClient({block, initialData}: NewsBlockClientProps) {
         <div className="flex justify-center p-8">
           <LoadinggSpinner />
         </div>
-      ) : (
+      ) : news.length > 0 ? (
         <>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {news.slice(0, visible).map((item) => {
-              return (
-                <NewsCard
-                  key={`${item.title}-${item.pubDate}`}
-                  item={item}
-
-                />
-              );
-            })}
+            {news.slice(0, visible).map((item) => (
+              <NewsCard
+                key={`${item.id}-${item.source}`}
+                item={item}
+              />
+            ))}
           </div>
 
           {visible < news.length && (
@@ -74,6 +75,10 @@ export function NewsBlockClient({block, initialData}: NewsBlockClientProps) {
             </div>
           )}
         </>
+      ) : (
+        <div className="text-center text-muted-foreground py-12">
+          Inga nyheter hittades för vald källa.
+        </div>
       )}
     </section>
   );
