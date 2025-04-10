@@ -7,14 +7,19 @@ interface NewsFilterProps {
 }
 
 export function NewsFilter({value, onChange}: NewsFilterProps) {
+  const currentSource = NEWS_SOURCES.find(source =>
+    source.id.toLowerCase() === value.toLowerCase()
+  );
+
   return (
     <div className="flex items-center gap-2">
       <Select
         value={value}
         onValueChange={onChange}
+        defaultValue="all"
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Select source" />
+          <SelectValue placeholder={currentSource?.displayName || "Select source"} />
         </SelectTrigger>
         <SelectContent>
           {NEWS_SOURCES.map((source) => (

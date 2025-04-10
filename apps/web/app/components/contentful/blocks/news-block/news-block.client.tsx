@@ -7,7 +7,7 @@ import { useNewsFeed } from "@/components/contentful/blocks/news-block/use-news-
 import { NewsFilter } from "@/components/contentful/blocks/news-block/news-filter";
 import { LoadinggSpinner } from "@/components/ui/loading-spinner";
 import { McmNewsBlock } from "@repo/config/contentful";
-
+import { NEWS_SOURCES } from "@/components/contentful/blocks/news-block/sources";
 
 const ITEMS_PER_PAGE = 20;
 
@@ -16,7 +16,21 @@ interface NewsBlockClientProps extends NewsBlockComponentProps {
 }
 
 export function NewsBlockClient({block, initialData}: NewsBlockClientProps) {
-  const [source, setSource] = useState<string>(block.newsSource || "all");
+  const normalizeSource = (source: string | null | undefined): string => {
+    if (!source) return "all";
+
+    if (source.toLowerCase() === "alla nyheter") return "all";
+
+    const foundSource = NEWS_SOURCES.find(s =>
+      s.id.toLowerCase() === source.toLowerCase() ||
+      s.name.toLowerCase() === source.toLowerCase() ||
+      s.displayName.toLowerCase() === source.toLowerCase()
+    );
+
+    return foundSource ? foundSource.id : "all";
+  };
+
+  const [source, setSource] = useState<string>(normalizeSource(block.newsSource));
   const [visible, setVisible] = useState(ITEMS_PER_PAGE);
 
   useEffect(() => {
@@ -32,7 +46,6 @@ export function NewsBlockClient({block, initialData}: NewsBlockClientProps) {
     mcmNews,
     initialData
   });
-
 
   if (error) {
     return (

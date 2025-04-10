@@ -14,6 +14,7 @@ interface UseNewsFeedProps {
 // Map UI display sources to API source IDs
 const SOURCE_MAP: Record<string, string> = {
   "Alla nyheter": "all",
+  "Alla Nyheter": "all",
   "all": "all"
   // Add other mappings if needed
 };
@@ -56,7 +57,6 @@ export function useNewsFeed({source, mcmNews, initialData}: UseNewsFeedProps) {
       }
 
       const data = await response.json();
-
       return data.filter((item: RssItem) => item.source !== "MCM");
     },
     enabled: true,
