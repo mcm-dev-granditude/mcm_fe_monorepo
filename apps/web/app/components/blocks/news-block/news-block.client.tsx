@@ -42,8 +42,8 @@ export function NewsBlockClient({initialData}: NewsBlockClientProps) {
       />
 
       {loading ? (
-        <div className="flex justify-center p-8">
-          <LoadinggSpinner />
+        <div className="flex justify-center p-8 h-100 w-100">
+          <LoadinggSpinner className="text-accent" />
         </div>
       ) : news.length > 0 ? (
         <>

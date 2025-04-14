@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { NewsItem, NewsSourceId } from "@/components/blocks/news-block/types";
 import { getMcmNews } from "@/components/blocks/news-block/get-mcm-news";
 
@@ -13,8 +13,7 @@ export function useNewsFeed({source, initialData}: UseNewsFeedProps) {
     return getMcmNews();
   }, []);
 
-
-  const {data, isLoading: isRssLoading, error: rssError} = useQuery<NewsItem[]>({
+  const {data, isLoading: isRssLoading, error: rssError, refetch} = useQuery<NewsItem[]>({
     queryKey: ["rss-news", source],
     queryFn: async () => {
       const encodedSource = encodeURIComponent(source);
@@ -26,17 +25,21 @@ export function useNewsFeed({source, initialData}: UseNewsFeedProps) {
       const mcmNews = await fetchMCMNewsItems();
       const rssNews: NewsItem[] = await response.json();
 
-      return (source === "all"
-        ? [...rssNews, ...mcmNews]
-        : rssNews);
+      return (source === "all" ? [...rssNews, ...mcmNews] : source === "mcm" ? mcmNews : rssNews);
     },
+    refetchOnMount: "always",
     enabled: true,
     initialData: initialData
   });
+
+  useEffect(() => {
+    refetch();
+  }, [refetch, source]);
 
   return {
     news: data || [],
     loading: isRssLoading,
     error: rssError
   };
+
 }

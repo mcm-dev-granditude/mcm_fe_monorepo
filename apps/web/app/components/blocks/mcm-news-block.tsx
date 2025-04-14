@@ -7,7 +7,7 @@ export interface McmNewsBlock {
   content: MarkdownTextBlock
   link: string
   pubDate: string
-  source: "MCM",
+  source: "mcm",
   img: {
     url: string,
     alt: string

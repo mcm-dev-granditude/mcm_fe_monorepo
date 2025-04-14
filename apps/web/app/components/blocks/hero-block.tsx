@@ -1,5 +1,5 @@
 import FullWidthSection from "@/components/layout/full-width-section";
-import { MarkdownTextBlock } from "@/components/blocks/markup-text-block";
+import { MarkdownTextBlock } from "@/components/blocks/markdown-text-block";
 
 export interface HeroBlock {
   img: string;

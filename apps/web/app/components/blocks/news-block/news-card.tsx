@@ -3,6 +3,7 @@ import { NewsItem } from "@/components/blocks/news-block/types";
 import Image from "next/image";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { useState } from "react";
+import Link from "next/link";
 
 interface NewsCardProps {
   item: NewsItem;
@@ -74,12 +75,17 @@ export function NewsCard({item}: NewsCardProps) {
 
   const decodedTitle = decodeHtmlEntities(item.title);
 
+  const isExternalLink = !!(item.link && !item.link.startsWith("/") && !item.link.startsWith("#"));
+
+  const linkProps = isExternalLink
+    ? {target: "_blank", rel: "noopener noreferrer"}
+    : {};
+
   return (
     <Card className="h-full transition-all hover:scale-[1.02]">
-      <a
+      <Link
         href={item.link}
-        target="_blank"
-        rel="noopener noreferrer"
+        {...linkProps}
         className="h-full flex flex-col"
       >
         {hasValidImage && (
@@ -112,7 +118,7 @@ export function NewsCard({item}: NewsCardProps) {
             {item.source}
           </span>
         </CardFooter>
-      </a>
+      </Link>
     </Card>
   );
 }

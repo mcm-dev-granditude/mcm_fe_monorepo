@@ -15,7 +15,7 @@ export async function fetchRssItems(source: string): Promise<NewsItem[]> {
     const normalizedSource = source.toLowerCase();
 
     // Case 1: All sources
-    if (normalizedSource === "all" || normalizedSource === "alla nyheter") {
+    if (normalizedSource === "all") {
       const rssPromises = Object.entries(RSS_LINKS).map(([key, url]) => {
         if (!url) {
           console.warn(`[fetchRssItems] Empty URL for source: ${key}`);
