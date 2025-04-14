@@ -4,29 +4,19 @@
   "types": "./index.ts",
   "exports": {
     ".": "./index.ts",
-    "./src/*": "./src/*",
-    "./contentful": "./src/lib/contentful/index.ts",
-    "./contentful/*": "./src/lib/contentful/*"
+    "./src/*": "./src/*"
   },
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "check-types": "tsc --noEmit",
-    "build": "pnpm gen-ts",
-    "gen-ts": "graphql-codegen --config ./src/lib/contentful/codegen.js"
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@repo/tokens": "workspace:*",
-    "contentful": "^11.5.12",
     "graphql-request": "^7.1.2"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.5",
-    "@graphql-codegen/introspection": "^4.0.3",
-    "@graphql-codegen/typescript": "^4.1.6",
-    "@graphql-codegen/typescript-graphql-request": "^6.2.0",
-    "@graphql-codegen/typescript-operations": "^4.6.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^22.13.9",
