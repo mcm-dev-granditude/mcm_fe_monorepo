@@ -1,11 +1,8 @@
-import { baseMetadata } from "@/lib/seo";
-import { Metadata } from "next";
 import { ReactNode } from "react";
 import RootLayoutWrapper from "@/components/layout/root-layout-wrapper";
+import { createMetadata } from "@/lib/utils/metadata";
 
-export const metadata: Metadata = {
-  ...baseMetadata
-};
+export const metadata = createMetadata();
 
 
 export default function WebLayout({

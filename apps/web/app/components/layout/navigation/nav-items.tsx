@@ -1,4 +1,4 @@
-// Server Component
+"use server";
 import { navItems } from "@/lib/constants/nav-menu-items";
 import { NavItemsClient } from "./nav-items.client";
 import { cn } from "@repo/ui";
@@ -13,15 +13,15 @@ interface NavItemsProps {
   showIcon?: boolean;
 }
 
-export function NavItems({
-                           containerClassName,
-                           itemClassName,
-                           iconClassName,
-                           linkClassName,
-                           iconSize = 20,
-                           showLabel = true,
-                           showIcon = true
-                         }: NavItemsProps) {
+export async function NavItems({
+                                 containerClassName,
+                                 itemClassName,
+                                 iconClassName,
+                                 linkClassName,
+                                 iconSize = 20,
+                                 showLabel = true,
+                                 showIcon = true
+                               }: NavItemsProps) {
   return (
     <div className={cn("flex flex-col space-y-4 p-4", containerClassName)}>
       {navItems.map(item => (

@@ -1,6 +1,6 @@
 import { XMLParser } from "fast-xml-parser";
 import { RssItem } from "@/app/api/rss/types";
-import { getSourceByUrl } from "@/components/contentful/blocks/news-block/sources";
+import { getSourceByUrl } from "@/components/blocks/news-block/sources";
 
 export class RssParser {
   private static parser = new XMLParser({

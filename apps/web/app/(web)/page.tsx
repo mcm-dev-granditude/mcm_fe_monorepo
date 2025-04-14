@@ -1,23 +1,7 @@
 import Home from "@/components/shared-pages/home/home";
-import { Metadata } from "next";
-import { getContentfulPage } from "@repo/config/contentful";
+import { createMetadata } from "@/lib/utils/metadata";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const page = await getContentfulPage("/");
-
-  if (!page) {
-    return {
-      title: "Homepage"
-    };
-  }
-
-  return {
-    title: page.title,
-    description: page.description,
-    keywords: page.keywords,
-    robots: page.excludePageFromExternalSearch ? "noindex,follow" : undefined
-  };
-}
+export const metadata = createMetadata({title: "Hemsida"});
 
 
 export default function HomePage() {
