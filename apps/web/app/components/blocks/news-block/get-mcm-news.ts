@@ -10,7 +10,7 @@ export async function getMcmNews() {
     description: "This item should be replaced with real data.",
     content: "When real data is available, this item will be replaced with real data.",
     link: "/news/test-placeholder",
-    pubDate: "10-02-2025",
+    pubDate: "2025-02-10",
     source: "mcm",
     img: {
       url: "/icon-384x384.png",
