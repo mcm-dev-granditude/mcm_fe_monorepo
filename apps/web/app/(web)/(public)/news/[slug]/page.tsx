@@ -23,6 +23,7 @@ export async function generateMetadata({params}: PageProps<{slug: string}>) {
   // todo -- Fetch news data from the BE
   // const newsItem = await getNewsItemBySlug(slug);
 
+  // todo -- Update the SEO fields with the item information
   return createMetadata({
     title: `News: ${
       slug}`,
