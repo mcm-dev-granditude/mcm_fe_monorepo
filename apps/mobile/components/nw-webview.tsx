@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
+import { useRouter } from "expo-router";
 import { useTheme } from "@/providers/theme-provider";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { cn } from "@repo/ui";
@@ -21,94 +22,109 @@ export function NwWebView({
                             className = ""
                           }: NwWebViewProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const [currentUrl, setCurrentUrl] = useState(appendAppParam(url));
+  const [initialUrl] = useState(
+    url.startsWith("http")
+      ? new URL(url).pathname.startsWith("/embedded")
+        ? `${url}${url.includes("?") ? "&" : "?"}app=true`
+        : url
+      : url
+  );
+
   const webViewRef = useRef<WebView>(null);
   const {effectiveTheme} = useTheme();
   const backgroundColor = useThemeColor("background");
+  const router = useRouter();
 
   // State for in-app browser modal
   const [browserModalVisible, setBrowserModalVisible] = useState(false);
   const [externalUrl, setExternalUrl] = useState("");
 
-  // Function to append app parameter to URLs
-  function appendAppParam(urlToModify: string): string {
-    try {
-      const urlObj = new URL(urlToModify);
+  const combinedJs = [
+    bridgeScript(effectiveTheme),
+    linkHandlerScript,
+    noBounceScript,
+    viewportScript,
+    injectedJavaScript,
+    "true;"
+  ].filter(Boolean).join("\n");
 
-      // Only add the param for embedded routes
-      if (urlObj.pathname.startsWith("/embedded")) {
-        urlObj.searchParams.set("app", "true");
-      }
-
-      return urlObj.toString();
-    } catch (error) {
-      console.error("Error appending app param to URL:", error);
-      return urlToModify;
-    }
-  }
-
-  const defaultInjectedJs = `
-    ${bridgeScript(effectiveTheme)}
-    ${linkHandlerScript}
-    ${noBounceScript}
-    ${viewportScript}
-    true;
-  `;
-
-  const combinedJs = injectedJavaScript
-    ? `${defaultInjectedJs}\n${injectedJavaScript}`
-    : defaultInjectedJs;
-
-  const handleWebViewMessage = useCallback(async (event: WebViewMessageEvent) => {
+  const handleWebViewMessage = useCallback((event: WebViewMessageEvent) => {
     try {
       const data = JSON.parse(event.nativeEvent.data);
 
-      console.log("Data", data);
-
       if (data.type === "navigation") {
-        if (data.url) {
-          setCurrentUrl(appendAppParam(data.url));
-        } else if (data.payload && data.payload.path) {
-          const baseUrl = new URL(currentUrl).origin;
-          const fullUrl = `${baseUrl}${data.payload.path}`;
-          setCurrentUrl(appendAppParam(fullUrl));
+        let routePath = "";
+
+        if (data.payload?.path) {
+          routePath = data.payload.path.replace(/^\/embedded\/?/, "");
+        } else if (data.url) {
+          routePath = data.url.replace(/^\/embedded\/?/, "");
+          // If it's a full URL, just extract the path part
+          if (routePath.startsWith("http")) {
+            try {
+              const urlObj = new URL(routePath);
+              routePath = urlObj.pathname + urlObj.search;
+            } catch {
+              routePath = "";
+            }
+          }
+          routePath = routePath.replace(/^\/embedded\/?/, "");
         }
-      } else if (data.type === "externalLink") {
-        const extUrl = data.url || (data.payload && data.payload.url);
+
+        // Ensure path starts with a slash
+        if (routePath && !routePath.startsWith("/")) {
+          routePath = `/${routePath}`;
+        }
+
+        // Default to home if no path
+        if (!routePath) routePath = "/";
+
+        router.push(routePath as any);
+      }
+      // Handle external links
+      else if (data.type === "externalLink") {
+        const extUrl = data.url || data.payload?.url;
         if (extUrl) {
           setExternalUrl(extUrl);
           setBrowserModalVisible(true);
         }
       }
 
+      // Forward the message to the parent handler if provided
       onMessage?.(event);
     } catch (e) {
-      // todo -- Error in toast
-      console.error("Error parsing WebView message:", e);
+      console.error("Error handling WebView message:", e);
     }
-  }, [onMessage, currentUrl]);
+  }, [onMessage, router]);
+
+  // Inject the link handler script after page loads
+  const onPageLoad = useCallback(() => {
+    setIsLoading(false);
+    webViewRef.current?.injectJavaScript(`${linkHandlerScript}\ntrue;`);
+  }, []);
 
   return (
     <View className={cn("flex-1", className)}>
       <WebView
         ref={webViewRef}
-        source={{uri: currentUrl}}
+        source={{uri: initialUrl}}
         injectedJavaScript={combinedJs}
         style={{backgroundColor}}
         onMessage={handleWebViewMessage}
         onLoadStart={() => setIsLoading(true)}
-        onLoadEnd={() => setIsLoading(false)}
+        onLoadEnd={onPageLoad}
         containerStyle={styles.container}
-        sharedCookiesEnabled={true}
-        allowsBackForwardNavigationGestures
-        cacheEnabled={true}
-        domStorageEnabled={true}
-        javaScriptEnabled={true}
+        sharedCookiesEnabled
+        allowsBackForwardNavigationGestures={false}
+        cacheEnabled
+        domStorageEnabled
+        javaScriptEnabled
         pullToRefreshEnabled={false}
         bounces={false}
         overScrollMode="never"
         decelerationRate="normal"
       />
+
       {isLoading && (
         <View
           style={StyleSheet.absoluteFill}
