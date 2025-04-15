@@ -301,9 +301,6 @@ importers:
 
   packages/config:
     dependencies:
-      '@repo/tokens':
-        specifier: workspace:*
-        version: link:../tokens
       graphql-request:
         specifier: ^7.1.2
         version: 7.1.2(graphql@16.10.0)

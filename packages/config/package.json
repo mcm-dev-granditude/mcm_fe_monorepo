@@ -13,7 +13,6 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/tokens": "workspace:*",
     "graphql-request": "^7.1.2"
   },
   "devDependencies": {

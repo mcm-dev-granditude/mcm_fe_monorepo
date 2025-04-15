@@ -16,7 +16,7 @@
     "RSS_URL_FOTBOLL_DIREKT",
     "RSS_URL_HOCKEY_SVERIGE"
   ],
-  "pipeline": {
+  "tasks": {
     "build": {
       "dependsOn": [
         "^build"
