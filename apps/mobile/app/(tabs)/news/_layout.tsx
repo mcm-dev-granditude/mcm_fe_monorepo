@@ -1,23 +1,26 @@
 import { Stack } from "expo-router";
 import React from "react";
+import { useThemeColor } from "@/hooks/use-theme-color";
 
 export default function NewsLayout() {
+  const primaryColor = useThemeColor("primaryLight");
+  const surfaceColor = useThemeColor("backgroundSurface");
   return (
-    <Stack>
+    <Stack screenOptions={{headerTintColor: primaryColor, headerStyle: {backgroundColor: surfaceColor}}}>
       <Stack.Screen
         name="index"
         options={{
           headerShown: false,
-          title: "News"
+          title: "Nyheter"
         }}
       />
       <Stack.Screen
         name="[id]"
         options={{
           headerShown: true,
-          headerTitle: "News Detail",
-          headerBackTitle: "News",
-          presentation: "card"
+          headerTitle: "",
+          headerBackTitle: "Nyheter",
+          presentation: "modal"
         }}
       />
     </Stack>
