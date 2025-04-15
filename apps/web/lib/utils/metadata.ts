@@ -8,6 +8,7 @@ type MetadataOptions = {
   description?: string;
   keywords?: string[];
   noIndex?: boolean;
+  noFollow?: boolean;
   ogImage?: string;
   canonicalPath?: string;
 };
@@ -38,10 +39,10 @@ export function createMetadata(
     publisher: appConfig.title,
     robots: {
       index: !options?.noIndex,
-      follow: true,
+      follow: !options?.noFollow,
       googleBot: {
         index: !options?.noIndex,
-        follow: true
+        follow: !options?.noFollow
       }
     },
     openGraph: {

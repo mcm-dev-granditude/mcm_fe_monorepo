@@ -4,7 +4,7 @@ import NewsDetail from "@/app/components/shared-pages/news/news-detail";
 import { getMcmNews } from "@/components/blocks/news-block/get-mcm-news";
 import { notFound } from "next/navigation";
 
-export const metadata = createMetadata({title: "Nyheter", noIndex: true});
+export const metadata = createMetadata({title: "Nyheter", noIndex: true, noFollow: true});
 
 async function NewsDetailPage({params}: PageProps<{slug: string}>) {
   const slug = await params.then(

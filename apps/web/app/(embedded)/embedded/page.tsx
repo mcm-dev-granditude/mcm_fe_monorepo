@@ -2,7 +2,7 @@ import Home from "@/components/shared-pages/home/home";
 import { createMetadata } from "@/lib/utils/metadata";
 
 
-export const metadata = createMetadata({title: "Hemsida", noIndex: true});
+export const metadata = createMetadata({title: "Hemsida", noIndex: true, noFollow: true});
 
 
 export default function HomePage() {
