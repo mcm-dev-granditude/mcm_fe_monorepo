@@ -121,8 +121,8 @@ export function NwWebView({
           className="justify-center items-center"
         >
           <ActivityIndicator
-            size="large"
-            className="text-secondary"
+            size="small"
+            className="text-primary"
           />
         </View>
       )}

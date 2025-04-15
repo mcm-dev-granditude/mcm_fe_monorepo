@@ -11,7 +11,7 @@ export default function RootLayoutWrapper({children, withNav, mainClassName}: Ro
   return (
     <div className="relative min-h-screen flex flex-col">
       {withNav && <NavigationBar />}
-      <main className={cn(`flex-1 flex w-full max-w-7xl mx-auto p-5 ${withNav ? "pt-16" : ""}`, mainClassName)}>{children}</main>
+      <main className={cn(`flex-1 flex w-full max-w-7xl mx-auto ${withNav ? "p-5 pt-16" : ""}`, mainClassName)}>{children}</main>
     </div>
   );
 }

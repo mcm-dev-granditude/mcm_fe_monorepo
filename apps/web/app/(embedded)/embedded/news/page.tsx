@@ -6,6 +6,6 @@ export const metadata = createMetadata({title: "Nyheter", noIndex: true});
 
 export default function NewsPage() {
   return (
-    <News className="min-h-auto p-0 pb-6 " />
+    <News className="min-h-auto p-4 pb-6" />
   );
 }

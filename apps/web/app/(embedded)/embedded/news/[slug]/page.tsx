@@ -18,10 +18,13 @@ async function NewsDetailPage({params}: PageProps<{slug: string}>) {
     return notFound();
   }
 
-  return <NewsDetail
-    slug={slug}
-    item={item}
-  />;
+  return (
+    <NewsDetail
+      className="px-4"
+      slug={slug}
+      item={item}
+    />
+  );
 }
 
 export default NewsDetailPage;

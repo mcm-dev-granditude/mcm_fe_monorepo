@@ -23,7 +23,7 @@ export default function TextBlockComponent({block, className}: TextBlockComponen
       <div className="max-w-4xl mx-auto text-foreground">
         {title && (
           <div className="flex flex-col items-center">
-            <h2 className={`text-2xl md:text-xl font-bold mb-3`}>
+            <h2 className={`text-2xl md:text-xl font-bold mb-3 text-center`}>
               {title}
             </h2>
             <div className="border-b-4 border-primary w-[20%] mb-8" />

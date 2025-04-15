@@ -32,7 +32,7 @@ export default function HeroBlockComponent({block}: HeroBlockComponentProps) {
           style={backgroundStyle}
           data-testid="hero-block"
         >
-          <div className="relative z-20">
+          <div className="relative z-20 px-2 md:px-4">
             <h2 className="text-xl md:text-4xl leading-tight uppercase text-center max-w-[44rem] font-bold tracking-tight text-foreground">
               {paragraph}
             </h2>

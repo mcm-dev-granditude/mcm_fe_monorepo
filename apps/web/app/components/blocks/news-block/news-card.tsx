@@ -82,7 +82,7 @@ export function NewsCard({item}: NewsCardProps) {
     : {};
 
   return (
-    <Card className="h-full transition-all hover:scale-[1.02]">
+    <Card className="h-full transition-all hover:scale-[1.02] shadow-lg">
       <Link
         href={item.link}
         {...linkProps}
