@@ -6,7 +6,7 @@ import { useTheme } from "@/providers/theme-provider";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { cn } from "@repo/ui";
 import { bridgeScript, linkHandlerScript, noBounceScript, viewportScript } from "@/lib/webviews";
-import { useBrowser } from "@/hooks/use-browser";
+import { useBrowser } from "@/lib/browser/use-browser";
 
 interface NwWebViewProps {
   url: string;
