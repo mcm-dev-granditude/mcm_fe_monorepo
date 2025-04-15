@@ -41,6 +41,17 @@ export default function RootLayout() {
             options={{headerShown: false}}
           />
           <Stack.Screen name="+not-found" />
+
+          <Stack.Screen
+            name="browser"
+            options={{
+              headerShown: false,
+              presentation: "modal",
+              animation: "slide_from_bottom",
+              gestureEnabled: true,
+              gestureDirection: "vertical"
+            }}
+          />
         </Stack>
         <NwStatusBar />
       </Providers>

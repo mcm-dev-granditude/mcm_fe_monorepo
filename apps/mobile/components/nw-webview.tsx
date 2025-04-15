@@ -6,7 +6,7 @@ import { useTheme } from "@/providers/theme-provider";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { cn } from "@repo/ui";
 import { bridgeScript, linkHandlerScript, noBounceScript, viewportScript } from "@/lib/webviews";
-import { BrowserModal } from "@/components/layout/browser-modal";
+import { useBrowser } from "@/hooks/use-browser";
 
 interface NwWebViewProps {
   url: string;
@@ -22,6 +22,7 @@ export function NwWebView({
                             className = ""
                           }: NwWebViewProps) {
   const [isLoading, setIsLoading] = useState(true);
+  const {openBrowser} = useBrowser();
   const [initialUrl] = useState(
     url.startsWith("http")
       ? new URL(url).pathname.startsWith("/embedded")
@@ -34,10 +35,6 @@ export function NwWebView({
   const {effectiveTheme} = useTheme();
   const backgroundColor = useThemeColor("background");
   const router = useRouter();
-
-  // State for in-app browser modal
-  const [browserModalVisible, setBrowserModalVisible] = useState(false);
-  const [externalUrl, setExternalUrl] = useState("");
 
   const combinedJs = [
     bridgeScript(effectiveTheme),
@@ -59,7 +56,6 @@ export function NwWebView({
           routePath = data.payload.path.replace(/^\/embedded\/?/, "");
         } else if (data.url) {
           routePath = data.url.replace(/^\/embedded\/?/, "");
-          // If it's a full URL, just extract the path part
           if (routePath.startsWith("http")) {
             try {
               const urlObj = new URL(routePath);
@@ -71,31 +67,25 @@ export function NwWebView({
           routePath = routePath.replace(/^\/embedded\/?/, "");
         }
 
-        // Ensure path starts with a slash
         if (routePath && !routePath.startsWith("/")) {
           routePath = `/${routePath}`;
         }
 
-        // Default to home if no path
         if (!routePath) routePath = "/";
 
         router.push(routePath as any);
-      }
-      // Handle external links
-      else if (data.type === "externalLink") {
+      } else if (data.type === "externalLink") {
         const extUrl = data.url || data.payload?.url;
         if (extUrl) {
-          setExternalUrl(extUrl);
-          setBrowserModalVisible(true);
+          openBrowser(extUrl);
         }
       }
 
-      // Forward the message to the parent handler if provided
       onMessage?.(event);
     } catch (e) {
       console.error("Error handling WebView message:", e);
     }
-  }, [onMessage, router]);
+  }, [onMessage, openBrowser, router]);
 
   // Inject the link handler script after page loads
   const onPageLoad = useCallback(() => {
@@ -136,12 +126,6 @@ export function NwWebView({
           />
         </View>
       )}
-
-      <BrowserModal
-        isVisible={browserModalVisible}
-        url={externalUrl}
-        onClose={() => setBrowserModalVisible(false)}
-      />
     </View>
   );
 }
