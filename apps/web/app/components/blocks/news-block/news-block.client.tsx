@@ -6,14 +6,15 @@ import { NewsBlockComponentProps, NewsItem, NewsSourceId } from "@/components/bl
 import { useNewsFeed } from "@/components/blocks/news-block/use-news-feed";
 import { NewsFilter } from "@/components/blocks/news-block/news-filter";
 import { LoadinggSpinner } from "@/components/ui/loading-spinner";
+import { cn } from "@repo/ui";
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 21;
 
 interface NewsBlockClientProps extends NewsBlockComponentProps {
   initialData: NewsItem[];
 }
 
-export function NewsBlockClient({initialData}: NewsBlockClientProps) {
+export function NewsBlockClient({initialData, block}: NewsBlockClientProps) {
   const [source, setSource] = useState<NewsSourceId>("all");
   const [visible, setVisible] = useState(ITEMS_PER_PAGE);
 
@@ -35,7 +36,7 @@ export function NewsBlockClient({initialData}: NewsBlockClientProps) {
   }
 
   return (
-    <section className="space-y-6 p-4">
+    <section className={cn("space-y-6 p-4", block.className)}>
       <NewsFilter
         value={source}
         onChange={setSource}

@@ -10,7 +10,7 @@ export const webViewRegistry: WebViewRegistry = {
   baseUrl: getWebServerUrl(),
   routes: {
     home: "embedded/",
-    news: "embedded/nyheter"
+    news: "embedded/news"
     // newsDetail: "embedded/news/"
   }
 };

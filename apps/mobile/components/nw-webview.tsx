@@ -63,6 +63,8 @@ export function NwWebView({
     try {
       const data = JSON.parse(event.nativeEvent.data);
 
+      console.log("Data", data);
+
       if (data.type === "navigation") {
         if (data.url) {
           setCurrentUrl(appendAppParam(data.url));

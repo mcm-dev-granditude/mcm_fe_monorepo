@@ -8,7 +8,7 @@ export default async function NewsPage({className}: {className?: string}) {
     <PageWrapper className={className}>
       {/* Visually hidden H1 for SEO */}
       <h1 className="sr-only">Nyheter</h1>
-      <NewsBlockComponent block={{className: ""}} />
+      <NewsBlockComponent block={{className: "px-0 md:px-2"}} />
       <ScrollToTop show />
     </PageWrapper>
   );
