@@ -10,6 +10,7 @@ import buildTokensBundle from "./compile-css-generator.js";
  * @param {Object} config - Configuration for the CSS generator
  * @param {string} config.outputDir - The relative path to the output directory from the calling script
  * @param {string} config.output - The filename for the output CSS file
+ * @param {string} config.brandId - The brand ID to use for token generation
  * @returns {Promise<string>} Promise resolving to the path of the generated CSS file
  */
 export async function generateCss(callerDir, config) {
@@ -23,8 +24,8 @@ export async function generateCss(callerDir, config) {
     // Create a temporary bundle filename in the caller's directory
     const tempBundleFile = path.join(callerDir, "temp-tokens-bundle.js");
 
-    // Build the tokens bundle
-    const bundleBuilt = await buildTokensBundle(tempBundleFile);
+    // Build the tokens bundle and pass the brandId
+    const bundleBuilt = await buildTokensBundle(tempBundleFile, config.brandId);
 
     if (!bundleBuilt) {
       throw new Error("Failed to build tokens bundle");

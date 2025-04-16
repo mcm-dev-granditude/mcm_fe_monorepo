@@ -4,13 +4,15 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "start": "pnpm gen-css && expo start --clear",
-    "android": "pnpm gen-css && expo start --android",
-    "ios": "pnpm gen-css && expo start --ios",
-    "web": "pnpm gen-css && expo start --web",
+    "start": "pnpm gen-config:default && pnpm gen-css && expo start --clear",
+    "android": "pnpm gen-config:default && pnpm gen-css && expo start --android",
+    "ios": "pnpm gen-config:default && pnpm gen-css && expo start --ios",
+    "web": "pnpm gen-config:default && pnpm gen-css && expo start --web",
     "test": "jest --watchAll",
     "lint": "eslint . --max-warnings 0",
-    "gen-css": "node scripts/gen-css-bundle.js"
+    "gen-css": "node scripts/gen-css-bundle.js",
+    "gen-config:default": "node ./scripts/gen-app-config.js default",
+    "gen-config:demo": "node ./scripts/gen-app-config.js demo"
   },
   "jest": {
     "preset": "jest-expo"

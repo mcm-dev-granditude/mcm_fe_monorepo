@@ -9,14 +9,13 @@ const __dirname = path.dirname(__filename);
 // Get the absolute path to the monorepo root
 const rootDir = path.resolve(__dirname, "../../../../");
 
-const inputFile = path.join(__dirname, "../generators/css-brand-generator.ts");
-
 /**
  * Builds the tokens bundle and outputs it to the specified path
  * @param {string} outputPath - Full path to the output file, or directory where the bundle should be created
+ * @param {string} brandId - The brand ID to use for token generation
  * @returns {Promise<boolean>} - Whether the build was successful
  */
-async function buildTokensBundle(outputPath) {
+async function buildTokensBundle(outputPath, brandId) {
   let outfile;
 
   // Handle both cases - if outputPath is a directory or a full file path
@@ -36,9 +35,13 @@ async function buildTokensBundle(outputPath) {
 
   console.log("Outputting tokens bundle to:", outfile);
 
+  // Create a temporary generator file with the brandId injected
+  const tempGeneratorPath = path.join(__dirname, "../generators/temp-css-brand-generator.ts");
+  createTempGenerator(brandId, tempGeneratorPath);
+
   try {
     await build({
-      entryPoints: [inputFile],
+      entryPoints: [tempGeneratorPath],
       bundle: true,
       platform: "node",
       outfile,
@@ -60,12 +63,38 @@ async function buildTokensBundle(outputPath) {
       }
     });
 
+    // Clean up the temporary generator file
+    if (fs.existsSync(tempGeneratorPath)) {
+      fs.unlinkSync(tempGeneratorPath);
+    }
+
     console.log("✅ Built tokens bundle successfully");
     return true;
   } catch (error) {
     console.error("Error building tokens bundle:", error);
+    // Clean up the temporary generator file in case of error
+    if (fs.existsSync(tempGeneratorPath)) {
+      fs.unlinkSync(tempGeneratorPath);
+    }
     return false;
   }
+}
+
+/**
+ * Creates a temporary generator file with the brandId injected
+ * @param {string} brandId - The brand ID to use
+ * @param {string} outputPath - Path to write the temporary file
+ */
+function createTempGenerator(brandId, outputPath) {
+  const content = `
+import { generateBrandCSS } from "./css-generator";
+
+const brandId = "${brandId}";
+const cssContent = generateBrandCSS(brandId);
+console.log(cssContent);
+`;
+
+  fs.writeFileSync(outputPath, content);
 }
 
 export default buildTokensBundle;

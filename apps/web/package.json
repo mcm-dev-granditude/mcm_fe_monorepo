@@ -4,12 +4,14 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "pnpm gen-css && next dev -H 0.0.0.0 --turbopack",
-    "build": "pnpm gen-css && next build",
+    "dev": "pnpm gen-config:default && pnpm gen-css && next dev -H 0.0.0.0 --turbopack",
+    "build": "pnpm gen-config:default && pnpm gen-css && next build",
     "start": "next start",
     "lint": "next lint --max-warnings 0",
     "check-types": "tsc --noEmit",
-    "gen-css": "node scripts/gen-css-bundle.js"
+    "gen-css": "node scripts/gen-css-bundle.js",
+    "gen-config:default": "node ./scripts/gen-app-config.js default",
+    "gen-config:demo": "node ./scripts/gen-app-config.js demo"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",

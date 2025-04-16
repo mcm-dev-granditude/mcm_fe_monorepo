@@ -1,7 +1,6 @@
-// lib/utils/metadata.ts
 import { Metadata, ResolvingMetadata } from "next";
-import { appConfig } from "@repo/config";
 import { defaultUrl } from "@/lib/utils/default-url";
+import { appConfig } from "@/config/app-config";
 
 type MetadataOptions = {
   title?: string;
