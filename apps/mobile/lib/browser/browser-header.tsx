@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ExternalLink, X } from "lucide-react-native";
 
 interface BrowserHeaderProps {
@@ -11,7 +11,10 @@ interface BrowserHeaderProps {
 
 export function BrowserHeader({hostname, textColor, onClose, onOpenExternal}: BrowserHeaderProps) {
   return (
-    <View className="flex-row items-center px-4 py-3 border-b border-border">
+    <View
+      className="flex-row items-center px-4 py-3 border-b border-border"
+      style={styles.header}
+    >
       <TouchableOpacity
         onPress={onClose}
         className="p-2 rounded-full mr-3"
@@ -47,3 +50,10 @@ export function BrowserHeader({hostname, textColor, onClose, onOpenExternal}: Br
     </View>
   );
 }
+
+
+const styles = StyleSheet.create({
+  header: {
+    paddingVertical: 10
+  }
+});

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, View } from "react-native";
+import { Animated, StyleSheet, View } from "react-native";
+import { useThemeColor } from "@/hooks/use-theme-color";
 
 interface ProgressBarProps {
   progress: number;
@@ -9,6 +10,7 @@ interface ProgressBarProps {
 
 export function ProgressBar({progress, isLoading, color}: ProgressBarProps) {
   const progressAnimation = useRef(new Animated.Value(0)).current;
+  const surface = useThemeColor("backgroundSurface");
 
   useEffect(() => {
     Animated.timing(progressAnimation, {
@@ -19,11 +21,10 @@ export function ProgressBar({progress, isLoading, color}: ProgressBarProps) {
   }, [progress, progressAnimation]);
 
   return (
-    <View className="h-1 w-full bg-surface overflow-hidden">
+    <View style={[styles.wrapper, {backgroundColor: surface}]}>
       <Animated.View
-        className="h-full"
         style={[
-          {backgroundColor: color},
+          {backgroundColor: color, height: "100%"},
           {
             width: progressAnimation.interpolate({
               inputRange: [0, 1],
@@ -36,3 +37,7 @@ export function ProgressBar({progress, isLoading, color}: ProgressBarProps) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {height: 2, width: "100%", overflow: "hidden"}
+});

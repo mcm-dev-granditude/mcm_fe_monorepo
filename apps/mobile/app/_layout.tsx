@@ -62,8 +62,6 @@ export default function RootLayout() {
             name="(tabs)"
             options={{headerShown: false}}
           />
-          <Stack.Screen name="+not-found" />
-
           <Stack.Screen
             name="browser"
             options={{
@@ -74,6 +72,8 @@ export default function RootLayout() {
               gestureDirection: "vertical"
             }}
           />
+
+          <Stack.Screen name="+not-found" />
         </Stack>
         <NwStatusBar />
       </Providers>

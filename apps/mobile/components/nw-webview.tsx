@@ -13,7 +13,7 @@ interface NwWebViewProps {
   injectedJavaScript?: string;
   onMessage?: (event: WebViewMessageEvent) => void;
   className?: string;
-  fadeDuration?: number; // Duration of fade-in animation in ms
+  fadeDuration?: number;
 }
 
 export function NwWebView({
@@ -21,7 +21,7 @@ export function NwWebView({
                             injectedJavaScript,
                             onMessage,
                             className = "",
-                            fadeDuration = 300 // Default fade duration
+                            fadeDuration = 300
                           }: NwWebViewProps) {
   const [isLoading, setIsLoading] = useState(true);
   const {openBrowser} = useBrowser();
