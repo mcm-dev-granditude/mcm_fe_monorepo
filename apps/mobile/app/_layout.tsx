@@ -1,9 +1,9 @@
 import "../app/styles/globals.css";
-import { useFonts } from "expo-font";
+import { useCallback, useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import React, { useCallback } from "react";
-
+import * as Font from "expo-font";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
 
@@ -11,27 +11,49 @@ import SpaceMonoFont from "@/assets/fonts/SpaceMono-Regular.ttf";
 import Providers from "@/providers/providers";
 import NwStatusBar from "@/components/layout/nw-status-bar";
 
-void SplashScreen.preventAutoHideAsync();
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [fontsLoaded, fontError] = useFonts({
-    SpaceMono: SpaceMonoFont
-  });
+  const [appIsReady, setAppIsReady] = useState<boolean>(false);
+
+  useEffect(() => {
+    async function prepare() {
+      try {
+        // Load fonts
+        await Font.loadAsync({
+          SpaceMono: SpaceMonoFont
+        });
+
+        // Add any other initialization logic here
+        // For example: await initializeDatabase();
+
+        // Simulate any additional loading if needed
+        // await new Promise(resolve => setTimeout(resolve, 500));
+      } catch (e) {
+        console.warn("Error loading app resources:", e);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
+
+    void prepare();
+  }, []);
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded || fontError) {
-      // Hide the splash screen once the assets are loaded
+    if (appIsReady) {
+      // This hides the splash screen once the app is ready to render
       await SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, fontError]);
+  }, [appIsReady]);
 
-  if (!fontsLoaded && !fontError) {
+  if (!appIsReady) {
     return null;
   }
 
   return (
     <GestureHandlerRootView
-      style={style.root}
+      style={styles.root}
       onLayout={onLayoutRootView}
     >
       <Providers>
@@ -59,8 +81,8 @@ export default function RootLayout() {
   );
 }
 
-const style = {
+const styles = StyleSheet.create({
   root: {
     flex: 1
   }
-};
+});
