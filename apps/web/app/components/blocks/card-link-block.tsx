@@ -1,12 +1,6 @@
 import Link from "next/link";
+import { CardLinkBlock } from "@repo/content";
 
-export interface CardLinkBlock {
-  img: string;
-  label: string;
-  link?: {
-    slug: string;
-  };
-}
 
 export interface CardLinkBlockComponentProps {
   block: CardLinkBlock;

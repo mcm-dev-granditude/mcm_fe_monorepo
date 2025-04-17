@@ -1,11 +1,7 @@
 import Image from "next/image";
-import MarkdownTextBlockComponent, { MarkdownTextBlock } from "@/components/blocks/markdown-text-block";
+import MarkdownTextBlockComponent from "@/components/blocks/markdown-text-block";
+import { WidgetBlock } from "@repo/content";
 
-export interface WidgetBlock {
-  title?: string;
-  text?: MarkdownTextBlock;
-  img: string;
-}
 
 export interface WidgetBlockComponentProps {
   block: WidgetBlock;

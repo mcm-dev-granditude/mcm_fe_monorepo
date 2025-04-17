@@ -1,5 +1,4 @@
-export interface LiveScoreBlock {
-}
+import { LiveScoreBlock } from "@repo/content";
 
 export interface LiveScoreBlockComponentProps {
   block: LiveScoreBlock;

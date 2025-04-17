@@ -1,8 +1,6 @@
-import CardBlockComponent, { CardItemBlock } from "@/components/blocks/card-item-block";
+import CardBlockComponent from "@/components/blocks/card-item-block";
+import { CardListBlock } from "@repo/content";
 
-export interface CardListBlock {
-  items: CardItemBlock[];
-}
 
 export interface CardListBlockComponentProps {
   block: CardListBlock;

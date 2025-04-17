@@ -1,5 +1,4 @@
-export interface LoginBlock {
-}
+import { LoginBlock } from "@repo/content";
 
 export interface LoginBlockComponentProps {
   block: LoginBlock;

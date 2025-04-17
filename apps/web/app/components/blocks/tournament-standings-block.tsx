@@ -1,5 +1,4 @@
-export interface TournamentStandingsBlock {
-}
+import { TournamentStandingsBlock } from "@repo/content";
 
 export interface TournamentStandingsBlockComponentProps {
   block: TournamentStandingsBlock;

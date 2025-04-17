@@ -1,12 +1,7 @@
-import MarkdownTextBlockComponent, { MarkdownTextBlock } from "./markdown-text-block";
+import MarkdownTextBlockComponent from "./markdown-text-block";
 import { cn } from "@repo/ui";
+import { CardItemBlock } from "@repo/content";
 
-export interface CardItemBlock {
-  id: string;
-  title: string;
-  img: string;
-  markdown: MarkdownTextBlock;
-}
 
 export interface CardBlockComponentProps {
   block: CardItemBlock;

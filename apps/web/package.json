@@ -24,6 +24,7 @@
     "@radix-ui/react-tooltip": "^1.1.8",
     "@repo/config": "workspace:*",
     "@repo/ui": "workspace:*",
+      "@repo/content": "workspace:*",
     "@tanstack/react-query": "^5.68.0",
     "autoprefixer": "10.4.20",
     "class-variance-authority": "^0.7.1",

@@ -26,6 +26,12 @@
       ],
       "@repo/tokens/*": [
         "../../packages/tokens/*"
+      ],
+      "@repo/content": [
+        "../../packages/content"
+      ],
+      "@repo/content/*": [
+        "../../packages/content/*"
       ]
     }
   },

@@ -1,6 +1,4 @@
-export interface BetSuggestionBlock {
-
-}
+import { BetSuggestionBlock } from "@repo/content";
 
 export interface BetSuggestionBlockComponentProps {
   block: BetSuggestionBlock;

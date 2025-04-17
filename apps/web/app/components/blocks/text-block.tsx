@@ -1,11 +1,7 @@
 import { cn } from "@repo/ui";
-import MarkdownTextBlockComponent, { MarkdownTextBlock } from "@/components/blocks/markdown-text-block";
+import MarkdownTextBlockComponent from "@/components/blocks/markdown-text-block";
+import { TextBlock } from "@repo/content";
 
-export interface TextBlock {
-  title: string;
-  preamble: string;
-  text?: MarkdownTextBlock;
-}
 
 export interface TextBlockComponentProps {
   block: TextBlock;

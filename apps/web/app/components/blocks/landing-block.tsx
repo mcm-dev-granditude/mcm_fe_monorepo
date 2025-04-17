@@ -1,17 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import FullWidthSection from "@/components/layout/full-width-section";
-
-export interface LandingBlock {
-  title: string;
-  img: {
-    url: string
-  };
-  btn: {
-    text: string;
-    url: string;
-  };
-}
+import { LandingBlock } from "@repo/content";
 
 export interface LandingBlockComponentProps {
   block: LandingBlock;

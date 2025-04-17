@@ -1,18 +1,4 @@
-import { MarkdownTextBlock } from "@/components/blocks/markdown-text-block";
-
-export interface McmNewsBlock {
-  id: string
-  title: string
-  description: string
-  content: MarkdownTextBlock
-  link: string
-  pubDate: string
-  source: "mcm",
-  img: {
-    url: string,
-    alt: string
-  }
-}
+import { McmNewsBlock } from "@repo/content";
 
 export interface McmNewsBlockComponentProps {
   block: McmNewsBlock;

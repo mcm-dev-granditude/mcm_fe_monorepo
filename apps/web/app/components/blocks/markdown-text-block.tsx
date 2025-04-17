@@ -2,8 +2,8 @@ import { FC } from "react";
 import { cn } from "@repo/ui";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import { MarkdownTextBlock } from "@repo/content";
 
-export type MarkdownTextBlock = string;
 
 interface MarkdownTextBlockComponentProps {
   block: MarkdownTextBlock;

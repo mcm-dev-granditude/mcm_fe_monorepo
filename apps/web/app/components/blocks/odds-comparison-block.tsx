@@ -1,5 +1,4 @@
-export interface OddsComparsionBlock {
-}
+import { OddsComparsionBlock } from "@repo/content";
 
 export interface OddsComparsionBlockComponentProps {
   block: OddsComparsionBlock;
