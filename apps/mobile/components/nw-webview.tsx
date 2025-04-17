@@ -1,5 +1,5 @@
-import React, { useCallback, useRef, useState } from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { ActivityIndicator, Animated, StyleSheet, View } from "react-native";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
 import { useRouter } from "expo-router";
 import { useTheme } from "@/providers/theme-provider";
@@ -13,13 +13,15 @@ interface NwWebViewProps {
   injectedJavaScript?: string;
   onMessage?: (event: WebViewMessageEvent) => void;
   className?: string;
+  fadeDuration?: number; // Duration of fade-in animation in ms
 }
 
 export function NwWebView({
                             url,
                             injectedJavaScript,
                             onMessage,
-                            className = ""
+                            className = "",
+                            fadeDuration = 300 // Default fade duration
                           }: NwWebViewProps) {
   const [isLoading, setIsLoading] = useState(true);
   const {openBrowser} = useBrowser();
@@ -30,6 +32,9 @@ export function NwWebView({
         : url
       : url
   );
+
+  // Create an animated value for opacity
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const webViewRef = useRef<WebView>(null);
   const {effectiveTheme} = useTheme();
@@ -87,33 +92,47 @@ export function NwWebView({
     }
   }, [onMessage, openBrowser, router]);
 
-  // Inject the link handler script after page loads
+  // Start fade-in animation when page is loaded
   const onPageLoad = useCallback(() => {
     setIsLoading(false);
     webViewRef.current?.injectJavaScript(`${linkHandlerScript}\ntrue;`);
-  }, []);
+
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: fadeDuration,
+      useNativeDriver: true
+    }).start();
+  }, [fadeAnim, fadeDuration]);
+
+  useEffect(() => {
+    if (isLoading) {
+      fadeAnim.setValue(0);
+    }
+  }, [isLoading, fadeAnim]);
 
   return (
     <View className={cn("flex-1", className)}>
-      <WebView
-        ref={webViewRef}
-        source={{uri: initialUrl}}
-        injectedJavaScript={combinedJs}
-        style={{backgroundColor}}
-        onMessage={handleWebViewMessage}
-        onLoadStart={() => setIsLoading(true)}
-        onLoadEnd={onPageLoad}
-        containerStyle={styles.container}
-        sharedCookiesEnabled
-        allowsBackForwardNavigationGestures={false}
-        cacheEnabled
-        domStorageEnabled
-        javaScriptEnabled
-        pullToRefreshEnabled={false}
-        bounces={false}
-        overScrollMode="never"
-        decelerationRate="normal"
-      />
+      <Animated.View style={{flex: 1, opacity: fadeAnim}}>
+        <WebView
+          ref={webViewRef}
+          source={{uri: initialUrl}}
+          injectedJavaScript={combinedJs}
+          style={{backgroundColor}}
+          onMessage={handleWebViewMessage}
+          onLoadStart={() => setIsLoading(true)}
+          onLoadEnd={onPageLoad}
+          containerStyle={styles.container}
+          sharedCookiesEnabled
+          allowsBackForwardNavigationGestures={false}
+          cacheEnabled
+          domStorageEnabled
+          javaScriptEnabled
+          pullToRefreshEnabled={false}
+          bounces={false}
+          overScrollMode="never"
+          decelerationRate="normal"
+        />
+      </Animated.View>
 
       {isLoading && (
         <View
