@@ -1,6 +1,6 @@
 import { Metadata, ResolvingMetadata } from "next";
 import { defaultUrl } from "@/lib/utils/default-url";
-import { appConfig } from "@/config/app-config";
+import { appConfig } from "@/app/config/app-config";
 
 type MetadataOptions = {
   title?: string;

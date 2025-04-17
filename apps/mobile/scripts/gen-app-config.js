@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 const brandId = process.argv[2] || process.env.BRAND_ID || "default";
 
 const config = {
-  outputDir: "../config",
+  outputDir: "../app/config",
   output: "app-config.js",
   brandId: brandId
 };
